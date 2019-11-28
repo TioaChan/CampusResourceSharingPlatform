@@ -4,44 +4,75 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CampusResourceSharingPlatform.Web</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <environment include="Development">
+	    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    </environment>
+
+    <environment exclude="Development">
+	    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" 
+	          asp-fallback-href="~/node_modules/bootstrap/dist/css/bootstrap.min.css"
+	          asp-fallback-test-class="sr-only"
+	          asp-fallback-test-property="position"
+	          asp-fallback-test-value="absolute"
+	    >
+    </environment>
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CampusResourceSharingPlatform.Web</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CampusResourceSharingPlatform.Web</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2019 - CampusResourceSharingPlatform.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2019 - CampusResourceSharingPlatform.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+
+<environment include="Development">
+	<script src="~/node_modules/jquery/dist/jquery.js"></script>
+	<script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+	<script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+	<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</environment>
+
+<environment exclude="Development">
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js" 
+	        asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+	        asp-fallback-test="window.jQuery"></script>
+	<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"
+	        asp-fallback-src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"
+	        asp-fallback-test="window.jQuery && window.jQuery.validator"></script>
+	<script src="https://cdn.bootcss.com/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"
+	        asp-fallback-src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+	        asp-fallback-test="window.jQuery && window.jQuery.validator && Window.jQuery.validator.unobtrusive"></script>
+	<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</environment>
+
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
