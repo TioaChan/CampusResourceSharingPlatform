@@ -1,8 +1,159 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	Layout = null;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>平台</title>
+	<environment include="Development">
+		<link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	</environment>
+
+	<environment exclude="Development">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" 
+		      asp-fallback-href="~/node_modules/bootstrap/dist/css/bootstrap.min.css"
+		      asp-fallback-test-class="sr-only"
+		      asp-fallback-test-property="position"
+		      asp-fallback-test-value="absolute"
+		>
+	</environment>
+
+	<!-- <link rel="stylesheet" href="css.css"> -->
+	<link rel="stylesheet" href="/css/newcss.css">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Noto+Serif+SC&display=swap" rel="stylesheet">
+	<script src="/js/BrowserCheck.js"></script>
+
+</head>
+
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+		<div class="container unfoldedNav">
+			<a class="navbar-brand js-scroll-trigger" href="#page-top">XXXX</a>
+			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+					aria-label="Toggle navigation">
+				Menu
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav text-uppercase ml-auto">
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="#services">Services</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="#about">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="#team">Team</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Header -->
+	<header class="masthead">
+		<div class="container">
+			<div class="intro-text">
+				<!-- <div class="intro-lead-in">Welcome To Our Studio!</div> -->
+				<div class="intro-heading text-uppercase">欢迎使用平台</div>
+			</div>
+		</div>
+	</header>
+
+	<div class="container index-introduction">
+		<div class="row">
+			Welcome to Niantic Wayfarer! By participating you can help shape future adventures for yourself
+			and others by mapping interesting locations across the globe.
+		</div>
+	</div>
+
+	<div class="container index-btnCtrl">
+		<div class="row">
+			<a class="btn btn-primary" asp-controller="Account" asp-action="Register">立即注册</a>
+			<a class="btn btn-outline-primary" asp-controller="Account" asp-action="Login">马上登录</a>
+		</div>
+	</div>
+
+	<!-- Services -->
+<!-- <section class="page-section" id="services">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<h2 class="section-heading text-uppercase">Services</h2>
+				<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col-md-4">
+				<span class="fa-stack fa-4x">
+					<i class="fas fa-circle fa-stack-2x text-primary"></i>
+					<i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+				</span>
+				<h4 class="service-heading">E-Commerce</h4>
+				<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+					architecto quo inventore harum ex magni, dicta impedit.</p>
+			</div>
+			<div class="col-md-4">
+				<span class="fa-stack fa-4x">
+					<i class="fas fa-circle fa-stack-2x text-primary"></i>
+					<i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+				</span>
+				<h4 class="service-heading">Responsive Design</h4>
+				<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+					architecto quo inventore harum ex magni, dicta impedit.</p>
+			</div>
+			<div class="col-md-4">
+				<span class="fa-stack fa-4x">
+					<i class="fas fa-circle fa-stack-2x text-primary"></i>
+					<i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+				</span>
+				<h4 class="service-heading">Web Security</h4>
+				<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
+					architecto quo inventore harum ex magni, dicta impedit.</p>
+			</div>
+		</div>
+	</div>
+</section> -->
+
+<environment include="Development">
+	<script src="~/node_modules/jquery/dist/jquery.js"></script>
+	<script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+	<script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+	<script src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+</environment>
+
+<environment exclude="Development">
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"
+	        asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+	        asp-fallback-test="window.jQuery"></script>
+	<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"
+	        asp-fallback-src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"
+	        asp-fallback-test="window.jQuery && window.jQuery.validator"></script>
+	<script src="https://cdn.bootcss.com/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"
+	        asp-fallback-src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+	        asp-fallback-test="window.jQuery && window.jQuery.validator && Window.jQuery.validator.unobtrusive"></script>
+	<script src="https://cdn.bootcss.com/popper.js/1.15.0/popper.min.js"
+	        asp-fallback-src="~/node_modules/popper.js/dist/popper.js"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+	        asp-fallback-src="~/node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+	        asp-fallback-test="window.jQuery"></script>
+</environment>
+
+</body>
+
+
+
+</html>
