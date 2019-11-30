@@ -86,7 +86,9 @@ header.masthead .intro-text .intro-heading {
 
 /*introduction start*/
 .index-introduction {
+	width: 400px;
 	color: #626262;
+	margin-bottom: 10px;
 }
 
 /*introduction end*/
