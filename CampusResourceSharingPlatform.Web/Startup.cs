@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Web.Models;
+using CampusResourceSharingPlatform.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,7 @@ namespace CampusResourceSharingPlatform.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+			services.AddSingleton<ILicensesDateService<License>, LicenseDateService>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

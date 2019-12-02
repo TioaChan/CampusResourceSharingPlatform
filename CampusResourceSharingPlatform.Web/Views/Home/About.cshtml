@@ -1,4 +1,4 @@
-﻿@model object
+﻿@model IEnumerable<License>
 
 @{
 	ViewBag.Title = "关于";
@@ -80,7 +80,8 @@
 		</div>
 		<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 			<div class="card-body">
-				<h4>版权声明</h4><br>
+				<h4>版权声明</h4>
+				<p>Copyright &copy; @DateTime.Now.Year.ToString() TioaTyan.</p>
 				<h5>免责声明</h5>
 				<p>TODO</p>
 				<h5>开源协议说明</h5>
@@ -111,39 +112,14 @@
 		<div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
 			<div class="card-body">
 				<ul>
-					<li><a href="https://github.com/twbs/bootstrap">Bootstrap:MIT License</a></li>
-					<li><a href="https://github.com/twbs/icons">bootstrap-icons:MIT License</a></li>
-					<li><a href="https://github.com/jquery/jquery"> jQuery:MIT License </a></li>
-					<li>
-						<a href="https://github.com/jquery-validation/jquery-validation">
-							jquery-validation:MIT License
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/aspnet/jquery-validation-unobtrusive">
-							jquery-validation-unobtrusive:Apache Software License 2.0
-						</a>
-					</li>
-					<li>
-						<a href="https://fonts.google.com/specimen/Noto+Serif">
-							Noto Serif:Apache Software License 2.0
-						</a>
-					</li>
-					<li>
-						<a href="https://fonts.google.com/specimen/Noto+Sans+SC">
-							Noto Sans SC:Open Font License
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/popperjs/popper.js">
-							Popper.js:MIT License
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/BlackrockDigital/startbootstrap-agency">
-							startbootstrap-agency:MIT License
-						</a>
-					</li>
+					@foreach (var a in Model)
+					{
+						<li id="Licenses_@a.Id">
+							<a href="@a.RepoUrl" target="_blank">
+								@a.LicenseName:@a.LicenseType
+							</a>
+						</li>
+					}
 				</ul>
 			</div>
 		</div>

@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CampusResourceSharingPlatform.Web.Models;
+using CampusResourceSharingPlatform.Web.Services;
 
 namespace CampusResourceSharingPlatform.Web.Controllers
 {
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly ILicensesDateService<License> _licenses;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger,ILicensesDateService<License> licenses)
 		{
 			_logger = logger;
+			_licenses = licenses;
 		}
 
 		public IActionResult Index()
@@ -36,7 +39,8 @@ namespace CampusResourceSharingPlatform.Web.Controllers
 
 		public IActionResult About()
 		{
-			return View();
+			var list=_licenses.GetAll();
+			return View(list);
 		}
 	}
 }
