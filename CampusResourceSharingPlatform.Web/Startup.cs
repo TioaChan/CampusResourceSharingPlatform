@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using CampusResourceSharingPlatform.Web.Data;
 using CampusResourceSharingPlatform.Web.Models;
@@ -16,8 +17,10 @@ namespace CampusResourceSharingPlatform.Web
 {
 	public class Startup
 	{
-		public Startup(IConfiguration configuration)
+		private readonly IWebHostEnvironment _env;
+		public Startup(IConfiguration configuration,IWebHostEnvironment env)
 		{
+			_env = env;
 			Configuration = configuration;
 		}
 
@@ -41,6 +44,28 @@ namespace CampusResourceSharingPlatform.Web
 
 			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
+
+			if (_env.IsDevelopment())
+			{
+				services.Configure<IdentityOptions>(options =>
+				{
+					// Password settings.
+					options.Password.RequireDigit = false;
+					options.Password.RequireLowercase = false;
+					options.Password.RequireNonAlphanumeric = false;
+					options.Password.RequireUppercase = false;
+					options.Password.RequiredLength = 1;
+					options.Password.RequiredUniqueChars = 1;
+					// Lockout settings.
+					options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+					options.Lockout.MaxFailedAccessAttempts = 5;
+					options.Lockout.AllowedForNewUsers = true;
+					// User settings.
+					options.User.AllowedUserNameCharacters =
+						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+					options.User.RequireUniqueEmail = false;
+				});
+			}
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 		}
