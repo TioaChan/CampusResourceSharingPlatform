@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Web.Data
 {
-	public class UserPropertyExtendDbContext: IdentityDbContext<UserPropertyExtend>
+	public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
 	{
-		public UserPropertyExtendDbContext(DbContextOptions<UserPropertyExtendDbContext> options):base(options)
+		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options):base(options)
 		{
 			
 		}

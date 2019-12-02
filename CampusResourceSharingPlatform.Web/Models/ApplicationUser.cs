@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Models
 {
-	public class UserPropertyExtend:IdentityUser
+	public class ApplicationUser:IdentityUser
 	{
 		[MaxLength(18)]
 		public string IdCardNo { get; set; }
