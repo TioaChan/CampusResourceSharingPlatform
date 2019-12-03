@@ -46,20 +46,20 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "邮箱地址为必填项。")]
             [EmailAddress]
-            [Display(Name = "Email")]
+            [Display(Name = "邮箱地址")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessage = "密码为必填项")]
+            [StringLength(100, ErrorMessage = "{0}的长度应该控制在{2}-{1}之间。", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "密码")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "重复密码")]
+            [Compare("Password", ErrorMessage = "两次密码输入不一致，请重新检查输入。")]
             public string ConfirmPassword { get; set; }
         }
 
