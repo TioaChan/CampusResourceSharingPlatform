@@ -92,6 +92,13 @@ namespace CampusResourceSharingPlatform.Web.Services
 					LicenseType = "Open Font License",
 					RepoUrl = "https://fonts.google.com/specimen/Noto+Sans+SC",
 				},
+				new License
+				{
+					Id = 12,
+					LicenseName = "QRCode.js",
+					LicenseType = "MIT License",
+					RepoUrl = "https://github.com/davidshimjs/qrcodejs",
+				},
 			};
 		}
 
