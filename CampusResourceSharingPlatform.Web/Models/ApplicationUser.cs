@@ -13,5 +13,10 @@ namespace CampusResourceSharingPlatform.Web.Models
 		public string IdCardNo { get; set; }
 		[MaxLength(12)]
 		public int SchoolCardNo { get; set; }
+		public bool StudentIdentityConfirmed { get; set; }
+		public string ProfilePhotoUrl { get; set; }
+		public string NickName { get; set; }
+		public string RealName { get; set; }
+
 	}
 }
