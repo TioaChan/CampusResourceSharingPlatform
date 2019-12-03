@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CampusResourceSharingPlatform.Web.Models;
 using CampusResourceSharingPlatform.Web.Services;
+using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Controllers
 {
@@ -14,15 +15,21 @@ namespace CampusResourceSharingPlatform.Web.Controllers
 	{
 		private readonly ILogger<HomeController> _logger;
 		private readonly ILicensesDateService<License> _licenses;
+		private readonly SignInManager<ApplicationUser> _signInManager;
 
-		public HomeController(ILogger<HomeController> logger,ILicensesDateService<License> licenses)
+		public HomeController(ILogger<HomeController> logger,ILicensesDateService<License> licenses,SignInManager<ApplicationUser> signInManager)
 		{
 			_logger = logger;
 			_licenses = licenses;
+			_signInManager = signInManager;
 		}
 
 		public IActionResult Index()
 		{
+			if (_signInManager.IsSignedIn(User))
+			{
+				return RedirectToAction("Index", "Overview");
+			}
 			return View();
 		}
 
