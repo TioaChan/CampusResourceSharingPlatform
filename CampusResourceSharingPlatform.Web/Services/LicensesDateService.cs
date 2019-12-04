@@ -99,6 +99,13 @@ namespace CampusResourceSharingPlatform.Web.Services
 					LicenseType = "MIT License",
 					RepoUrl = "https://github.com/davidshimjs/qrcodejs",
 				},
+				new License
+				{
+					Id = 13,
+					LicenseName = "Login Form 18 by Colorlib Modify by TioaTyan.",
+					LicenseType = "CC BY 3.0",
+					RepoUrl = "https://colorlib.com/wp/template/login-form-v18/",
+				},
 			};
 		}
 
