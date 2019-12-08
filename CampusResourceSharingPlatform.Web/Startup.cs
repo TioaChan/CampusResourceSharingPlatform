@@ -86,11 +86,6 @@ namespace CampusResourceSharingPlatform.Web
 			}
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
-			app.UseStaticFiles(new StaticFileOptions
-			{
-				RequestPath ="/node_modules",
-				FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules"))
-			});
 
 			app.UseRouting();
 

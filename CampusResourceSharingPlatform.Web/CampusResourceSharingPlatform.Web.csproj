@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\js\login\" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
 </Project>
