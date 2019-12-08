@@ -25,6 +25,10 @@
     {
       "library": "font-awesome@5.11.2",
       "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "animsition@4.0.2",
+      "destination": "wwwroot/lib/animsition/"
     }
   ]
 }
