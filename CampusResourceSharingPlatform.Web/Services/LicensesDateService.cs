@@ -106,6 +106,13 @@ namespace CampusResourceSharingPlatform.Web.Services
 					LicenseType = "CC BY 3.0",
 					RepoUrl = "https://colorlib.com/wp/template/login-form-v18/",
 				},
+				new License
+				{
+					Id = 14,
+					LicenseName = "https://github.com/aspnet/LibraryManager",
+					LicenseType = "Apache Software License 2.0",
+					RepoUrl = "https://github.com/aspnet/LibraryManager",
+				},
 			};
 		}
 
