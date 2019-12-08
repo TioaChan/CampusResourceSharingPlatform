@@ -95,9 +95,9 @@ namespace CampusResourceSharingPlatform.Web.Services
 				new License
 				{
 					Id = 12,
-					LicenseName = "QRCode.js",
+					LicenseName = "jquery-qrcode",
 					LicenseType = "MIT License",
-					RepoUrl = "https://github.com/davidshimjs/qrcodejs",
+					RepoUrl = "https://github.com/jeromeetienne/jquery-qrcode",
 				},
 				new License
 				{

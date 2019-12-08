@@ -33,6 +33,10 @@
     {
       "library": "animate.css@3.7.2",
       "destination": "wwwroot/lib/animate.css/"
+    },
+    {
+      "library": "jquery.qrcode@1.0",
+      "destination": "wwwroot/lib/jquery.qrcode/"
     }
   ]
 }

@@ -51,13 +51,8 @@
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
-	<script src="~/vendor/davidshimjs-qrcodejs/qrcode.min.js"></script>
+	<script src="~/lib/jquery.qrcode/jquery.qrcode.min.js"></script>
 	<script type="text/javascript">
-		new QRCode(document.getElementById("qrCode"),
-			{
-				text: "@Html.Raw(Model.AuthenticatorUri)",
-				width: 300,
-				height: 300
-			});
+		$('#qrCode').qrcode({width: 300,height: 300,text: "@Html.Raw(Model.AuthenticatorUri)"});
 	</script>
 }
