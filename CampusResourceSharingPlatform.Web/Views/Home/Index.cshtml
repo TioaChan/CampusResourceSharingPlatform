@@ -10,22 +10,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>平台</title>
-	<environment include="Development">
-		<link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-	</environment>
-
-	<environment exclude="Development">
-		<link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
-			  asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
-			  asp-fallback-test-class="sr-only"
-			  asp-fallback-test-property="position"
-			  asp-fallback-test-value="absolute">
-	</environment>
-
+	<partial name="~/Views/Shared/_LoadBootStrapPartial.cshtml" />
 	<!-- <link rel="stylesheet" href="css.css"> -->
 	<link rel="stylesheet" href="/css/newcss.css">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Noto+Serif+SC&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
@@ -126,31 +114,11 @@
 		</div>
 	</section> -->
 
-<environment include="Development">
-	<script src="~/lib/jquery/jquery.js"></script>
-	<script src="~/lib/jquery-validate/jquery.validate.js"></script>
-	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-	<script src="~/lib/popper.js/popper.js"></script>
-	<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
-	<script src="/js/BrowserCheck.js"></script>
-</environment>
+	<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
 
-<environment exclude="Development">
-	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"
-	        asp-fallback-src="~/lib/jquery/jquery.min.js"
-	        asp-fallback-test="window.jQuery"></script>
-	<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"
-	        asp-fallback-src="~/lib/jquery-validate/jquery.validate.min.js"
-	        asp-fallback-test="window.jQuery && window.jQuery.validator"></script>
-	<script src="https://cdn.bootcss.com/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"
-	        asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
-	        asp-fallback-test="window.jQuery && window.jQuery.validator && Window.jQuery.validator.unobtrusive"></script>
-	<script src="https://cdn.bootcss.com/popper.js/1.15.0/popper.min.js"
-	        asp-fallback-src="~/lib/popper.js/popper.min.js"></script>
-	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-	        asp-fallback-src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"
-	        asp-fallback-test="window.jQuery"></script>
-</environment>
+	<environment include="Development">
+		<script src="/js/BrowserCheck.js"></script>
+	</environment>
 
 </body>
 

@@ -5,36 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CampusResourceSharingPlatform.Web</title>
     <link rel="stylesheet" href="~/css/site.css" />
-	<environment include="Development">
-		<script src="~/node_modules/jquery/dist/jquery.js"></script>
-		<script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
-		<script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
-		<script src="~/node_modules/popper.js/dist/popper.js"></script>
-		<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
-		<link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
-	</environment>
-
-    <environment exclude="Development">
-	    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"
-	            asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
-	            asp-fallback-test="window.jQuery"></script>
-	    <script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"
-	            asp-fallback-src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"
-	            asp-fallback-test="window.jQuery && window.jQuery.validator"></script>
-	    <script src="https://cdn.bootcss.com/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"
-	            asp-fallback-src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
-	            asp-fallback-test="window.jQuery && window.jQuery.validator && Window.jQuery.validator.unobtrusive"></script>
-	    <script src="https://cdn.bootcss.com/popper.js/1.15.0/popper.min.js"
-	            asp-fallback-src="~/node_modules/popper.js/dist/popper.js"></script>
-	    <link rel="stylesheet" href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" 
-	          asp-fallback-href="~/lib/twitter-bootstrap/css/bootstrap.min.css"
-	          asp-fallback-test-class="sr-only"
-	          asp-fallback-test-property="position"
-	          asp-fallback-test-value="absolute">
-	    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-	            asp-fallback-src="~/lib/twitter-bootstrap/css/bootstrap.min.css"
-	            asp-fallback-test="window.jQuery"></script>
-    </environment>
+    <partial name="~/Views/Shared/_LoadBootStrapPartial.cshtml" />
 
 </head>
 <body>
@@ -74,5 +45,6 @@
 	</footer>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 		@RenderSection("Scripts", required: false)
+	<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
 </body>
 </html>

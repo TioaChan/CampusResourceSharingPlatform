@@ -1,17 +1,17 @@
 ﻿<environment include="Development">
-	<script src="~/node_modules/jquery/dist/jquery.js"></script>
-	<script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
-	<script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+	<script src="~/lib/jquery/jquery.js"></script>
+	<script src="~/lib/jquery-validate/jquery.validate.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 </environment>
 
 <environment exclude="Development">
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"
-	        asp-fallback-src="~/node_modules/jquery/dist/jquery.min.js"
+	        asp-fallback-src="~/lib/jquery/jquery.min.js"
 	        asp-fallback-test="window.jQuery"></script>
 	<script src="https://cdn.bootcss.com/jquery-validate/1.19.1/jquery.validate.min.js"
-	        asp-fallback-src="~/node_modules/jquery-validation/dist/jquery.validate.min.js"
+	        asp-fallback-src="~/lib/jquery-validate/jquery.validate.min.js"
 	        asp-fallback-test="window.jQuery && window.jQuery.validator"></script>
 	<script src="https://cdn.bootcss.com/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"
-	        asp-fallback-src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"
+	        asp-fallback-src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
 	        asp-fallback-test="window.jQuery && window.jQuery.validator && Window.jQuery.validator.unobtrusive"></script>
 </environment>

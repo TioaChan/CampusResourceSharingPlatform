@@ -109,7 +109,7 @@ namespace CampusResourceSharingPlatform.Web.Services
 				new License
 				{
 					Id = 14,
-					LicenseName = "https://github.com/aspnet/LibraryManager",
+					LicenseName = "LibMan",
 					LicenseType = "Apache Software License 2.0",
 					RepoUrl = "https://github.com/aspnet/LibraryManager",
 				},
