@@ -29,6 +29,10 @@
     {
       "library": "animsition@4.0.2",
       "destination": "wwwroot/lib/animsition/"
+    },
+    {
+      "library": "animate.css@3.7.2",
+      "destination": "wwwroot/lib/animate.css/"
     }
   ]
 }
