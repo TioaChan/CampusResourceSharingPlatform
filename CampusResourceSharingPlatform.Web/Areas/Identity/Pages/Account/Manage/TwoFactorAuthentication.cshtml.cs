@@ -40,6 +40,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        public bool IsEmailSubmited { get; set; }
+
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -52,6 +54,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
             Is2faEnabled = await _userManager.GetTwoFactorEnabledAsync(user);
             IsMachineRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user);
             RecoveryCodesLeft = await _userManager.CountRecoveryCodesAsync(user);
+            IsEmailSubmited = await _userManager.GetEmailAsync(user) != null;
 
             return Page();
         }
