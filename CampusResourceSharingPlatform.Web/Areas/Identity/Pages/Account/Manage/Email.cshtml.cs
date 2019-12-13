@@ -61,15 +61,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
             {
                 NewEmail = email,
             };
-            //var userEmail =await _userManager.GetEmailAsync(user);
-            if (await _userManager.GetEmailAsync(user) == null)
-            {
-                IsEmailSubmited = false;
-            }
-            else
-            {
-                IsEmailSubmited = true;
-            }
+            IsEmailSubmited = await _userManager.GetEmailAsync(user) != null;
             IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
         }
 
