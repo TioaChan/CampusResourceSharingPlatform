@@ -46,10 +46,14 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required(ErrorMessage = "邮箱地址为必填项。")]
-            [EmailAddress]
-			[Display(Name = "邮箱地址")]
-            public string Email { get; set; }
+			[Required(ErrorMessage = "用户名为必填项。")]
+			[Display(Name = "用户名")]
+			public string UserName { get; set; }
+
+//			[Required(ErrorMessage = "邮箱地址为必填项。")]
+//			[EmailAddress]
+//			[Display(Name = "邮箱地址")]
+//			public string Email { get; set; }
 
             [Required(ErrorMessage = "密码为必填项")]
             [DataType(DataType.Password)]
@@ -85,59 +89,61 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
-                if (result.Succeeded)
+
+                var user = await _userManager.FindByNameAsync(Input.UserName);
+                if (user!=null)
                 {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+	                var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                    if (result.Succeeded)
+	                {
+		                _logger.LogInformation("User logged in.");
+		                return LocalRedirect(returnUrl);
+	                }
+	                if (result.RequiresTwoFactor)
+	                {
+		                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+	                }
+	                if (result.IsLockedOut)
+	                {
+		                _logger.LogWarning("User account locked out.");
+		                return RedirectToPage("./Lockout");
+	                }
                 }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return Page();
             }
 
             // If we got this far, something failed, redisplay form
             return Page();
         }
 
-        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
-        {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            var user = await _userManager.FindByEmailAsync(Input.Email);
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
-            }
-
-            var userId = await _userManager.GetUserIdAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
-            return Page();
-        }
+//        public async Task<IActionResult> OnPostSendVerificationEmailAsync()
+//        {
+//            if (!ModelState.IsValid)
+//            {
+//                return Page();
+//            }
+//
+//            var user = await _userManager.FindByEmailAsync(Input.Email);
+//            if (user == null)
+//            {
+//                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+//            }
+//
+//            var userId = await _userManager.GetUserIdAsync(user);
+//            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+//            var callbackUrl = Url.Page(
+//                "/Account/ConfirmEmail",
+//                pageHandler: null,
+//                values: new { userId = userId, code = code },
+//                protocol: Request.Scheme);
+//            await _emailSender.SendEmailAsync(
+//                Input.Email,
+//                "Confirm your email",
+//                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+//
+//            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+//            return Page();
+//        }
     }
 }

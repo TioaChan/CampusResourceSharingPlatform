@@ -42,7 +42,7 @@ namespace CampusResourceSharingPlatform.Web
 				options.UseSqlServer(
 					Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			if (_env.IsDevelopment())
@@ -66,6 +66,8 @@ namespace CampusResourceSharingPlatform.Web
 					options.User.RequireUniqueEmail = false;
 				});
 			}
+
+			//services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail = true; });
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 		}
