@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CampusResourceSharingPlatform.Web.Models;
 using CampusResourceSharingPlatform.Web.Services;
+using CampusResourceSharingPlatform.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Controllers
@@ -26,11 +27,19 @@ namespace CampusResourceSharingPlatform.Web.Controllers
 
 		public IActionResult Index()
 		{
-			if (_signInManager.IsSignedIn(User))
+			if (_signInManager.IsSignedIn(User))//用户已登录
 			{
-				return RedirectToAction("Index", "Overview");
+				var overviewIndexViewModel = new OverviewIndexViewModel
+				{
+					StatusMessage = "Error:Your email is changed."
+				};
+				return View(overviewIndexViewModel);
 			}
-			return View();
+			else//用户未登录
+			{
+				return View();
+			}
+			
 		}
 
 		public IActionResult Privacy()

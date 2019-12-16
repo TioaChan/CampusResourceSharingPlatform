@@ -1,0 +1,13 @@
+﻿@model CampusResourceSharingPlatform.Web.ViewModels.OverviewIndexViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+	ViewData["Title"] = "Index";
+	
+}
+
+<h1>Index</h1>
+<div>欢迎，@User.Identity.Name!</div>
+<partial name="~/Views/Shared/_StatusMessage.cshtml" model="Model.StatusMessage" />

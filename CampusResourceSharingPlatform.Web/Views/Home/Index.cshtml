@@ -1,127 +1,13 @@
-﻿@{
-	Layout = null;
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	<partial name="~/Views/Home/_IndexPageUserOverview.cshtml" />
 }
-
-<!DOCTYPE html>
-<html lang="zh-cn">
-
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>平台</title>
-	<partial name="~/Views/Shared/_LoadBootStrapPartial.cshtml" />
-	<!-- <link rel="stylesheet" href="css.css"> -->
-	<link rel="stylesheet" href="/css/newcss.css">
-	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Noto+Serif+SC&display=swap" rel="stylesheet">
-</head>
-
-<body>
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-		<div class="container unfoldedNav">
-			<a class="navbar-brand js-scroll-trigger" href="#page-top">XXXX</a>
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-					aria-label="Toggle navigation">
-				Menu
-				<i class="fas fa-bars"></i>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ml-auto">
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#">Services</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#">Portfolio</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" asp-controller="Home" asp-action="About">关于</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#">Team</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#">Contact</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
-	<!-- Header -->
-	<header class="masthead">
-		<div class="container">
-			<div class="intro-text">
-				<!-- <div class="intro-lead-in">Welcome To Our Studio!</div> -->
-				<div class="intro-heading text-uppercase">欢迎使用平台</div>
-			</div>
-		</div>
-	</header>
-
-	<div class="container index-introduction">
-		<div class="row">
-			Welcome to Niantic Wayfarer! By participating you can help shape future adventures for yourself
-			and others by mapping interesting locations across the globe.
-		</div>
-	</div>
-
-	<div class="container index-btnCtrl">
-		<div class="row">
-			<a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register">立即注册</a>
-			<a class="btn btn-outline-primary" asp-area="Identity" asp-page="/Account/Login">马上登录</a>
-		</div>
-	</div>
-
-	<!-- Services -->
-	<!-- <section class="page-section" id="services">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<h2 class="section-heading text-uppercase">Services</h2>
-					<h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-				</div>
-			</div>
-			<div class="row text-center">
-				<div class="col-md-4">
-					<span class="fa-stack fa-4x">
-						<i class="fas fa-circle fa-stack-2x text-primary"></i>
-						<i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-					</span>
-					<h4 class="service-heading">E-Commerce</h4>
-					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-						architecto quo inventore harum ex magni, dicta impedit.</p>
-				</div>
-				<div class="col-md-4">
-					<span class="fa-stack fa-4x">
-						<i class="fas fa-circle fa-stack-2x text-primary"></i>
-						<i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-					</span>
-					<h4 class="service-heading">Responsive Design</h4>
-					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-						architecto quo inventore harum ex magni, dicta impedit.</p>
-				</div>
-				<div class="col-md-4">
-					<span class="fa-stack fa-4x">
-						<i class="fas fa-circle fa-stack-2x text-primary"></i>
-						<i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-					</span>
-					<h4 class="service-heading">Web Security</h4>
-					<p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam
-						architecto quo inventore harum ex magni, dicta impedit.</p>
-				</div>
-			</div>
-		</div>
-	</section> -->
-
-	<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
-
-	<environment include="Development">
-		<script src="/js/BrowserCheck.js"></script>
-	</environment>
-
-</body>
-
-
-
-</html>
+else
+{
+	Layout = null;
+	<partial name="~/Views/Home/_IndexPageWelcome.cshtml" />
+}
