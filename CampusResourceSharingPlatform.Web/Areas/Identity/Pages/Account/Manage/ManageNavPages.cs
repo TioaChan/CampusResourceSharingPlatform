@@ -20,6 +20,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
+        public static string StudentIdentity => "StudentIdentity";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
@@ -32,6 +34,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 
         public static string TwoFactorAuthenticationNavClass(ViewContext viewContext) => PageNavClass(viewContext, TwoFactorAuthentication);
 
+        public static string StudentIdentityClass(ViewContext viewContext) => PageNavClass(viewContext, StudentIdentity);
         private static string PageNavClass(ViewContext viewContext, string page)
         {
             var activePage = viewContext.ViewData["ActivePage"] as string
