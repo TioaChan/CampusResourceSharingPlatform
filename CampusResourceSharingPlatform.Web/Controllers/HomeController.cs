@@ -37,15 +37,12 @@ namespace CampusResourceSharingPlatform.Web.Controllers
 			{
 				//var studentStatus = await _studentQueryService.IsStudentIdentityConfirmed();
 				var user = await _userManager.GetUserAsync(User);
-				var overviewIndexViewModel = new OverviewIndexViewModel();
-				if (!user.StudentIdentityConfirmed)
+				var overviewIndexViewModel = new OverviewIndexViewModel
 				{
-					overviewIndexViewModel.StatusMessage = "Error:你还没有验证学生身份，请先去验证学生身份。";
-				}
-				else
-				{
-					overviewIndexViewModel.StatusMessage = "Success:你已验证学生身份。";
-				}
+					StatusMessage = !user.StudentIdentityConfirmed
+						? "Error:你还没有验证学生身份，请先去验证学生身份。"
+						: "Success:你已验证学生身份。"
+				};
 				return View(overviewIndexViewModel);
 			}
 			else//用户未登录
