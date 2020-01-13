@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,18 +22,18 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		}
 		public bool IsStudentIdentityConfirmed { get; set; }
 
-		[Required(ErrorMessage = "Äã»¹Ã»ÓĞÌîĞ´Éí·İÖ¤ºÅÂë")]
-		[MaxLength(18,ErrorMessage = "Éí·İÖ¤ºÅÂë³¤¶ÈÎª18Î»")]
-		[Display(Name = "Éí·İÖ¤ºÅÂë")]
+		[Required(ErrorMessage = "ä½ è¿˜æ²¡æœ‰å¡«å†™èº«ä»½è¯å·ç ")]
+		[MaxLength(18,ErrorMessage = "èº«ä»½è¯å·ç é•¿åº¦ä¸º18ä½")]
+		[Display(Name = "èº«ä»½è¯å·ç ")]
 		public string IdCardNo { get; set; }
 
-		[Required(ErrorMessage = "Äã»¹Ã»ÓĞÌîĞ´Ñ§ºÅ")]
-		[MaxLength(12, ErrorMessage = "Ñ§ºÅµÄ³¤¶ÈÎª12Î»")]
-		[Display(Name = "Ñ§ºÅ")]
+		[Required(ErrorMessage = "ä½ è¿˜æ²¡æœ‰å¡«å†™å­¦å·")]
+		[MaxLength(12, ErrorMessage = "å­¦å·çš„é•¿åº¦ä¸º12ä½")]
+		[Display(Name = "å­¦å·")]
 		public string SchoolCardNo { get; set; }
 
-		[Required(ErrorMessage = "Äã»¹Ã»ÓĞÌîĞ´ĞÕÃû")]
-		[Display(Name = "ĞÕÃû")]
+		[Required(ErrorMessage = "ä½ è¿˜æ²¡æœ‰å¡«å†™å§“å")]
+		[Display(Name = "å§“å")]
 		public string RealName { get; set; }
 
 		[TempData]
@@ -43,19 +43,19 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		public InputModel Input { get; set; }
 		public class InputModel
 		{
-			[Required(ErrorMessage = "Äã»¹Ã»ÓĞÌîĞ´Éí·İÖ¤ºÅÂë")]
-			[MaxLength(18, ErrorMessage = "Éí·İÖ¤ºÅÂë³¤¶ÈÎª18Î»")]
-			[Display(Name = "Éí·İÖ¤ºÅÂë")]
+			[Required(ErrorMessage = "ä½ è¿˜æ²¡æœ‰å¡«å†™èº«ä»½è¯å·ç ")]
+			[MaxLength(18, ErrorMessage = "èº«ä»½è¯å·ç é•¿åº¦ä¸º18ä½")]
+			[Display(Name = "èº«ä»½è¯å·ç ")]
 			public string NewIdCardNo { get; set; }
 
-			[Required(ErrorMessage = "Äã»¹Ã»ÓĞÌîĞ´Ñ§ºÅ")]
-			[MaxLength(12, ErrorMessage = "Ñ§ºÅµÄ³¤¶ÈÎª12Î»")]
-			[Display(Name = "Ñ§ºÅ")]
+			[Required(ErrorMessage = "ä½ è¿˜æ²¡æœ‰å¡«å†™å­¦å·")]
+			[MaxLength(12, ErrorMessage = "å­¦å·çš„é•¿åº¦ä¸º12ä½")]
+			[Display(Name = "å­¦å·")]
 			public string NewSchoolCardNo { get; set; }
 
 			public int SchoolCardNo { get; set; }
-			[Required(ErrorMessage = "Äã»¹Ã»ÓĞÌîĞ´ĞÕÃû")]
-			[Display(Name = "ĞÕÃû")]
+			[Required(ErrorMessage = "ä½ è¿˜æ²¡æœ‰å¡«å†™å§“å")]
+			[Display(Name = "å§“å")]
 			public string NewRealName { get; set; }
 		}
 
@@ -112,10 +112,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 					await LoadAsync();
 					return Page();
 				}
-				StatusMessage = "ERROR£ºÑ§ÉúÉí·İÈÏÖ¤Ê§°Ü£¬ÇëÖØĞÂÈÏÖ¤¡£";
+				StatusMessage = "ERRORï¼šå­¦ç”Ÿèº«ä»½è®¤è¯å¤±è´¥ï¼Œè¯·é‡æ–°è®¤è¯ã€‚";
 				return RedirectToPage();
 			}
-			StatusMessage = "Ñ§ÉúÉí·İÈÏÖ¤³É¹¦";
+			StatusMessage = "å­¦ç”Ÿèº«ä»½è®¤è¯æˆåŠŸ";
 			return RedirectToPage();
 		}
 	}
