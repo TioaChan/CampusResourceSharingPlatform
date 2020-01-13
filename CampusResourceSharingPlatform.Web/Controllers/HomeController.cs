@@ -40,7 +40,7 @@ namespace CampusResourceSharingPlatform.Web.Controllers
 				var overviewIndexViewModel = new OverviewIndexViewModel
 				{
 					StatusMessage = !user.StudentIdentityConfirmed
-						? "Error:你还没有验证学生身份，请先去验证学生身份。":""
+						? "Error:你还没有验证学生身份，请先去个人设置中验证学生身份。":""
 				};
 				return View(overviewIndexViewModel);
 			}
