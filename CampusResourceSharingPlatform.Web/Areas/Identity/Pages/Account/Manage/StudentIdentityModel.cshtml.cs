@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Web.Models;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -25,12 +20,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		[Required(ErrorMessage = "你还没有填写身份证号码")]
 		[MaxLength(18,ErrorMessage = "身份证号码长度为18位")]
 		[Display(Name = "身份证号码")]
-		public string IdCardNo { get; set; }
+		public string PrcId { get; set; }
 
 		[Required(ErrorMessage = "你还没有填写学号")]
 		[MaxLength(12, ErrorMessage = "学号的长度为12位")]
 		[Display(Name = "学号")]
-		public string SchoolCardNo { get; set; }
+		public string SchoolId { get; set; }
 
 		[Required(ErrorMessage = "你还没有填写姓名")]
 		[Display(Name = "姓名")]
@@ -46,12 +41,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 			[Required(ErrorMessage = "你还没有填写身份证号码")]
 			[MaxLength(18, ErrorMessage = "身份证号码长度为18位")]
 			[Display(Name = "身份证号码")]
-			public string NewIdCardNo { get; set; }
+			public string NewPrcId { get; set; }
 
 			[Required(ErrorMessage = "你还没有填写学号")]
 			[MaxLength(12, ErrorMessage = "学号的长度为12位")]
 			[Display(Name = "学号")]
-			public string NewSchoolCardNo { get; set; }
+			public string NewSchoolId { get; set; }
 
 			public int SchoolCardNo { get; set; }
 			[Required(ErrorMessage = "你还没有填写姓名")]
@@ -62,14 +57,14 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		private async Task LoadAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			IdCardNo = user.IdCardNo;
-			SchoolCardNo = user.SchoolCardNo;
+			PrcId = user.IdCardNo;
+			SchoolId = user.SchoolCardNo;
 			RealName = user.RealName;
 
 			Input = new InputModel
 			{
-				NewIdCardNo = IdCardNo,
-				NewSchoolCardNo = SchoolCardNo,
+				NewPrcId = PrcId,
+				NewSchoolId = SchoolId,
 				NewRealName = RealName,
 			};
 			IsStudentIdentityConfirmed = user.StudentIdentityConfirmed;
@@ -88,35 +83,40 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 
 		public async Task<IActionResult> OnPostVerifyStudentIdentityAsync()
 		{
-			var user = await _userManager.GetUserAsync(User);
-			if (user == null)
+			if (!IsStudentIdentityConfirmed)
 			{
-				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-			}
+				var user = await _userManager.GetUserAsync(User);
+				if (user == null)
+				{
+					return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+				}
 
-			if (!ModelState.IsValid)
-			{
-				await LoadAsync();
-				return Page();
-			}
-
-			if (Input.NewIdCardNo != user.IdCardNo && Input.NewSchoolCardNo!=user.SchoolCardNo && Input.NewRealName != user.RealName)
-			{
-				user.IdCardNo = Input.NewIdCardNo;
-				user.SchoolCardNo = Input.NewSchoolCardNo;
-				user.RealName = Input.NewRealName;
-				user.StudentIdentityConfirmed = true;
-				var result = await _userManager.UpdateAsync(user);
-				if (!result.Succeeded)
+				if (!ModelState.IsValid)
 				{
 					await LoadAsync();
 					return Page();
 				}
-				StatusMessage = "ERROR：学生身份认证失败，请重新认证。";
-				return RedirectToPage();
+
+				if (Input.NewPrcId != user.IdCardNo && Input.NewSchoolId != user.SchoolCardNo && Input.NewRealName != user.RealName)
+				{
+					user.IdCardNo = Input.NewPrcId;
+					user.SchoolCardNo = Input.NewSchoolId;
+					user.RealName = Input.NewRealName;
+					user.StudentIdentityConfirmed = true;
+					var result = await _userManager.UpdateAsync(user);
+					if (!result.Succeeded)
+					{
+						StatusMessage = "Error：学生身份认证失败，请重新认证。";
+					}
+					StatusMessage = "Success：学生身份认证成功。";
+				}
 			}
-			StatusMessage = "学生身份认证成功";
-			return RedirectToPage();
+			else
+			{
+				StatusMessage = "Error：你已经认证了学生身份，无需再次认证。";
+			}
+			await LoadAsync();
+			return Page();
 		}
 	}
 }

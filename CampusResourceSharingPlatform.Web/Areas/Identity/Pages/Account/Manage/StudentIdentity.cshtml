@@ -1,5 +1,5 @@
 ﻿@page
-@model CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage.StudentIdentityModel
+@model StudentIdentityModel
 @{
 	ViewData["Title"] = "Student Identity";
 	ViewData["ActivePage"] = ManageNavPages.StudentIdentity;
@@ -14,9 +14,9 @@
 			<form id="email-form" method="post">
 				<div asp-validation-summary="All" class="text-danger"></div>
 				<div class="form-group">
-					<label asp-for="SchoolCardNo"></label>
+					<label asp-for="SchoolId"></label>
 					<div class="input-group">
-						<input asp-for="SchoolCardNo" class="form-control" disabled />
+						<input asp-for="SchoolId" class="form-control" disabled />
 						<div class="input-group-append">
 							<span class="input-group-text text-success font-weight-bold">✓</span>
 						</div>
@@ -32,9 +32,9 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label asp-for="IdCardNo"></label>
+					<label asp-for="PrcId"></label>
 					<div class="input-group">
-						<input asp-for="IdCardNo" class="form-control" disabled />
+						<input asp-for="PrcId" class="form-control" disabled />
 						<div class="input-group-append">
 							<span class="input-group-text text-success font-weight-bold">✓</span>
 						</div>
@@ -45,13 +45,13 @@
 		}
 		else
 		{
-			<div>你还没有验证学生身份，请先验证学生身份</div>
+			<div class="alert alert-danger">你还没有验证学生身份，请先验证学生身份</div>
 			<form id="studentidentity-form" method="post">
 				<div asp-validation-summary="All" class="text-danger"></div>
 				<div class="form-group">
-					<label asp-for="Input.NewSchoolCardNo"></label>
-					<input asp-for="Input.NewSchoolCardNo" class="form-control" />
-					<span asp-validation-for="Input.NewSchoolCardNo" class="text-danger"></span>
+					<label asp-for="Input.NewSchoolId"></label>
+					<input asp-for="Input.NewSchoolId" class="form-control" />
+					<span asp-validation-for="Input.NewSchoolId" class="text-danger"></span>
 				</div>
 				<div class="form-group">
 					<label asp-for="Input.NewRealName"></label>
@@ -59,9 +59,9 @@
 					<span asp-validation-for="Input.NewRealName" class="text-danger"></span>
 				</div>
 				<div class="form-group">
-					<label asp-for="Input.NewIdCardNo"></label>
-					<input asp-for="Input.NewIdCardNo" class="form-control" />
-					<span asp-validation-for="Input.NewIdCardNo" class="text-danger"></span>
+					<label asp-for="Input.NewPrcId"></label>
+					<input asp-for="Input.NewPrcId" class="form-control" />
+					<span asp-validation-for="Input.NewPrcId" class="text-danger"></span>
 				</div>
 				<button id="verify-studentidentity-button" type="submit" asp-page-handler="VerifyStudentIdentity" class="btn btn-primary">认证</button>
 			</form>
