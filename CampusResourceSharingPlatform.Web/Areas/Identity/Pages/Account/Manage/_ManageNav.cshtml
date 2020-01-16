@@ -4,7 +4,7 @@
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
-<link rel="stylesheet" href="/css/ManageNav/common.css">
+<link rel="stylesheet" href="/css/Manage/nav.css">
 <ul class="nav nav-pills flex-column">
 	<li class="user-avatar">
 		<div class="user-header"><img class="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name"></div>
