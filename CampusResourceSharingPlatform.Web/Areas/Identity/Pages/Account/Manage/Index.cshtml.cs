@@ -40,17 +40,18 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public class InputModel
+        [BindProperty]
+        [Display(Name = "Avatar")]
+        public IFormFile NewAvatar { get; set; }
+
+		public class InputModel
         {
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-
-            [Display(Name = "Avatar")]
-            public IFormFile NewAvatar { get; set; }
         }
 
-        private async Task LoadAsync(ApplicationUser user)
+		private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
@@ -74,8 +75,46 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostPhoneNumberAsync()
         {
+			var user = await _userManager.GetUserAsync(User);
+			//判断表达合法
+			if (!ModelState.IsValid)
+			{
+				await LoadAsync(user);
+				return Page();
+			}
+
+			if (Input.PhoneNumber==null)
+			{
+				ModelState.AddModelError("Input","Please enter your Phone Number.");
+				StatusMessage = "Your profile has no changes";
+				return RedirectToPage();
+			}
+
+			//判断用户是否存在
+			if (user == null)
+			{
+				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+			}
+
+			var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+			if (Input.PhoneNumber != phoneNumber)
+			{
+				var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+				if (!setPhoneResult.Succeeded)
+				{
+					var userId = await _userManager.GetUserIdAsync(user);
+					throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+				}
+			}
+			await _signInManager.RefreshSignInAsync(user);
+			StatusMessage = "Your profile has been updated";
+			return RedirectToPage();
+        }
+
+		public async Task<IActionResult> OnPostAvatarAsync()
+		{
 			var user = await _userManager.GetUserAsync(User);
 			//判断表达合法
 			if (!ModelState.IsValid)
@@ -89,58 +128,34 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 			}
 
-			switch (id)
+			if (NewAvatar != null)
 			{
-				//表单类型判断
-				case "Avatar":
+				var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "avatar", user.UserName);
+				AvatarFileName = Guid.NewGuid() + Path.GetExtension(NewAvatar.FileName);
+				var filePath = Path.Combine(uploadFolder, AvatarFileName);
+				if (!Directory.Exists(uploadFolder))
 				{
-					if (Input.NewAvatar != null)
-					{
-						var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "avatar", user.UserName);
-						AvatarFileName = Guid.NewGuid() + Path.GetExtension(Input.NewAvatar.FileName);
-						var filePath = Path.Combine(uploadFolder, AvatarFileName);
-						if (!Directory.Exists(uploadFolder))
-						{
-							Directory.CreateDirectory(uploadFolder);
-						}
-						await Input.NewAvatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
-					}
-					try
-					{
-						user.ProfilePhotoUrl = "/avatar/" + user.UserName +"/" + AvatarFileName;
-						var result = await _userManager.UpdateAsync(user);
-						if (!result.Succeeded)
-						{
-							StatusMessage = "Error：图片上传失败，请重试。";
-						}
-						StatusMessage = "Success：图片上传成功。";
-					}
-					catch
-					{
-						StatusMessage = "Error：不可预料到的错误，请重试。";
-						return RedirectToPage();
-					}
-
-					break;
+					Directory.CreateDirectory(uploadFolder);
 				}
-				case "PhoneNumber":
+				await NewAvatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
+				try
 				{
-					var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-					if (Input.PhoneNumber != phoneNumber)
+					user.ProfilePhotoUrl = "/avatar/" + user.UserName + "/" + AvatarFileName;
+					var result = await _userManager.UpdateAsync(user);
+					if (!result.Succeeded)
 					{
-						var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-						if (!setPhoneResult.Succeeded)
-						{
-							var userId = await _userManager.GetUserIdAsync(user);
-							throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-						}
+						StatusMessage = "Error：图片上传失败，请重试。";
 					}
-					await _signInManager.RefreshSignInAsync(user);
-					StatusMessage = "Your profile has been updated";
+					StatusMessage = "Success：图片上传成功。";
+				}
+				catch
+				{
+					StatusMessage = "Error：不可预料到的错误，请重试。";
 					return RedirectToPage();
 				}
 			}
-	        return RedirectToPage();
-        }
-    }
+			StatusMessage = "Error：不可预料到的错误，请重试。";
+			return RedirectToPage();
+		}
+	}
 }

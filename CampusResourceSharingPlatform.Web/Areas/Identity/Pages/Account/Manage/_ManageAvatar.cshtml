@@ -3,9 +3,9 @@
 @inject UserManager<ApplicationUser> UserManager
 @model IndexModel
 
-<form enctype="multipart/form-data" id="avatar-form" method="post" asp-route-id="Avatar">
+<form enctype="multipart/form-data" id="avatar-form" method="post">
 	<div class="form-group">
-		<label asp-for="Input.NewAvatar" class="col-form-label"></label>
+		<label asp-for="NewAvatar" class="col-form-label"></label>
 		<div class="user-avatar-container">
 			<div class="user-avatar">
 				<img class="user-avatar-img" id="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="">
@@ -14,7 +14,7 @@
 		<div class="margin-1x frozen"></div>
 		<div>
 			<div class="custom-file">
-				<input asp-for="Input.NewAvatar" class="form-control custom-file-input" accept=".jpg,.png"/>
+				<input asp-for="NewAvatar" class="form-control custom-file-input" accept=".jpg,.png"/>
 				<label class="custom-file-label" style="overflow: hidden">请选择图片</label>
 			</div>
 			<script>
@@ -46,8 +46,8 @@
 					});
 				});
 			</script>
-			<span asp-validation-for="Input.NewAvatar" class="text-danger"></span>
+			<span asp-validation-for="NewAvatar" class="text-danger"></span>
 		</div>
 	</div>
-	<button id="update-avatar-button" type="submit" class="btn btn-primary">Upload</button>
+	<button id="update-avatar-button" type="submit" class="btn btn-primary" asp-page-handler="Avatar">Upload</button>
 </form>
