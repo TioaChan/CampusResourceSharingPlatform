@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IndexModel
+
+<form id="profile-form" method="post">
+	<div class="form-group">
+		<label asp-for="Input.PhoneNumber"></label>
+		<input asp-for="Input.PhoneNumber" class="form-control" />
+		<span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+	</div>
+	<button id="update-profile-button" type="submit" class="btn btn-primary" asp-page-handler="PhoneNumber">Save</button>
+</form>
