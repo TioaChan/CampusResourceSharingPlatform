@@ -5,7 +5,7 @@
 
 <form enctype="multipart/form-data" id="avatar-form" method="post">
 	<div class="form-group">
-		<label asp-for="NewAvatar" class="col-form-label"></label>
+		<label asp-for="Avatar.NewAvatar" class="col-form-label"></label>
 		<div class="user-avatar-container">
 			<div class="user-avatar">
 				<img class="user-avatar-img" id="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="">
@@ -14,22 +14,23 @@
 		<div class="margin-1x frozen"></div>
 		<div>
 			<div class="custom-file">
-				<input asp-for="NewAvatar" class="form-control custom-file-input" accept=".jpg,.png"/>
+				<input asp-for="Avatar.NewAvatar" class="form-control custom-file-input" accept=".jpg,.png" />
 				<label class="custom-file-label" style="overflow: hidden">请选择图片</label>
 			</div>
 			<script>
 				$(document).ready(function () {
 					function getObjectUrl(file) {
-						var url = null ;
-						if (window.createObjectURL!=undefined) { // basic
-							url = window.createObjectURL(file) ;
-						} else if (window.URL!=undefined) { // mozilla(firefox)
-							url = window.URL.createObjectURL(file) ;
-						} else if (window.webkitURL!=undefined) { // webkit or chrome
-							url = window.webkitURL.createObjectURL(file) ;
+						var url = null;
+						if (window.createObjectURL != undefined) { // basic
+							url = window.createObjectURL(file);
+						} else if (window.URL != undefined) { // mozilla(firefox)
+							url = window.URL.createObjectURL(file);
+						} else if (window.webkitURL != undefined) { // webkit or chrome
+							url = window.webkitURL.createObjectURL(file);
 						}
-						return url ;
+						return url;
 					}
+
 					$(".custom-file-input").on("change",
 						function () {
 							var path = $(this).val();
@@ -39,14 +40,14 @@
 							//console.log(objUrl);
 							$(this).next(".custom-file-label").html(fileName)
 								.parent().parent().siblings(".user-avatar-container").children(".user-avatar")
-								.children("img").attr('src',objUrl);
+								.children("img").attr('src', objUrl);
 						});
-					$("#user-avatar-img").click(function() {
+					$("#user-avatar-img").click(function () {
 						$(".custom-file-input").click();
 					});
 				});
 			</script>
-			<span asp-validation-for="NewAvatar" class="text-danger"></span>
+			<span asp-validation-for="Avatar.NewAvatar" class="text-danger"></span>
 		</div>
 	</div>
 	<button id="update-avatar-button" type="submit" class="btn btn-primary" asp-page-handler="Avatar">Upload</button>

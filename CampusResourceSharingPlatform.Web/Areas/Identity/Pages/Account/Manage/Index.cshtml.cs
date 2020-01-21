@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Web.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Hosting;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -41,15 +37,21 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
         public InputModel Input { get; set; }
 
         [BindProperty]
-        [Display(Name = "Avatar")]
-        public IFormFile NewAvatar { get; set; }
+		public AvatarModel Avatar { get; set; }
 
 		public class InputModel
         {
             [Phone]
+			[Required]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
         }
+		public class AvatarModel
+		{
+			[Display(Name = "Avatar")]
+			[Required]
+			public IFormFile NewAvatar { get; set; }
+		}
 
 		private async Task LoadAsync(ApplicationUser user)
         {
@@ -78,16 +80,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
         public async Task<IActionResult> OnPostPhoneNumberAsync()
         {
 			var user = await _userManager.GetUserAsync(User);
-			//判断表达合法
-			if (!ModelState.IsValid)
+			if (string.IsNullOrEmpty(Input.PhoneNumber))
 			{
-				await LoadAsync(user);
-				return Page();
-			}
-
-			if (Input.PhoneNumber==null)
-			{
-				ModelState.AddModelError("Input","Please enter your Phone Number.");
 				StatusMessage = "Your profile has no changes";
 				return RedirectToPage();
 			}
@@ -116,45 +110,40 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		public async Task<IActionResult> OnPostAvatarAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			//判断表达合法
-			if (!ModelState.IsValid)
-			{
-				await LoadAsync(user);
-				return Page();
-			}
 			//判断用户是否存在
 			if (user == null)
 			{
 				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
 			}
 
-			if (NewAvatar != null)
+			//判断表达合法
+			if (Avatar.NewAvatar.Length==0)
 			{
-				var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "avatar", user.UserName);
-				AvatarFileName = Guid.NewGuid() + Path.GetExtension(NewAvatar.FileName);
-				var filePath = Path.Combine(uploadFolder, AvatarFileName);
-				if (!Directory.Exists(uploadFolder))
-				{
-					Directory.CreateDirectory(uploadFolder);
-				}
-				await NewAvatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
-				try
-				{
-					user.ProfilePhotoUrl = "/avatar/" + user.UserName + "/" + AvatarFileName;
-					var result = await _userManager.UpdateAsync(user);
-					if (!result.Succeeded)
-					{
-						StatusMessage = "Error：图片上传失败，请重试。";
-					}
-					StatusMessage = "Success：图片上传成功。";
-				}
-				catch
-				{
-					StatusMessage = "Error：不可预料到的错误，请重试。";
-					return RedirectToPage();
-				}
+				StatusMessage = "Your profile has no changes";
+				return RedirectToPage();
 			}
-			StatusMessage = "Error：不可预料到的错误，请重试。";
+			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "avatar", user.Id);
+			AvatarFileName = Guid.NewGuid() + Path.GetExtension(Avatar.NewAvatar.FileName);
+			var filePath = Path.Combine(uploadFolder, AvatarFileName);
+			if (!Directory.Exists(uploadFolder))
+			{
+				Directory.CreateDirectory(uploadFolder);
+			}
+			await Avatar.NewAvatar.CopyToAsync(new FileStream(filePath, FileMode.Create));
+			try
+			{
+				user.ProfilePhotoUrl = "/avatar/" + user.Id + "/" + AvatarFileName;
+				var result = await _userManager.UpdateAsync(user);
+				if (!result.Succeeded)
+				{
+					StatusMessage = "Error：图片上传失败，请重试。";
+				}
+				StatusMessage = "Success：图片上传成功。";
+			}
+			catch
+			{
+				StatusMessage = "Error：发生了不可预料到的错误，请重试。";
+			}
 			return RedirectToPage();
 		}
 	}
