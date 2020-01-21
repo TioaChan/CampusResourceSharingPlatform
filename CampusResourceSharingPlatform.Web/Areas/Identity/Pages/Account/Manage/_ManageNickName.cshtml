@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@model IndexModel
+
+<form id="nickname-form" method="post">
+	<div class="form-group">
+		<label asp-for="NickName.NewNickName"></label>
+		<input asp-for="NickName.NewNickName" class="form-control" />
+		<span asp-validation-for="NickName.NewNickName" class="text-danger"></span>
+	</div>
+	<button id="update-profile-button" type="submit" class="btn btn-primary" asp-page-handler="NickName">Save</button>
+</form>

@@ -9,5 +9,5 @@
 }
 
 <h1>Index</h1>
-<div>欢迎，@User.Identity.Name!</div>
+<div>欢迎，@UserManager.GetUserAsync(User).Result.NickName!</div>
 <partial name="~/Views/Shared/_StatusMessage.cshtml" model="Model.StatusMessage" />

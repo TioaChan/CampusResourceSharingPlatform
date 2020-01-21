@@ -39,6 +39,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
         [BindProperty]
 		public AvatarModel Avatar { get; set; }
 
+		[BindProperty]
+		public NickNameModel NickName { get; set; }
+
 		public class InputModel
         {
             [Phone]
@@ -53,10 +56,17 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 			public IFormFile NewAvatar { get; set; }
 		}
 
+		public class NickNameModel
+		{
+			[Display(Name = "NickName")]
+			public string NewNickName { get; set; }
+		}
+
 		private async Task LoadAsync(ApplicationUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var nickName =user.NickName;
 
             Username = userName;
 
@@ -64,6 +74,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber
             };
+
+			NickName=new NickNameModel
+			{
+				NewNickName = nickName
+			};
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -144,6 +159,35 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 			{
 				StatusMessage = "Error：发生了不可预料到的错误，请重试。";
 			}
+			return RedirectToPage();
+		}
+
+		public async Task<IActionResult> OnPostNickNameAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			//判断用户是否存在
+			if (user == null)
+			{
+				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+			}
+
+			//判断表达合法
+			if (string.IsNullOrEmpty(NickName.NewNickName))
+			{
+				StatusMessage = "Your profile has no changes";
+				return RedirectToPage();
+			}
+
+			user.NickName = NickName.NewNickName;
+			var result = await _userManager.UpdateAsync(user);
+			if (!result.Succeeded)
+			{
+				var userId = await _userManager.GetUserIdAsync(user);
+				throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+			}
+
+			await _signInManager.RefreshSignInAsync(user);
+			StatusMessage = "Your profile has been updated";
 			return RedirectToPage();
 		}
 	}

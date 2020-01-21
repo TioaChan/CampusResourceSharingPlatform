@@ -9,7 +9,7 @@
 	<li class="user-avatar">
 		<div class="user-header"><img class="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name"></div>
 		<h4 class="user-email text-base text-black">
-			@User.Identity.Name
+			@UserManager.GetUserAsync(User).Result.NickName
 		</h4>
 	</li>
 	<li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
