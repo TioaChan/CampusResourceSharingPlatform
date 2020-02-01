@@ -27,7 +27,7 @@ namespace CampusResourceSharingPlatform.Web
 			try
 			{
 				var context = services.GetRequiredService<ApplicationDbContext>();
-				context.Database.EnsureCreated();
+				DbSeedInitializer.DbSeedInitialize(context);
 			}
 			catch (Exception ex)
 			{

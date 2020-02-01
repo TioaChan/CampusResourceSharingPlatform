@@ -6,9 +6,9 @@ using CampusResourceSharingPlatform.Web.Models;
 
 namespace CampusResourceSharingPlatform.Web.Data
 {
-	public class DbSeed
+	public class DbSeedInitializer
 	{
-		public static void Seed(ApplicationDbContext context)
+		public static void DbSeedInitialize(ApplicationDbContext context)
 		{
 			context.Database.EnsureCreated();
 			if (context.Users.Any())
