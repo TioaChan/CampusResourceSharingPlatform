@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using CampusResourceSharingPlatform.Web.Models;
 
 namespace CampusResourceSharingPlatform.Web.Data
 {
-	public class DbSeedInitializer
+	public static class DbSeedInitializer
 	{
 		public static void DbSeedInitialize(ApplicationDbContext context)
 		{
