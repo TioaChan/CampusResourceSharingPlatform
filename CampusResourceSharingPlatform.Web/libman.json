@@ -1,42 +1,79 @@
 {
-  "version": "1.0",
-  "defaultProvider": "cdnjs",
-  "libraries": [
-    {
-      "library": "twitter-bootstrap@4.3.1",
-      "destination": "wwwroot/lib/twitter-bootstrap/"
-    },
-    {
-      "library": "jquery@3.4.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
-      "library": "jquery-validate@1.19.1",
-      "destination": "wwwroot/lib/jquery-validate/"
-    },
-    {
-      "library": "jquery-validation-unobtrusive@3.2.11",
-      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
-    },
-    {
-      "library": "popper.js@1.15.0",
-      "destination": "wwwroot/lib/popper.js/"
-    },
-    {
-      "library": "font-awesome@5.11.2",
-      "destination": "wwwroot/lib/font-awesome/"
-    },
-    {
-      "library": "animsition@4.0.2",
-      "destination": "wwwroot/lib/animsition/"
-    },
-    {
-      "library": "animate.css@3.7.2",
-      "destination": "wwwroot/lib/animate.css/"
-    },
-    {
-      "library": "jquery.qrcode@1.0",
-      "destination": "wwwroot/lib/jquery.qrcode/"
-    }
-  ]
+	"version": "1.0",
+	"defaultProvider": "cdnjs",
+	"libraries": [
+		{
+			"library": "twitter-bootstrap@4.3.1",
+			"destination": "wwwroot/lib/twitter-bootstrap/",
+			"files": [
+				"js/bootstrap.min.js",
+				"js/bootstrap.bundle.js",
+				"css/bootstrap.min.css"
+			]
+		},
+		{
+			"library": "jquery@3.4.1",
+			"destination": "wwwroot/lib/jquery/",
+			"files": [
+				"jquery.min.js"
+			]
+		},
+		{
+			"library": "jquery-validate@1.19.1",
+			"destination": "wwwroot/lib/jquery-validate/",
+			"files": [
+				"jquery.validate.min.js"
+			]
+		},
+		{
+			"library": "jquery-validation-unobtrusive@3.2.11",
+			"destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+			"files": [
+				"jquery.validate.unobtrusive.min.js"
+			]
+		},
+		{
+			"library": "popper.js@1.15.0",
+			"destination": "wwwroot/lib/popper.js/",
+			"files": [
+				"popper.min.js",
+				"umd/popper.min.js"
+			]
+		},
+		{
+			"library": "font-awesome@4.7.0",
+			"destination": "wwwroot/lib/font-awesome/",
+			"files": [
+				"fonts/fontawesome-webfont.eot",
+				"fonts/fontawesome-webfont.svg",
+				"fonts/fontawesome-webfont.ttf",
+				"fonts/fontawesome-webfont.woff",
+				"fonts/fontawesome-webfont.woff2",
+				"fonts/FontAwesome.otf",
+				"css/font-awesome.min.css"
+			]
+		},
+		{
+			"library": "animsition@4.0.2",
+			"destination": "wwwroot/lib/animsition/",
+			"files": [
+				"css/animsition.min.css",
+				"js/animsition.min.js"
+			]
+		},
+		{
+			"library": "animate.css@3.7.2",
+			"destination": "wwwroot/lib/animate.css/",
+			"files": [
+				"animate.min.css"
+			]
+		},
+		{
+			"library": "jquery.qrcode@1.0",
+			"destination": "wwwroot/lib/jquery.qrcode/",
+			"files": [
+				"jquery.qrcode.min.js"
+			]
+		}
+	]
 }

@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191203072128_InitIdentityDB.cs" />
+    <Compile Remove="Migrations\20191203072128_InitIdentityDB.Designer.cs" />
+    <Compile Remove="Migrations\20191203094944_Identity_AddStudentConfirmStates.cs" />
+    <Compile Remove="Migrations\20191203094944_Identity_AddStudentConfirmStates.Designer.cs" />
+    <Compile Remove="Migrations\20191203095902_UserPropertyEX.cs" />
+    <Compile Remove="Migrations\20191203095902_UserPropertyEX.Designer.cs" />
+    <Compile Remove="Migrations\20191216082413_changeSchoolCardNoProperty.cs" />
+    <Compile Remove="Migrations\20191216082413_changeSchoolCardNoProperty.Designer.cs" />
+    <Compile Remove="Migrations\20200201033427_Init.cs" />
+    <Compile Remove="Migrations\20200201033427_Init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
@@ -18,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\js\login\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>
