@@ -14,13 +14,13 @@ namespace CampusResourceSharingPlatform.Web
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 
-			#region MyRegion
+			#region Log4Net
 			.ConfigureLogging((context, loggingBuilder) =>
 			{
-				loggingBuilder.AddFilter("System", LogLevel.Warning);//¹ýÂËµôÃüÃû¿Õ¼ä
+				loggingBuilder.AddFilter("System", LogLevel.Warning);//è¿‡æ»¤æŽ‰å‘½åç©ºé—´
 				loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
-				loggingBuilder.AddLog4Net();//Ê¹ÓÃlog4net
-			})//À©Õ¹ÈÕÖ¾
+				loggingBuilder.AddLog4Net();//ä½¿ç”¨log4net
+			})//æ‰©å±•æ—¥å¿—
 			#endregion
 
 			.ConfigureWebHostDefaults(webBuilder =>
