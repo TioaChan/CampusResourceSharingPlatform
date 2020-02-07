@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -18,7 +13,17 @@ namespace CampusResourceSharingPlatform.Web
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
-				.ConfigureWebHostDefaults(webBuilder =>
+
+			#region MyRegion
+			.ConfigureLogging((context, loggingBuilder) =>
+			{
+				loggingBuilder.AddFilter("System", LogLevel.Warning);//过滤掉命名空间
+				loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
+				loggingBuilder.AddLog4Net();//使用log4net
+			})//扩展日志
+			#endregion
+
+			.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
 				});
