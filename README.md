@@ -13,6 +13,13 @@ libman restore
 
 ## IdentityUser
 
+###内置账户
+|账号|密码|账户类型|
+|:-----:|:-----:|:-----:|
+|aaa290|aaa290|未建立角色|
+
+###备注
+
 使用用户名进行用户的注册与登录，在`Startup.cs`中设置
 ```csharp
 options.SignIn.RequireConfirmedAccount = false

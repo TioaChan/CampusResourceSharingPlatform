@@ -35,7 +35,7 @@ namespace CampusResourceSharingPlatform.Web.Data
 					SchoolCardNo = null,
 					StudentIdentityConfirmed = false,
 					ProfilePhotoUrl = "/avatar/default.jpg",
-					NickName = null,
+					NickName = "admin",
 					RealName = null
 				}
 			};
