@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CampusResourceSharingPlatform.Web.Models
 {
@@ -9,5 +10,9 @@ namespace CampusResourceSharingPlatform.Web.Models
 		/// </summary>
 		[Required]
 		public string TypeName { get; set; }
+
+
+		public List<MissionDetail> MissionDetails { get; set; }
+
 	}
 }

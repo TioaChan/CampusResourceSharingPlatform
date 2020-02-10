@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace CampusResourceSharingPlatform.Web.Models
 {
-	public class MissionData:MissionBase
+	public class MissionDetail:MissionBase
 	{
 		/// <summary>
 		/// 任务名称
@@ -64,5 +66,7 @@ namespace CampusResourceSharingPlatform.Web.Models
 		/// </summary>
 		[Required]
 		public DateTime AcceptTime { get; set; }
+
+		public MissionType MissionType { get; set; }
 	}
 }
