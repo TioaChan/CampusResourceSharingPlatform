@@ -1,0 +1,80 @@
+﻿@model CampusResourceSharingPlatform.Web.Models.MissionDetail
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>MissionDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MissionName" class="control-label"></label>
+                <input asp-for="MissionName" class="form-control" />
+                <span asp-validation-for="MissionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeId" class="control-label"></label>
+                <select asp-for="TypeId" class="form-control" asp-items="ViewBag.TypeId"></select>
+                <span asp-validation-for="TypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostUserId" class="control-label"></label>
+                <select asp-for="PostUserId" class="form-control" asp-items="ViewBag.PostUserId"></select>
+                <span asp-validation-for="PostUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostTime" class="control-label"></label>
+                <input asp-for="PostTime" class="form-control" />
+                <span asp-validation-for="PostTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvalidTime" class="control-label"></label>
+                <input asp-for="InvalidTime" class="form-control" />
+                <span asp-validation-for="InvalidTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MissionDetails" class="control-label"></label>
+                <input asp-for="MissionDetails" class="form-control" />
+                <span asp-validation-for="MissionDetails" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MissionReward" class="control-label"></label>
+                <input asp-for="MissionReward" class="form-control" />
+                <span asp-validation-for="MissionReward" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAccepted" /> @Html.DisplayNameFor(model => model.IsAccepted)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcceptUserId" class="control-label"></label>
+                <select asp-for="AcceptUserId" class="form-control" asp-items="ViewBag.AcceptUserId"></select>
+                <span asp-validation-for="AcceptUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AcceptTime" class="control-label"></label>
+                <input asp-for="AcceptTime" class="form-control" />
+                <span asp-validation-for="AcceptTime" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
