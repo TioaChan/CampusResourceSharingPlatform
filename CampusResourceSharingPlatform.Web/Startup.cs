@@ -43,13 +43,6 @@ namespace CampusResourceSharingPlatform.Web
 					Configuration.GetConnectionString("DefaultConnection"))
 				);
 
-			#region MissionDbContext
-			services.AddDbContext<MissionDbContext>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection"))
-				);
-			#endregion
-
 			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 

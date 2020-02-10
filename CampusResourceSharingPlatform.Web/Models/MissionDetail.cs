@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CampusResourceSharingPlatform.Web.Models
 {
 	public class MissionDetail:MissionBase
 	{
+		#region properties
 		/// <summary>
 		/// 任务名称
 		/// </summary>
@@ -67,6 +69,20 @@ namespace CampusResourceSharingPlatform.Web.Models
 		[Required]
 		public DateTime AcceptTime { get; set; }
 
-		public MissionType MissionType { get; set; }
+		#endregion
+
+		#region ForeignKey
+
+		[ForeignKey("TypeId")]
+		public virtual MissionType MissionType { get; set; }
+
+		[ForeignKey("AcceptUserId")]
+		public virtual ApplicationUser AcceptUser { get; set; }
+
+		[ForeignKey("PostUserId")]
+		public virtual ApplicationUser PostUser { get; set; }
+
+		#endregion
+
 	}
 }

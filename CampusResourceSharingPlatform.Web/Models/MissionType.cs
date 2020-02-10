@@ -11,8 +11,5 @@ namespace CampusResourceSharingPlatform.Web.Models
 		[Required]
 		public string TypeName { get; set; }
 
-
-		public List<MissionDetail> MissionDetails { get; set; }
-
 	}
 }
