@@ -60,14 +60,24 @@ namespace CampusResourceSharingPlatform.Web.Models
 		/// <summary>
 		/// 接受人Id
 		/// </summary>
-		[Required]
 		public string AcceptUserId { get; set; }
 
 		/// <summary>
 		/// 接受时间
 		/// </summary>
-		[Required]
 		public DateTime AcceptTime { get; set; }
+
+		/// <summary>
+		/// 任务是否完成
+		/// </summary>
+		[Required]
+		public bool IsCompleted { get; set; }
+
+		/// <summary>
+		/// 任务是否被删除
+		/// </summary>
+		[Required]
+		public bool IsDeleted { get; set; }
 
 		#endregion
 

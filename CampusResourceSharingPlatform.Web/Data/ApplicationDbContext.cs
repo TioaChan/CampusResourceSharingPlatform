@@ -28,6 +28,10 @@ namespace CampusResourceSharingPlatform.Web.Data
 			{
 				relationship.DeleteBehavior = DeleteBehavior.Restrict;
 			}
+
+			modelBuilder.Entity<MissionDetail>().Property(p => p.IsAccepted).HasDefaultValue(0);
+			modelBuilder.Entity<MissionDetail>().Property(p => p.IsCompleted).HasDefaultValue(0);
+			modelBuilder.Entity<MissionDetail>().Property(p => p.IsDeleted).HasDefaultValue(0);
 		}
 	}
 }
