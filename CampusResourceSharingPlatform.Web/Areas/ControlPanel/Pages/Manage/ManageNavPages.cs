@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace CampusResourceSharingPlatform.Web.Views.Manage
+namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage
 {
 	public static class ManageNavPages
 	{

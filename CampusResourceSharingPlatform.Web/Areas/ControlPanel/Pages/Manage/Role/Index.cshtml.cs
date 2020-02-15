@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CampusResourceSharingPlatform.Web.Areas.Manage1.Pages.Role
+namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 {
     public class IndexModel : PageModel
     {
