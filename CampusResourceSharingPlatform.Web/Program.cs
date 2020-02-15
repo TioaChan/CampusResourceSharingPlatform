@@ -20,14 +20,14 @@ namespace CampusResourceSharingPlatform.Web
 		{
 			using var scope = host.Services.CreateScope();
 			var services = scope.ServiceProvider;
+			var logger = services.GetRequiredService<ILogger<Program>>();
 			try
 			{
 				var context = services.GetRequiredService<ApplicationDbContext>();
-				DbSeedInitializer.DbSeedInitialize(context);
+				DbSeedInitializer.DbSeedInitialize(context,logger);
 			}
 			catch (Exception ex)
 			{
-				var logger = services.GetRequiredService<ILogger<Program>>();
 				logger.LogError(ex, "An error occurred creating the DB.");
 			}
 		}

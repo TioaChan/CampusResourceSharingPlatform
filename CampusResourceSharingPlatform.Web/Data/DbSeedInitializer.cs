@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using CampusResourceSharingPlatform.Web.Models;
+using Microsoft.Extensions.Logging;
 
 namespace CampusResourceSharingPlatform.Web.Data
 {
 	public static class DbSeedInitializer
 	{
-		public static void DbSeedInitialize(ApplicationDbContext context)
+		public static void DbSeedInitialize(ApplicationDbContext context,ILogger logger)
 		{
 			context.Database.EnsureCreated();
 			if (context.Users.Any())
@@ -39,12 +40,13 @@ namespace CampusResourceSharingPlatform.Web.Data
 					RealName = null
 				}
 			};
+			logger.LogWarning("DATABASE:No data found in Database,start use the seed to initialize the database.");
 			foreach (var applicationUser in users)
 			{
 				context.Users.Add(applicationUser);
 			}
-
 			context.SaveChanges();
+			logger.LogInformation("DATABASE:database initialized complete.");
 		}
 	}
 }
