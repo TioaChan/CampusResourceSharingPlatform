@@ -19,6 +19,7 @@
 			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Password">密码管理</a>
 			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity" title="SI">认证管理</a>
 			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Email">邮箱管理</a>
+			<a class="nav-link text-dark" asp-controller="Manage" asp-action="Index" title="manage">index</a>
 			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
 				<button type="submit" class="nav-link btn btn-link text-dark">登出</button>
 			</form>
