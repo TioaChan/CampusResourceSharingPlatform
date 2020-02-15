@@ -31,7 +31,8 @@ namespace CampusResourceSharingPlatform.Web.Data
 
 			modelBuilder.Entity<MissionDetail>().Property(p => p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<MissionDetail>().Property(p => p.IsCompleted).HasDefaultValue(0);
-			modelBuilder.Entity<MissionDetail>().Property(p => p.IsDeleted).HasDefaultValue(0);
+			modelBuilder.Entity<MissionDetail>().Property(p => p.DeletedMark).HasDefaultValue(0);
+			modelBuilder.Entity<MissionType>().Property(p => p.DeletedMark).HasDefaultValue(0);
 		}
 	}
 }

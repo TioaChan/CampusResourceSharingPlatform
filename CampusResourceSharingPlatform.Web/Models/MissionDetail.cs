@@ -73,11 +73,6 @@ namespace CampusResourceSharingPlatform.Web.Models
 		[Required]
 		public bool IsCompleted { get; set; }
 
-		/// <summary>
-		/// 任务是否被删除
-		/// </summary>
-		[Required]
-		public bool IsDeleted { get; set; }
 
 		#endregion
 
