@@ -39,8 +39,8 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddSingleton<ILicensesDateService<License>, LicenseDateService>();
 
 			services.AddDbContext<ApplicationDbContext> (options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("DefaultConnection"))
+				// options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+				options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
 				);
 
 			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
