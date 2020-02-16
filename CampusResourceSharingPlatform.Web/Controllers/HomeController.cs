@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CampusResourceSharingPlatform.Web.Models;
-using CampusResourceSharingPlatform.Web.Services;
 using CampusResourceSharingPlatform.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using CampusResourceSharingPlatform.Model;
 
 namespace CampusResourceSharingPlatform.Web.Controllers
 {

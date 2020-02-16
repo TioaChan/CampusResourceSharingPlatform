@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatfo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatform.Service", "CampusResourceSharingPlatform.Service\CampusResourceSharingPlatform.Service.csproj", "{45F90ADD-0149-4EA9-ACFA-A22F3C3DDE94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatform.Model", "CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj", "{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{45F90ADD-0149-4EA9-ACFA-A22F3C3DDE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45F90ADD-0149-4EA9-ACFA-A22F3C3DDE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45F90ADD-0149-4EA9-ACFA-A22F3C3DDE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

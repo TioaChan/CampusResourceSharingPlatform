@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj" />
+    <ProjectReference Include="..\CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj" />
+  </ItemGroup>
+
 </Project>

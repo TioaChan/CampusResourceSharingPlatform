@@ -1,8 +1,10 @@
 using System;
 using System.IO;
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Web.Data;
+using CampusResourceSharingPlatform.Model;
+using CampusResourceSharingPlatform.Service;
 using CampusResourceSharingPlatform.Web.Models;
-using CampusResourceSharingPlatform.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -36,7 +38,8 @@ namespace CampusResourceSharingPlatform.Web
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
-			services.AddSingleton<ILicensesDateService<License>, LicenseDateService>();
+			//services.AddSingleton<ILicensesDateService<License>, LicenseDateService>();
+			services.AddTransient<ILicensesDateService<License>,LicenseDateService>();
 
 			services.AddDbContext<ApplicationDbContext> (options =>
 				// options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))

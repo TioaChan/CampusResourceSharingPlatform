@@ -1,11 +1,8 @@
-﻿using System;
+﻿using CampusResourceSharingPlatform.Interface;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Web.Models;
+using CampusResourceSharingPlatform.Model;
 
-namespace CampusResourceSharingPlatform.Web.Services
+namespace CampusResourceSharingPlatform.Service
 {
 	public class LicenseDateService:ILicensesDateService<License>
 	{

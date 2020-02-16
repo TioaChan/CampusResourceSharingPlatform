@@ -21,8 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Services\" />
     <Folder Include="wwwroot\js\login\" />
     <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj" />
+    <ProjectReference Include="..\CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj" />
+    <ProjectReference Include="..\CampusResourceSharingPlatform.Service\CampusResourceSharingPlatform.Service.csproj" />
   </ItemGroup>
 
 </Project>
