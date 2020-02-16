@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 {
-    public static class ManageNavPages
+    public static class RoleNavPages
     {
         public static string Index => "Index";
 

@@ -1,0 +1,17 @@
+﻿@using CampusResourceSharingPlatform.Web.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<link rel="stylesheet" href="/css/Manage/nav.css">
+
+<ul class="nav nav-pills flex-column">
+	<li class="user-avatar">
+		<div class="user-header"><img class="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name"></div>
+		<h4 class="user-email text-base text-black">
+			@UserManager.GetUserAsync(User).Result.NickName
+		</h4>
+	</li>
+
+	<li class="nav-item"><a class="nav-link @RoleNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="../Index">Profile</a></li>
+	<li class="nav-item"><a class="nav-link @RoleNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Index">Email</a></li>
+</ul>
