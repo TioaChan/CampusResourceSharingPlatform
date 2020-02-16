@@ -1,6 +1,6 @@
 using System;
 
-namespace CampusResourceSharingPlatform.Web.Models
+namespace CampusResourceSharingPlatform.Model
 {
 	public class ErrorViewModel
 	{
