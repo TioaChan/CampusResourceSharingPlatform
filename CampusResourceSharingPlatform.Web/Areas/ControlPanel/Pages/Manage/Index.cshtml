@@ -1,9 +1,39 @@
 ﻿@page
-@using CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage
-@model CampusResourceSharingPlatform.Web.Areas.ContrilPanel.Pages.Manage.IndexModel
+@model IndexModel
 @{
 	Layout = "_Layout";
 	ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-manage index
+<div class="card">
+	<div class="card-header">
+		User Count
+	</div>
+	<div class="card-body">
+		<h5 class="card-title">现存用户数量</h5>
+		<p class="card-text">@Model.UserCount.</p>
+		<a href="#" class="btn btn-primary">Go somewhere</a>
+	</div>
+</div>
+<br />
+<div class="card">
+	<div class="card-header">
+		Role Count
+	</div>
+	<div class="card-body">
+		<h5 class="card-title">有效角色数量</h5>
+		<p class="card-text">@Model.RoleCount</p>
+		<a asp-area="ControlPanel" asp-page="./Role/Index" class="btn btn-primary">Go somewhere</a>
+	</div>
+</div>
+<br />
+<div class="card">
+	<div class="card-header">
+		Featured
+	</div>
+	<div class="card-body">
+		<h5 class="card-title">Special title treatment</h5>
+		<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+		<a href="#" class="btn btn-primary">Go somewhere</a>
+	</div>
+</div>
