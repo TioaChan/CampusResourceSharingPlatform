@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CampusResourceSharingPlatform.Web.Models;
+using CampusResourceSharingPlatform.Model;
 using Microsoft.Extensions.Logging;
 
 namespace CampusResourceSharingPlatform.Web.Data

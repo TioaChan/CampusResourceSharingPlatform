@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using CampusResourceSharingPlatform.Web.Models;
+using CampusResourceSharingPlatform.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

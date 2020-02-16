@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace CampusResourceSharingPlatform.Web.Models
+namespace CampusResourceSharingPlatform.Model
 {
 	public class MissionType:MissionBase
 	{

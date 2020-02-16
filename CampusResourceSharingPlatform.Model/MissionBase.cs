@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CampusResourceSharingPlatform.Web.Models
+namespace CampusResourceSharingPlatform.Model
 {
 	public class MissionBase
 	{

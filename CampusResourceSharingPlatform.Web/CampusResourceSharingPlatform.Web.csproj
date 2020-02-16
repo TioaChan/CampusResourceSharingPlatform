@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="wwwroot\js\login\" />
     <Folder Include="wwwroot\lib\" />

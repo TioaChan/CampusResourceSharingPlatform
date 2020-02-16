@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CampusResourceSharingPlatform.Web.Models;
 using CampusResourceSharingPlatform.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using CampusResourceSharingPlatform.Model;

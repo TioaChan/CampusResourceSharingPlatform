@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Web.Models;
+using CampusResourceSharingPlatform.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
