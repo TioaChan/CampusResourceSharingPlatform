@@ -1,0 +1,22 @@
+﻿@using System.Security.Claims
+@using CampusResourceSharingPlatform.Web.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+<link rel="stylesheet" href="/css/Manage/nav.css">
+<ul class="nav nav-pills flex-column">
+	<li class="user-avatar">
+		<div class="user-header"><img class="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name"></div>
+		<h4 class="user-email text-base text-black">
+			@UserManager.GetUserAsync(User).Result.NickName
+		</h4>
+	</li>
+	<li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
+	<li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
+	<li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
+	<li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
+	<li class="nav-item"><a class="nav-link @ManageNavPages.StudentIdentityClass(ViewContext)" id="student-identity" asp-page="./StudentIdentity">Student Identity</a></li>
+	<li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
+</ul>
