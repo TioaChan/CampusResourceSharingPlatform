@@ -1,0 +1,19 @@
+﻿@{
+	Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Control Panel</h1>
+
+<div>
+	<h4>Site Manage</h4>
+	<hr />
+	<div class="row">
+		<div class="col-md-12">
+				@RenderBody()
+			</div>
+		</div>
+	</div>
+
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}
