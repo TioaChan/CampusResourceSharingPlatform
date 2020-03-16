@@ -15,9 +15,13 @@ dotnet tool install --global dotnet-ef
 
 要使用LibMan的CLI，请参考[将 LibMan 命令行接口（CLI）用于 ASP.NET Core](https://docs.microsoft.com/zh-cn/aspnet/core/client-side/libman/libman-cli)
 
+```Console
+dotnet tool install -g Microsoft.Web.LibraryManager.Cli
+```
+
 
 编译前需要在项目文件夹`CampusResourceSharingPlatform.Web`内使用LibMan的CLI进行依赖包还原
-```
+```Console
 libman restore
 ```
 
