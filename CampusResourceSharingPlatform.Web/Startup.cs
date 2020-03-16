@@ -39,11 +39,11 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddTransient<ILicensesDateService<License>,LicenseDateService>();
 
 			services.AddDbContext<ApplicationDbContext> (options =>
-				// options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-				options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
 				);
 
-			services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+			services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
 				.AddEntityFrameworkStores<ApplicationDbContext>();
 
 			if (_env.IsDevelopment())
