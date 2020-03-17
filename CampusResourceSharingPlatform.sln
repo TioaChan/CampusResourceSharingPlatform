@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatform.Web", "CampusResourceSharingPlatform.Web\CampusResourceSharingPlatform.Web.csproj", "{F5FBBF04-6D58-4245-9A43-B1C68DDB3CEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatform.Interface", "CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj", "{9F385944-C71B-4AAE-B8A0-31958D6DA18A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatform.Interface", "CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj", "{9F385944-C71B-4AAE-B8A0-31958D6DA18A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatform.Service", "CampusResourceSharingPlatform.Service\CampusResourceSharingPlatform.Service.csproj", "{45F90ADD-0149-4EA9-ACFA-A22F3C3DDE94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatform.Service", "CampusResourceSharingPlatform.Service\CampusResourceSharingPlatform.Service.csproj", "{45F90ADD-0149-4EA9-ACFA-A22F3C3DDE94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatform.Model", "CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj", "{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatform.Model", "CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj", "{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
