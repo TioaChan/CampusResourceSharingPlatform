@@ -92,37 +92,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostPhoneNumberAsync()
-        {
-			var user = await _userManager.GetUserAsync(User);
-			if (string.IsNullOrEmpty(Input.PhoneNumber))
-			{
-				StatusMessage = "Your profile has no changes";
-				return RedirectToPage();
-			}
-
-			//判断用户是否存在
-			if (user == null)
-			{
-				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-			}
-
-			var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-			if (Input.PhoneNumber != phoneNumber)
-			{
-				var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-				if (!setPhoneResult.Succeeded)
-				{
-					var userId = await _userManager.GetUserIdAsync(user);
-					throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
-				}
-			}
-			await _signInManager.RefreshSignInAsync(user);
-			StatusMessage = "Your profile has been updated";
-			return RedirectToPage();
-        }
-
-		public async Task<IActionResult> OnPostAvatarAsync()
+        public async Task<IActionResult> OnPostAvatarAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
 			//判断用户是否存在

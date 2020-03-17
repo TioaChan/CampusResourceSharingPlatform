@@ -81,7 +81,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
             var user = new ApplicationUser
             {
 	            UserName = Input.UserName,
-	            NickName =Input.UserName
+	            NickName =Input.UserName,
+	            ProfilePhotoUrl= "/avatar/default.jpg",
             };
             var result = await _userManager.CreateAsync(user, Input.Password);
             if (result.Succeeded)

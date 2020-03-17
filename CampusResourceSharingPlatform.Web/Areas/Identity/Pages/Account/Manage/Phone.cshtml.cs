@@ -79,12 +79,17 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 			var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 			if (Input.NewPhone != phoneNumber)
 			{
-				var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.NewPhone);
-				if (!setPhoneResult.Succeeded)
+				var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, Input.NewPhone);
+				var result = await _userManager.ChangePhoneNumberAsync(user, Input.NewPhone, code);
+				if (!result.Succeeded)
 				{
 					var userId = await _userManager.GetUserIdAsync(user);
 					throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
 				}
+				await _signInManager.RefreshSignInAsync(user);
+				StatusMessage = "Your Phone Number is changed.";
+				IsPhoneSubmited = true;
+				return RedirectToPage();
 			}
 			await _signInManager.RefreshSignInAsync(user);
 			StatusMessage = "Your Phone Number is unchanged.";
