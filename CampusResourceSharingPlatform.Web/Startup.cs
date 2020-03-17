@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace CampusResourceSharingPlatform.Web
 {
@@ -35,16 +36,16 @@ namespace CampusResourceSharingPlatform.Web
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
-			//services.AddSingleton<ILicensesDateService<License>, LicenseDateService>();
 			services.AddTransient<ILicensesDateService<License>,LicenseDateService>();
-
 			services.AddDbContext<ApplicationDbContext> (options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
 				);
 
-			services.AddIdentity<ApplicationUser,IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
-				.AddEntityFrameworkStores<ApplicationDbContext>();
+			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+					options.SignIn.RequireConfirmedAccount = false)
+				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddDefaultTokenProviders();
 
 			if (_env.IsDevelopment())
 			{
@@ -68,7 +69,6 @@ namespace CampusResourceSharingPlatform.Web
 				});
 			}
 
-			//services.Configure<IdentityOptions>(options => { options.SignIn.RequireConfirmedEmail = true; });
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 		}

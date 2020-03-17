@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Model;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
+namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
+{
+	public class PhoneModel : PageModel
+	{
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly SignInManager<ApplicationUser> _signInManager;
+
+		public PhoneModel(
+			UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager)
+		{
+			_userManager = userManager;
+			_signInManager = signInManager;
+		}
+
+		public string Phone { get; set; }
+
+		public bool IsPhoneSubmited { get; set; }
+
+		[TempData]
+		public string StatusMessage { get; set; }
+
+		[BindProperty]
+		public InputModel Input { get; set; }
+
+		public class InputModel
+		{
+			[Required]
+			[Display(Name = "New Phone Number")]
+			public string NewPhone { get; set; }
+		}
+
+		private async Task LoadAsync(ApplicationUser user)
+		{
+			var phone = await _userManager.GetPhoneNumberAsync(user);
+			Phone = phone;
+			Input=new InputModel
+			{
+				NewPhone = phone,
+			};
+			IsPhoneSubmited = await _userManager.GetPhoneNumberAsync(user) != null;
+		}
+
+		public async Task<IActionResult> OnGetAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user==null)
+			{
+				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+			}
+
+			await LoadAsync(user);
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostChangePhoneNumAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+			}
+
+			if (!ModelState.IsValid)
+			{
+				await LoadAsync(user);
+				return Page();
+			}
+
+			var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+			if (Input.NewPhone != phoneNumber)
+			{
+				var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.NewPhone);
+				if (!setPhoneResult.Succeeded)
+				{
+					var userId = await _userManager.GetUserIdAsync(user);
+					throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
+				}
+			}
+			await _signInManager.RefreshSignInAsync(user);
+			StatusMessage = "Your Phone Number is unchanged.";
+			return RedirectToPage();
+		}
+	}
+}

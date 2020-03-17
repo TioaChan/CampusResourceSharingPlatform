@@ -1,0 +1,55 @@
+﻿@page
+@model PhoneModel
+@{
+	ViewData["Title"] = "Manage Phone";
+	ViewData["ActivePage"] = ManageNavPages.Phone;
+}
+
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="row">
+	<div class="col-md-6">
+		<form id="email-form" method="post">
+			<div asp-validation-summary="All" class="text-danger"></div>
+			@if (Model.IsPhoneSubmited)
+			{
+				<div class="form-group">
+					<label asp-for="Phone"></label>
+					@if (Model.IsPhoneSubmited)
+					{
+						<div class="input-group">
+							<input asp-for="Phone" class="form-control" disabled />
+							<div class="input-group-append">
+								<span class="input-group-text text-success font-weight-bold">✓</span>
+							</div>
+						</div>
+					}
+					else
+					{
+						<input asp-for="Phone" class="form-control" disabled />
+						<button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
+					}
+				</div>
+				<div class="form-group">
+					<label asp-for="Input.NewPhone"></label>
+					<input asp-for="Input.NewPhone" class="form-control" />
+					<span asp-validation-for="Input.NewPhone" class="text-danger"></span>
+				</div>
+			}
+			else
+			{
+				<div>请设置安全手机</div>
+				<div class="form-group">
+					<label asp-for="Input.NewPhone"></label>
+					<input asp-for="Input.NewPhone" class="form-control" />
+					<span asp-validation-for="Input.NewPhone" class="text-danger"></span>
+				</div>
+			}
+			<button id="change-phone-button" type="submit" asp-page-handler="ChangePhoneNum" class="btn btn-primary">Change Phone</button>
+		</form>
+	</div>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
