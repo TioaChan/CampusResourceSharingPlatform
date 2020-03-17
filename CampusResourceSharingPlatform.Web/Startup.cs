@@ -45,7 +45,8 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 					options.SignIn.RequireConfirmedAccount = false)
 				.AddEntityFrameworkStores<ApplicationDbContext>()
-				.AddDefaultTokenProviders();
+				.AddDefaultTokenProviders()
+				.AddDefaultUI();
 
 			if (_env.IsDevelopment())
 			{
