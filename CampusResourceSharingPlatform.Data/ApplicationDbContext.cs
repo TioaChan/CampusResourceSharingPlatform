@@ -15,6 +15,8 @@ namespace CampusResourceSharingPlatform.Data
 
 		public DbSet<MissionType> MissionTypes { get; set; }
 
+		public DbSet<License> ThirdLicenses { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);

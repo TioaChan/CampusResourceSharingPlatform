@@ -4,7 +4,7 @@ namespace CampusResourceSharingPlatform.Model
 {
 	public class License
 	{
-		public int Id { get; set; }
+		public string Id { get; set; }
 
 		[Display(Name = "开源项目名称")]
 		public string LicenseName { get; set; }
