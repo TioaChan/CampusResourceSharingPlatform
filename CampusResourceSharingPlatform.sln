@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatfo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatform.Model", "CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj", "{7E7E419C-0140-4FB1-9A83-D796C87CF1A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CampusResourceSharingPlatform.Data", "CampusResourceSharingPlatform.Data\CampusResourceSharingPlatform.Data.csproj", "{0773F221-C443-40E9-A1E1-4C94D7BD39C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CampusResourceSharingPlatform.Data", "CampusResourceSharingPlatform.Data\CampusResourceSharingPlatform.Data.csproj", "{0773F221-C443-40E9-A1E1-4C94D7BD39C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
