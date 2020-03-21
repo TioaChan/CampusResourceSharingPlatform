@@ -38,7 +38,7 @@ namespace CampusResourceSharingPlatform.Web
 			});
 			services.AddTransient<ILicensesDateService<License>,LicenseDateService>();
 			services.AddDbContext<ApplicationDbContext> (options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
 				);
 
