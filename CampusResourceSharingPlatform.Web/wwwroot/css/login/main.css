@@ -618,3 +618,31 @@ input.input100 {
   background: #333333;
   color: #fff;
 }
+
+/*===================================================
+from util.css
+*/
+.flex-sb-m {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	justify-content: space-between;
+	-ms-align-items: center;
+	align-items: center;
+}
+
+
+.w-full {
+	width: 100%;
+}
+.p-t-3 {
+	padding-top: 3px;
+}
+.p-b-32 {
+	padding-bottom: 32px;
+}
+.p-b-43 {
+	padding-bottom: 43px;
+}
