@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CampusResourceSharingPlatform.Data\CampusResourceSharingPlatform.Data.csproj" />
     <ProjectReference Include="..\CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj" />
     <ProjectReference Include="..\CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj" />
   </ItemGroup>
