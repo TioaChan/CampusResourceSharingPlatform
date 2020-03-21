@@ -362,5 +362,5 @@ CampusResourceSharingPlatform.Web/wwwroot/lib/*
 CampusResourceSharingPlatform.Web/wwwroot/avatar/*
 !CampusResourceSharingPlatform.Web/wwwroot/avatar/default.jpg
 .idea/*
-CampusResourceSharingPlatform.Web/Migrations/*
+CampusResourceSharingPlatform.Data/Migrations/*
 CampusResourceSharingPlatform.Web/logs/*

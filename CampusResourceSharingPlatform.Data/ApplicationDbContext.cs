@@ -3,7 +3,7 @@ using CampusResourceSharingPlatform.Model;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CampusResourceSharingPlatform.Web.Data
+namespace CampusResourceSharingPlatform.Data
 {
 	public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
 	{

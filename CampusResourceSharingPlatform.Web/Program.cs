@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using CampusResourceSharingPlatform.Web.Data;
+using CampusResourceSharingPlatform.Data;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CampusResourceSharingPlatform.Web

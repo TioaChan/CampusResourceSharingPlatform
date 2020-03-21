@@ -2,7 +2,7 @@
 using CampusResourceSharingPlatform.Model;
 using Microsoft.Extensions.Logging;
 
-namespace CampusResourceSharingPlatform.Web.Data
+namespace CampusResourceSharingPlatform.Data
 {
 	public static class DbSeedInitializer
 	{
