@@ -12,8 +12,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage
 
         public static string RoleIndex => "RoleIndex";
 
+        public static string UsersIndex => "UsersIndex";
+
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
         public static string RoleIndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, RoleIndex);
+
+        public static string UsersIndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, UsersIndex);
 
         private static string PageNavClass(ViewContext viewContext, string page)
         {
