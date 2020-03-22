@@ -35,9 +35,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 			await LoadUsersAsync();
 			return Page();
 		}
-		public async Task<IActionResult> OnPostDeleteUserAsync(String Id)
+		public async Task<IActionResult> OnPostDeleteUserAsync(string id)
 		{
-			var user =await _userManager.FindByIdAsync(Id);
+			var user =await _userManager.FindByIdAsync(id);
 			user.DeletedMark = true;
 			var result = await _userManager.UpdateAsync(user);
 			StatusMessage = result.Succeeded ? "Success：用户删除成功。" : "Error：用户删除失败。";

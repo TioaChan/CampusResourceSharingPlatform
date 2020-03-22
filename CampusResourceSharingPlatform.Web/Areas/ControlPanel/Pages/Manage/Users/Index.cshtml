@@ -10,15 +10,15 @@
 
 <table class="table table-hover">
 	<thead >
-		<tr>
-			<th scope="col">用户ID</th>
-			<th scope="col">用户名</th>
-			<th scope="col">昵称</th>
-			<th scope="col">真实姓名</th>
-			<th scope="col">学号</th>
-			<th scope="col">联系方式</th>
-			<th scope="col">操作</th>
-		</tr>
+	<tr>
+		<th scope="col">用户ID</th>
+		<th scope="col">用户名</th>
+		<th scope="col">昵称</th>
+		<th scope="col">真实姓名</th>
+		<th scope="col">学号</th>
+		<th scope="col">联系方式</th>
+		<th scope="col">操作</th>
+	</tr>
 	</thead>
 	<tbody>
 	@foreach (var u in Model.Users)
@@ -45,14 +45,16 @@
 				<td>未填写联系方式</td>
 			}
 			<td>
-				<form asp-page-handler="DeleteUser" asp-route-id="@u.Id" method="post">
+				<a asp-page="Profile" asp-route-id="@u.Id" class="btn btn-primary float-left">详细信息</a>
+				<form class="float-left ml-2" casp-page-handler="DeleteUser" asp-route-id="@u.Id" method="post">
 					<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
 						删除
 					</button>
 				</form>
-				@* <a asp-action="EditUser" asp-route-id="@u.Id" class="btn btn-primary">详</a> *@
 			</td>
 		</tr>
 	}
 	</tbody>
 </table>
+
+
