@@ -1,5 +1,4 @@
 ﻿@page
-@using CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users
 @model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users.IndexModel
 @{
 	Layout = "Users/_Layout";
@@ -7,8 +6,10 @@
 }
 <h5>用户列表</h5>
 
-<table class="table">
-	<thead class="thead-dark">
+<partial name="~/Views/Shared/_StatusMessage.cshtml" model="Model.StatusMessage" />
+
+<table class="table table-hover">
+	<thead >
 		<tr>
 			<th scope="col">用户ID</th>
 			<th scope="col">用户名</th>
@@ -16,10 +17,11 @@
 			<th scope="col">真实姓名</th>
 			<th scope="col">学号</th>
 			<th scope="col">联系方式</th>
+			<th scope="col">操作</th>
 		</tr>
 	</thead>
 	<tbody>
-	@foreach (var u in Model.Roles)
+	@foreach (var u in Model.Users)
 	{
 		<tr>
 			<th scope="row">@u.Id</th>
@@ -42,16 +44,15 @@
 			{
 				<td>未填写联系方式</td>
 			}
-
-						@* <td> *@
-						@* 	<form asp-action="DeleteRole" asp-route-id="@r.Id" method="post"> *@
-						@* 		<a asp-action="EditRole" asp-route-id="@r.Id" class="btn btn-primary">编辑</a> *@
-						@* 		<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')"> *@
-						@* 			删除 *@
-						@* 		</button> *@
-						@* 	</form> *@
-						@* </td> *@
-</tr>
+			<td>
+				<form asp-page-handler="DeleteUser" asp-route-id="@u.Id" method="post">
+					<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
+						删除
+					</button>
+				</form>
+				@* <a asp-action="EditUser" asp-route-id="@u.Id" class="btn btn-primary">详</a> *@
+			</td>
+		</tr>
 	}
 	</tbody>
 </table>
