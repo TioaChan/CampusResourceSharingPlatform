@@ -1,0 +1,18 @@
+﻿@page
+@model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role.AddModel
+@{
+	Layout = "Role/_Layout";
+	ViewData["ActivePage"] = ManageNavPages.RoleIndex;
+}
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+
+<form id="email-form" method="post">
+	<div asp-validation-summary="All" class="text-danger"></div>
+		<div class="form-group">
+			<label asp-for="Input.RoleName"></label>
+			<input asp-for="Input.RoleName" class="form-control" />
+			<span asp-validation-for="Input.RoleName" class="text-danger"></span>
+		</div>
+	<button id="add-role-button" type="submit" asp-page-handler="AddRole" class="btn btn-primary">Add</button>
+	<a asp-page="index" class="btn btn-secondary">Back</a>
+</form>
