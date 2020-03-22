@@ -1,0 +1,21 @@
+﻿@page
+@model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role.EditModel
+@{
+	Layout = "Role/_Layout";
+	ViewData["ActivePage"] = ManageNavPages.RoleIndex;
+}
+
+<partial name="_StatusMessage" model="Model.StatusMessage"/>
+<form id="role-edit-form" method="post">
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="Input.Id"></label>
+		<input asp-for="Input.Id" class="form-control" disabled/>
+	</div>
+	<div class="form-group">
+		<label asp-for="Input.NewRoleName"></label>
+		<input asp-for="Input.NewRoleName" class="form-control" />
+		<span asp-validation-for="Input.NewRoleName" class="text-danger"></span>
+	</div>
+	<button id="edit-role-button" type="submit" asp-page-handler="EditRole" asp-route-id="@Model.Input.Id" class="btn btn-primary">Save Change</button>
+</form>
