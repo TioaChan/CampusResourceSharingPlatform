@@ -37,7 +37,8 @@ namespace CampusResourceSharingPlatform.Data
 					StudentIdentityConfirmed = false,
 					ProfilePhotoUrl = "/avatar/default.jpg",
 					NickName = "admin",
-					RealName = null
+					RealName = null,
+					DeletedMark = false
 				}
 			};
 				logger.LogWarning("DATABASE:No user data found in Database,start use the seed to initialize the database.");

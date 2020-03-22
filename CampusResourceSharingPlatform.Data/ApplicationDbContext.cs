@@ -30,6 +30,7 @@ namespace CampusResourceSharingPlatform.Data
 			modelBuilder.Entity<MissionDetail>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<MissionDetail>().Property(p => p.DeletedMark).HasDefaultValue(0);
 			modelBuilder.Entity<MissionType>().Property(p => p.DeletedMark).HasDefaultValue(0);
+			modelBuilder.Entity<ApplicationUser>().Property(p=>p.DeletedMark).HasDefaultValue(0);
 		}
 	}
 }
