@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,10 +12,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 	public class IndexModel : PageModel
 	{
 		private readonly RoleManager<IdentityRole> _roleManager;
+		private readonly UserManager<ApplicationUser> _userManager;
 
-		public IndexModel(RoleManager<IdentityRole> roleManager)
+		public IndexModel(RoleManager<IdentityRole> roleManager,UserManager<ApplicationUser> userManager)
 		{
 			_roleManager = roleManager;
+			_userManager = userManager;
 			RolesModel=new List<RoleModel>();
 		}
 
@@ -30,6 +33,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			public string RoleId { get; set; }
 
 			public string RoleName { get; set; }
+
+			public int UserCount { get; set; }
 		}
 
 
@@ -41,9 +46,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 				RolesModel.Add(new RoleModel
 				{
 					RoleId = role.Id,
-					RoleName = role.Name
+					RoleName = role.Name,
+					UserCount = (await _userManager.GetUsersInRoleAsync(role.Name)).Count,
 				});
 			}
+
 		}
 
 		public async Task<IActionResult> OnGetAsync()
