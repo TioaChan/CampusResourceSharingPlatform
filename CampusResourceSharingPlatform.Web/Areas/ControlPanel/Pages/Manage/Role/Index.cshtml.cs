@@ -32,9 +32,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			return Page();
 		}
 
-		public async Task<IActionResult> OnPostDeleteRoleAsync(string id)
+		public async Task<IActionResult> OnPostDeleteRoleAsync(string roleId)
 		{
-			var role = await _roleManager.FindByIdAsync(id);
+			var role = await _roleManager.FindByIdAsync(roleId);
 			if (role!=null)
 			{
 				var result = await _roleManager.DeleteAsync(role);
