@@ -40,9 +40,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			public string NewRoleName { get; set; }
 		}
 
-		private async Task LoadAsync(string id)
+		private async Task LoadAsync(string roleId)
 		{
-			Role = await _roleManager.FindByIdAsync(id);
+			Role = await _roleManager.FindByIdAsync(roleId);
 			Input = new InputModel
 			{
 				Id = Role.Id,
@@ -51,13 +51,13 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			
 		}
 
-		public async Task<IActionResult> OnGetAsync(string id)
+		public async Task<IActionResult> OnGetAsync(string roleId)
 		{
-			if (string.IsNullOrEmpty(id))
+			if (string.IsNullOrEmpty(roleId))
 			{
 				return RedirectToPage("Index");
 			}
-			await LoadAsync(id);
+			await LoadAsync(roleId);
 			return Page();
 		}
 

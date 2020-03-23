@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,19 +12,38 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 	{
 		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public IEnumerable<IdentityRole> Roles { get; set; }
+		public IndexModel(RoleManager<IdentityRole> roleManager)
+		{
+			_roleManager = roleManager;
+			RolesModel=new List<RoleModel>();
+		}
 
 		[TempData]
 		public string StatusMessage { get; set; }
 
-		public IndexModel(RoleManager<IdentityRole> roleManager)
+
+		[BindProperty]
+		public List<RoleModel> RolesModel { get; set; }
+
+		public class RoleModel
 		{
-			_roleManager = roleManager;
+			public string RoleId { get; set; }
+
+			public string RoleName { get; set; }
 		}
+
 
 		private async Task LoadRoles()
 		{
-			Roles = await _roleManager.Roles.ToListAsync();
+			var roles = await _roleManager.Roles.ToListAsync();
+			foreach (var role in roles)
+			{
+				RolesModel.Add(new RoleModel
+				{
+					RoleId = role.Id,
+					RoleName = role.Name
+				});
+			}
 		}
 
 		public async Task<IActionResult> OnGetAsync()
