@@ -5,44 +5,46 @@
 	Layout = "Role/_Layout";
 	ViewData["ActivePage"] = ManageNavPages.RoleIndex;
 }
-<h5>角色列表</h5>
-<a asp-page="Add" class="text-primary">添加角色</a>
+	<div>
+		<h5>角色列表</h5>
+		<a asp-page="Add" class="text-primary">添加角色</a>
 
-<partial name="_StatusMessage" model="Model.StatusMessage"/>
-<table class="table table-hover">
-	<thead>
-		<tr>
-			<th scope="col">角色ID</th>
-			<th scope="col">角色名</th>
-			<th scope="col">用户数量</th>
-			<th scope="col">操作</th>
-		</tr>
-	</thead>
-	<tbody>
-	@if (Model.RolesModel.Any())
-	{
-		@foreach (var r in Model.RolesModel)
-		{
-			<tr>
-				<th scope="row">@r.RoleId</th>
-				<td>@r.RoleName</td>
-				<td>@r.UserCount</td>
-				<td>
-					<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left">编辑</a>
-					<form asp-page-handler="DeleteRole" asp-route-roleId="@r.RoleId" method="post" class="float-left">
-						<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
-							删除
-						</button>
-					</form>
-				</td>
-			</tr>
-		}
-	}
-	else
-	{
-		<tr>
-			<td colspan="3" class="text-center text-warning"> 未设置任何角色</td>
-		</tr>
-	}
-	</tbody>
-</table>
+		@* <partial name="_StatusMessage" model="Model.StatusMessage"/> *@
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th scope="col">角色ID</th>
+					<th scope="col">角色名</th>
+					<th scope="col">用户数量</th>
+					<th scope="col">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				@if (Model.RolesModel.Any())
+				{
+					@foreach (var r in Model.RolesModel)
+					{
+						<tr>
+							<th scope="row">@r.RoleId</th>
+							<td>@r.RoleName</td>
+							<td>@r.UserCount</td>
+							<td>
+								<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left">编辑</a>
+								<form asp-page-handler="DeleteRole" asp-route-roleId="@r.RoleId" method="post" class="float-left">
+									<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
+										删除
+									</button>
+								</form>
+							</td>
+						</tr>
+					}
+				}
+				else
+				{
+					<tr>
+						<td colspan="3" class="text-center text-warning"> 未设置任何角色</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>

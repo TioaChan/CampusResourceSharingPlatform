@@ -8,12 +8,13 @@
     <h4>Role manage</h4>
     <hr />
     <div class="row">
-        <div class="col-md-3">
-            <partial name="_RoleNav" />
-        </div>
-        <div class="col-md-9 row">
-            @RenderBody()
-        </div>
+	    <div class="col-md-3">
+		    <partial name="_RoleNav" />
+	    </div>
+	    <div class="col-md-9">
+		    <partial name="_StatusMessage" model="Model.StatusMessage"/>
+		    @RenderBody()
+	    </div>
     </div>
 </div>
 

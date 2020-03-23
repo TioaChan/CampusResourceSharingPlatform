@@ -120,7 +120,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 					return RedirectToPage("Edit",new {roleId });
 				}
 			}
-			StatusMessage = "Success:添加用户失败";
+			StatusMessage = "Error:添加用户失败";
 			return RedirectToPage("Edit", new { roleId });
 		}
 	}
