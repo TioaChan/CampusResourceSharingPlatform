@@ -6,6 +6,7 @@ using CampusResourceSharingPlatform.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users
 {
@@ -13,16 +14,34 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public List<ApplicationUser> Roles { get; set; }
+		public IEnumerable<ApplicationUser> Users { get; set; }
 
+		[TempData]
+		public string StatusMessage { get; set; }
 
 		public IndexModel(UserManager<ApplicationUser> userManager)
 		{
 			_userManager = userManager;
 		}
-		public IActionResult OnGetAsync()
+
+		private async Task LoadUsersAsync()
 		{
-			Roles = _userManager.Users.ToList();
+			//Users = _userManager.Users.ToList().Where(p => p.DeletedMark = false);
+			Users= await _userManager.Users.Where(p => p.DeletedMark == false).ToListAsync();
+		}
+
+		public async Task<IActionResult> OnGetAsync()
+		{
+			await LoadUsersAsync();
+			return Page();
+		}
+		public async Task<IActionResult> OnPostDeleteUserAsync(string id)
+		{
+			var user =await _userManager.FindByIdAsync(id);
+			user.DeletedMark = true;
+			var result = await _userManager.UpdateAsync(user);
+			StatusMessage = result.Succeeded ? "Success：用户删除成功。" : "Error：用户删除失败。";
+			await LoadUsersAsync();
 			return Page();
 		}
 	}

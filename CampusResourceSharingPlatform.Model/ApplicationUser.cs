@@ -17,6 +17,7 @@ namespace CampusResourceSharingPlatform.Model
 		public string ProfilePhotoUrl { get; set; }
 		public string NickName { get; set; }
 		public string RealName { get; set; }
+		public bool DeletedMark { get; set; }
 
 	}
 }

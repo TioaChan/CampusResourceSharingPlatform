@@ -1,0 +1,12 @@
+﻿@page
+@model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users.ProfileModel
+@{
+}
+@{
+	Layout = "Users/_Layout";
+	ViewData["ActivePage"] = ManageNavPages.UsersIndex;
+}
+
+	<b>@Model.CurrentUser.Id</b>
+
+<a asp-page="Index" class="btn btn-primary">返回</a>
