@@ -1,14 +1,8 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model;
-using CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
@@ -22,15 +16,13 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			_roleManager = roleManager;
 		}
 
-		public IdentityRole Role { get; set; }
-
 		[TempData]
 		public string StatusMessage { get; set; }
 
 		[BindProperty]
-		public InputModel Input { get; set; }
+		public RoleModel Role { get; set; }
 
-		public class InputModel
+		public class RoleModel
 		{
 			[ReadOnly(true)]
 			public string Id { get; set; }
@@ -42,11 +34,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 
 		private async Task LoadAsync(string roleId)
 		{
-			Role = await _roleManager.FindByIdAsync(roleId);
-			Input = new InputModel
+			var role = await _roleManager.FindByIdAsync(roleId);
+			Role = new RoleModel
 			{
-				Id = Role.Id,
-				NewRoleName = Role.Name
+				Id = role.Id,
+				NewRoleName = role.Name
 			};
 			
 		}
@@ -61,17 +53,17 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			return Page();
 		}
 
-		public async Task<IActionResult> OnPostEditRoleAsync(string id)
+		public async Task<IActionResult> OnPostEditRoleAsync(string roleId)
 		{
-			Role = await _roleManager.FindByIdAsync(id);
-			if (Input.NewRoleName==Role.Name)
+			var role = await _roleManager.FindByIdAsync(roleId);
+			if (Role.NewRoleName==role.Name)
 			{
-				await LoadAsync(id);
+				await LoadAsync(roleId);
 				StatusMessage = "this role is unchanged.";
 				return Page();
 			}
-			Role.Name = Input.NewRoleName;
-			var result = await _roleManager.UpdateAsync(Role);
+			role.Name = Role.NewRoleName;
+			var result = await _roleManager.UpdateAsync(role);
 			if (result.Succeeded)
 			{
 				StatusMessage = "角色修改成功.";
