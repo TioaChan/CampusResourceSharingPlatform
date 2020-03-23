@@ -6,16 +6,48 @@
 }
 
 <partial name="_StatusMessage" model="Model.StatusMessage"/>
-<form id="role-edit-form" method="post">
-	<div asp-validation-summary="All" class="text-danger"></div>
-	<div class="form-group">
-		<label asp-for="Role.Id"></label>
-		<input asp-for="Role.Id" class="form-control" disabled/>
-	</div>
-	<div class="form-group">
-		<label asp-for="Role.NewRoleName"></label>
-		<input asp-for="Role.NewRoleName" class="form-control" />
-		<span asp-validation-for="Role.NewRoleName" class="text-danger"></span>
-	</div>
-	<button id="edit-role-button" type="submit" asp-page-handler="EditRole" asp-route-roleId="@Model.Role.Id" class="btn btn-primary">Save Change</button>
-</form>
+<div class="col-md-3">
+	<form id="role-edit-form" method="post">
+		<h4>角色修改</h4>
+		<div asp-validation-summary="All" class="text-danger"></div>
+		<div class="form-group">
+			<label asp-for="Role.Id"></label>
+			<input asp-for="Role.Id" class="form-control" disabled />
+		</div>
+		<div class="form-group">
+			<label asp-for="Role.NewRoleName"></label>
+			<input asp-for="Role.NewRoleName" class="form-control" />
+			<span asp-validation-for="Role.NewRoleName" class="text-danger"></span>
+		</div>
+		<button id="edit-role-button" type="submit" asp-page-handler="EditRole" asp-route-roleId="@Model.Role.Id" class="btn btn-primary">Save Change</button>
+	</form>
+</div>
+
+<div class="col-md-6">
+	<h4>角色的用户</h4>
+	<ul>
+		@if (Model.Role.UserInRoleName.Count == 0)
+		{
+			<li class="text-danger">当前角色未拥有用户</li>
+		}
+		else
+		{
+			@foreach (var user in Model.Role.UserInRoleName)
+			{
+				<li>@user</li>
+			}
+		}
+	</ul>
+	
+	<form method="post">
+		<h4>可选用户</h4>
+		<input type="hidden" name="roleId" value="@Model.Role.Id" />
+
+		<select asp-for="@Model.Role.UserId" asp-items="@(new SelectList(Model.Role.UserPackages,"Id","UserName" ))">
+			<option> -- 请选择一个用户 -- </option>
+		</select>
+
+		<button class="btn btn-primary" asp-page-handler="AddUserToRole" asp-route-roleId="@Model.Role.Id" type="submit">添加</button>
+	</form> 
+</div>
+
