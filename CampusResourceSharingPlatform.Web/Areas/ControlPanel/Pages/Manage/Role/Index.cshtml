@@ -1,5 +1,5 @@
 ﻿@page
-@model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role.IndexModel
+@model IndexModel
 @{
 	ViewData["Title"] = "Role";
 	Layout = "Role/_Layout";
@@ -9,7 +9,6 @@
 		<h5>角色列表</h5>
 		<a asp-page="Add" class="text-primary">添加角色</a>
 
-		@* <partial name="_StatusMessage" model="Model.StatusMessage"/> *@
 		<table class="table table-hover">
 			<thead>
 				<tr>

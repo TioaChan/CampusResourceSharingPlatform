@@ -11,9 +11,10 @@
         <div class="col-md-3">
             <partial name="_UsersNav" />
         </div>
-        <div class="col-md-9">
-            @RenderBody()
-        </div>
+	    <div class="col-md-9">
+		    <partial name="_StatusMessage" model="Model.StatusMessage"/>
+		    @RenderBody()
+	    </div>
     </div>
 </div>
 
