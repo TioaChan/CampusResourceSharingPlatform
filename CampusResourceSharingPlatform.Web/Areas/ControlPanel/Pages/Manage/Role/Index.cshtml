@@ -48,10 +48,10 @@
 								<div>GUID:@r.RoleId</div>
 								<div>Name:@r.RoleName</div>
 								<div>@r.RoleName 目前拥有一下用户:
-									<ul>
+									<ul class="list-group list-group-horizontal-sm">
 										@foreach (var user in r.UserInRoleName)
 										{
-											<li>@user</li>
+											<li class="list-group-item">@user</li>
 										}
 									</ul>
 								</div>
