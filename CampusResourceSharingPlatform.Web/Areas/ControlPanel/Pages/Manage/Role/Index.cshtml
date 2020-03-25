@@ -5,45 +5,84 @@
 	Layout = "Role/_Layout";
 	ViewData["ActivePage"] = ManageNavPages.RoleIndex;
 }
+<div>
 	<div>
-		<h5>角色列表</h5>
-		<a asp-page="Add" class="text-primary">添加角色</a>
+		<h5 class="float-left">角色列表</h5>
+		<a asp-page="Add" class="text-primary float-right">添加角色</a>
+	</div>
 
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th scope="col">角色ID</th>
-					<th scope="col">角色名</th>
-					<th scope="col">用户数量</th>
-					<th scope="col">操作</th>
+	<table class="table table-hover">
+		<thead>
+		<tr>
+			<th scope="col">角色ID</th>
+			<th scope="col">角色名</th>
+			<th scope="col">用户数量</th>
+			<th scope="col">操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		@if (Model.RolesModel.Any())
+		{
+			@foreach (var r in Model.RolesModel)
+			{
+				<tr class="parent-row" id="parent-row-@r.RoleId">
+					<th scope="row" class="vertical-align-middle">@r.RoleId</th>
+					<td class="vertical-align-middle">@r.RoleName</td>
+					<td class="vertical-align-middle">@r.UserCount</td>
+					<td class="vertical-align-middle text-primary">
+						查看详细信息
+					</td>
 				</tr>
-			</thead>
-			<tbody>
-				@if (Model.RolesModel.Any())
-				{
-					@foreach (var r in Model.RolesModel)
-					{
-						<tr>
-							<th scope="row">@r.RoleId</th>
-							<td>@r.RoleName</td>
-							<td>@r.UserCount</td>
-							<td>
-								<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left">编辑</a>
-								<form asp-page-handler="DeleteRole" asp-route-roleId="@r.RoleId" method="post" class="float-left">
+				<tr class="child-row" id="child-row-@r.RoleId" style="display: none;">
+					<td colspan="4">
+						<div class="card">
+							<div class="card-header">
+								<div class="float-left">@r.RoleName 的详细信息</div>
+								<form asp-page-handler="DeleteRole" asp-route-roleId="@r.RoleId" method="post" class="float-right margin-1x">
 									<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
 										删除
 									</button>
 								</form>
-							</td>
-						</tr>
-					}
-				}
-				else
-				{
-					<tr>
-						<td colspan="3" class="text-center text-warning"> 未设置任何角色</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	</div>
+							</div>
+							<div class="card-body">
+								<div>GUID:@r.RoleId</div>
+								<div>Name:@r.RoleName</div>
+								<div>@r.RoleName 目前拥有一下用户:
+									<ul>
+										@foreach (var user in r.UserInRoleName)
+										{
+											<li>@user</li>
+										}
+									</ul>
+								</div>
+								<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left mr-2">编辑</a>
+							</div>
+						</div>
+					</td>
+				</tr>
+			}
+		}
+		else
+		{
+			<tr>
+				<td colspan="3" class="text-center text-warning vertical-align-middle"> 未设置任何角色</td>
+			</tr>
+		}
+		</tbody>
+	</table>
+	
+	@section Scripts{ 
+		<Script type="text/javascript">
+			$(document).ready(function () {
+				$("tbody>.parent-row").click(function () {
+					var parent = $(this).attr('id');
+					var child = parent.replace("parent-row-", "child-row-");
+					console.log(parent + "," + child);
+					$("tr#" + parent).addClass("current").next().show();
+					$(".parent-row:not(#" + parent + ")").removeClass("current").next().hide();
+					return false;
+				});
+			})
+		</Script>
+	}
+</div>

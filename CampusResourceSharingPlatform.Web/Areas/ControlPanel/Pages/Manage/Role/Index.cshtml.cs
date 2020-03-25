@@ -35,22 +35,33 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			public string RoleName { get; set; }
 
 			public int UserCount { get; set; }
+
+			public List<string> UserInRoleName { get; set; }
 		}
 
 
 		private async Task LoadRoles()
 		{
 			var roles = await _roleManager.Roles.ToListAsync();
+			var users= await _userManager.Users.ToListAsync();
 			foreach (var role in roles)
 			{
+				var userInRoleNames = new List<string>();
+				foreach (var user in users)
+				{
+					if (await _userManager.IsInRoleAsync(user, role.Name))//用户属于该角色
+					{
+						userInRoleNames.Add(user.UserName);
+					}
+				}
 				RolesModel.Add(new RoleModel
 				{
 					RoleId = role.Id,
 					RoleName = role.Name,
 					UserCount = (await _userManager.GetUsersInRoleAsync(role.Name)).Count,
+					UserInRoleName = userInRoleNames,
 				});
 			}
-
 		}
 
 		public async Task<IActionResult> OnGetAsync()
