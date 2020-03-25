@@ -6,53 +6,68 @@
 	ViewData["Title"] = Model.Role.NewRoleName +"- 修改";
 }
 
-<div class="row col-md mb-2">
-	<h4 class="float-left">@Model.Role.NewRoleName</h4>
-</div>
-<hr />
-<div class="row">
-	<div class="col-md-4">
+
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link disabled text-body" id="pills-title-tab" data-toggle="pill" href="#pills-home" role="tab"
+		   aria-controls="pills-home" aria-selected="true" aria-disabled="true">@Model.Role.NewRoleName</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+		   aria-controls="pills-home" aria-selected="true">配置</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-users" role="tab"
+		   aria-controls="pills-profile" aria-selected="false">拥有的用户</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-user-packages" role="tab"
+		   aria-controls="pills-contact" aria-selected="false">可选用户</a>
+	</li>
+</ul>
+
+<div class="tab-content m-3" id="pills-tabContent">
+	<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 		<form id="role-edit-form" method="post">
-			<h4>角色修改</h4>
-			<div asp-validation-summary="All" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="Role.Id"></label>
-				<input asp-for="Role.Id" class="form-control" disabled/>
-			</div>
-			<div class="form-group">
-				<label asp-for="Role.NewRoleName"></label>
-				<input asp-for="Role.NewRoleName" class="form-control"/>
-				<span asp-validation-for="Role.NewRoleName" class="text-danger"></span>
-			</div>
-			<button id="edit-role-button" type="submit" asp-page-handler="EditRole" asp-route-roleId="@Model.Role.Id" class="btn btn-primary">Save Change</button>
-		</form>
+					<div asp-validation-summary="All" class="text-danger"></div>
+					<div class="form-group">
+						<label asp-for="Role.Id"></label>
+						<input asp-for="Role.Id" class="form-control" disabled />
+					</div>
+					<div class="form-group">
+						<label asp-for="Role.NewRoleName"></label>
+						<input asp-for="Role.NewRoleName" class="form-control" />
+						<span asp-validation-for="Role.NewRoleName" class="text-danger"></span>
+					</div>
+					<button id="edit-role-button" type="submit" asp-page-handler="EditRole" asp-route-roleId="@Model.Role.Id" class="btn btn-primary">Save Change</button>
+				</form>
 	</div>
-
-	<div class="col-md-6">
-		<h4>角色的用户</h4>
+	<div class="tab-pane fade" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
 		<ul>
-			@if (Model.Role.UserInRoleName.Count == 0)
-			{
-				<li class="text-danger">当前角色未拥有用户</li>
-			}
-			else
-			{
-				@foreach (var user in Model.Role.UserInRoleName)
-				{
-					<li>@user</li>
-				}
-			}
-		</ul>
-
+					@if (Model.Role.UserInRoleName.Count == 0)
+					{
+						<li class="text-danger">当前角色未拥有用户</li>
+					}
+					else
+					{
+						@foreach (var user in Model.Role.UserInRoleName)
+						{
+							<li>@user</li>
+						}
+					}
+				</ul>
+	</div>
+	<div class="tab-pane fade" id="pills-user-packages" role="tabpanel" aria-labelledby="pills-user-packages-tab">
 		<form method="post">
-			<h4>可选用户</h4>
-			<input type="hidden" name="roleId" value="@Model.Role.Id"/>
-
-			<select class="custom-select form-group" asp-for="@Model.Role.UserId" asp-items="@(new SelectList(Model.Role.UserPackages, "Id", "UserName"))">
-				<option> -- 请选择一个用户 -- </option>
-			</select>
-
-			<button class="btn btn-primary" asp-page-handler="AddUserToRole" asp-route-roleId="@Model.Role.Id" type="submit">添加</button>
-		</form>
+					<h4>可选用户</h4>
+					<input type="hidden" name="roleId" value="@Model.Role.Id" />
+					<select class="custom-select form-group" asp-for="@Model.Role.UserId" asp-items="@(new SelectList(Model.Role.UserPackages, "Id", "UserName"))">
+						<option> -- 请选择一个用户 -- </option>
+					</select>
+					<button class="btn btn-primary" asp-page-handler="AddUserToRole" asp-route-roleId="@Model.Role.Id" type="submit">添加</button>
+				</form>
 	</div>
 </div>
+
+
