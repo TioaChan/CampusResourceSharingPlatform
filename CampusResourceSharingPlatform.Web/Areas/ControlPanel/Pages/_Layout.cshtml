@@ -11,7 +11,7 @@
 <body>
 	<header>
 		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
-			<div class="container no-gutters col-xl-auto w-100">
+			<div class="container-fluid no-gutters w-100">
 				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">校园闲散资源共享平台 后台管理</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
 						aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
 			</div>
 		</nav>
 	</header>
-	<div class="container no-gutters col-xl-auto">
+	<div class="container-fluid no-gutters ">
 		<main role="main" class="pb-3">
 			@RenderBody()
 		</main>
@@ -39,7 +39,7 @@
 
 <div class="container " style="height: 50px"></div>
 	<footer class="border-top footer text-muted">
-		<div class="container no-gutters col-xl-auto">
+		<div class="container-fluid no-gutters">
 			<partial name="_FootCopyrightPartial" />
 		</div>
 	</footer>
