@@ -91,3 +91,8 @@ body {
 /* 	background-color: #efefef; */
 /* 	overflow: hidden; */
 /* } */
+
+.vertical-align-middle {
+    /* text-align: center; */
+    vertical-align: middle !important;
+}
