@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using CampusResourceSharingPlatform.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace CampusResourceSharingPlatform.Data
@@ -11,10 +13,9 @@ namespace CampusResourceSharingPlatform.Data
 		{
 			context.Database.EnsureCreated();
 
-			#region UsersSeed
-			if (!context.Users.Any()) { 
-				var users = new[]
-			{
+			#region aaa2900-UsersSeed
+			if (!context.Users.Any(x=>x.Id== "00000000-0000-0000-0000-000000000001")) { 
+				var users = new[] {
 				new ApplicationUser
 				{
 					Id = "00000000-0000-0000-0000-000000000001",
@@ -47,9 +48,66 @@ namespace CampusResourceSharingPlatform.Data
 					context.Users.Add(applicationUser);
 				}
 				context.SaveChanges();
-				logger.LogInformation("DATABASE:database initialized complete.");
+				logger.LogInformation("DATABASE:default user in database has initialized complete.");
+			}
+			else
+			{
+				logger.LogInformation("DATABASE:default user in database checked complete.");
 			}
 			#endregion
+
+			#region administrator-role-seed
+			if (!context.Roles.Any(x=>x.Id== "00000000-0000-0000-0000-000000000001"))
+			{
+				var roles = new[]
+				{
+					new IdentityRole
+					{
+						Id = "00000000-0000-0000-0000-000000000001",
+						Name = "Administrators",
+						NormalizedName = "ADMINISTRATORS",
+						ConcurrencyStamp = "02b0c0f7-cf8d-4b7b-8446-3ba70decd1ff"
+					},
+				};
+				logger.LogWarning("DATABASE:No role data found in Database,start use the seed to initialize the database.");
+				foreach (var role in roles)
+				{
+					context.Roles.Add(role);
+				}
+				context.SaveChanges();
+				logger.LogInformation("DATABASE:default role in database has initialized complete.");
+			}
+			else
+			{
+				logger.LogInformation("DATABASE:default role in database checked complete.");
+			}
+			#endregion
+
+			#region user-role relationship
+			if (!context.UserRoles.Any(x => x.RoleId == "00000000-0000-0000-0000-000000000001" && x.UserId == "00000000-0000-0000-0000-000000000001"))
+			{
+				var identityUserRoles = new[]
+				{
+					new IdentityUserRole<string>
+					{
+						UserId ="00000000-0000-0000-0000-000000000001",
+						RoleId = "00000000-0000-0000-0000-000000000001",
+					},
+				};
+				logger.LogWarning("DATABASE:No user-role relationship data found in Database,start use the seed to initialize the database.");
+				foreach (var r in identityUserRoles)
+				{
+					context.UserRoles.Add(r);
+				}
+				context.SaveChanges();
+				logger.LogInformation("DATABASE:default user-role relationship in database has initialized complete.");
+			}
+			else
+			{
+				logger.LogInformation("DATABASE:default user-role relationship in database checked complete.");
+			}
+			#endregion
+
 
 			#region ThirdLicensesSeed
 			if (!context.ThirdLicenses.Any())
@@ -164,8 +222,8 @@ namespace CampusResourceSharingPlatform.Data
 				logger.LogInformation("DATABASE:database initialized complete.");
 				}
 			#endregion
-
 			logger.LogInformation("DATABASE:database checked complete.");
+			logger.LogInformation("==========================================================");
 		}
 	}
 }
