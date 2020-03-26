@@ -4,7 +4,10 @@
 	Layout = "Users/_Layout";
 	ViewData["ActivePage"] = ManageNavPages.UsersIndex;
 }
-<h5>用户列表</h5>
+<div class="row">
+	<h4 class="col">用户列表</h4>
+	<div class="col-9"></div>
+</div>
 <table class="table table-hover">
 	<thead >
 	<tr>
@@ -21,27 +24,27 @@
 	@foreach (var u in Model.Users)
 	{
 		<tr>
-			<th scope="row">@u.Id</th>
-			<td>@u.UserName</td>
-			<td>@u.NickName</td>
+			<th scope="row" class="vertical-align-middle">@u.Id</th>
+			<td class="vertical-align-middle">@u.UserName</td>
+			<td class="vertical-align-middle">@u.NickName</td>
 			@if (u.StudentIdentityConfirmed)
 			{
-				<td>@u.RealName</td>
-				<td>@u.IdCardNo</td>
+				<td class="vertical-align-middle">@u.RealName</td>
+				<td class="vertical-align-middle">@u.IdCardNo</td>
 			}
 			else
 			{
-				<td colspan="2" >未进行学生认证</td>
+				<td colspan="2" class="vertical-align-middle">未进行学生认证</td>
 			}
 			@if (u.PhoneNumberConfirmed)
 			{
-				<td>@u.PhoneNumber</td>
+				<td class="vertical-align-middle">@u.PhoneNumber</td>
 			}
 			else
 			{
-				<td>未填写联系方式</td>
+				<td class="vertical-align-middle">未填写联系方式</td>
 			}
-			<td>
+			<td class="vertical-align-middle">
 				<a asp-page="Profile" asp-route-id="@u.Id" class="btn btn-primary float-left">详细信息</a>
 				<form class="float-left ml-2" casp-page-handler="DeleteUser" asp-route-id="@u.Id" method="post">
 					<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
