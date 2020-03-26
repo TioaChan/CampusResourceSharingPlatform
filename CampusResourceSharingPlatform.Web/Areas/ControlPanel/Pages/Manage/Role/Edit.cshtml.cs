@@ -21,7 +21,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		{
 			_roleManager = roleManager;
 			_userManager = userManager;
-			//Users=new List<ApplicationUser>();
 		}
 
 		[TempData]
@@ -39,13 +38,15 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			[Display(Name = "New Role Name")]
 			public string NewRoleName { get; set; }
 
-			public List<string> UserInRoleName { get; set; }
-
 			public string UserId { get; set; }
 
-			public List<ApplicationUser> UserPackages { get; set; }
+			public List<ApplicationUser> UsersIncluded { get; set; }
+
+			public string NewUserId { get; set; }
+
+			public List<ApplicationUser> UserNotIncluded { get; set; }
+
 		}
-		
 
 		private async Task LoadAsync(string roleId)
 		{
@@ -58,8 +59,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			{
 				Id = role.Id,
 				NewRoleName = role.Name,
-				UserInRoleName = new List<string>(),
-				UserPackages = new List<ApplicationUser>(),
+				UsersIncluded = new List<ApplicationUser>(),
+				UserNotIncluded = new List<ApplicationUser>(),
 			};
 
 			var users = await _userManager.Users.ToListAsync();
@@ -67,11 +68,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 			{
 				if (await _userManager.IsInRoleAsync(user, role.Name))//用户属于该角色
 				{
-					Role.UserInRoleName.Add(user.UserName);
+					Role.UsersIncluded.Add(user);
 				}
 				else
 				{
-					Role.UserPackages.Add(user);
+					Role.UserNotIncluded.Add(user);
 				}
 			}
 		}
@@ -108,7 +109,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 
 		public async Task<IActionResult> OnPostAddUserToRoleAsync(string roleId)
 		{
-			var user = await _userManager.FindByIdAsync(Role.UserId);
+			var user = await _userManager.FindByIdAsync(Role.NewUserId);
 			var role = await _roleManager.FindByIdAsync(roleId);
 
 			if (user != null && role != null)
@@ -121,6 +122,27 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 				}
 			}
 			StatusMessage = "Error:添加用户失败";
+			return RedirectToPage("Edit", new { roleId });
+		}
+
+
+		public async Task<IActionResult> OnPostRemoveUserFromRoleAsync(string roleId)
+		{
+			var user = await _userManager.FindByIdAsync(Role.UserId);
+			var role = await _roleManager.FindByIdAsync(roleId);
+
+			if (user != null && role != null)
+			{
+				var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
+				if (result.Succeeded)
+				{
+					StatusMessage = "Success:从角色\""+role.Name+ "\"中移除用户\"" + user.UserName+ "\"成功";
+					return RedirectToPage("Edit", new { roleId });
+				}
+				StatusMessage = "Error:从角色\"" + role.Name + "\"中移除用户\"" + user.UserName + "\"失败";
+				return RedirectToPage("Edit", new { roleId });
+			}
+			StatusMessage = "Error:移除用户失败";
 			return RedirectToPage("Edit", new { roleId });
 		}
 	}
