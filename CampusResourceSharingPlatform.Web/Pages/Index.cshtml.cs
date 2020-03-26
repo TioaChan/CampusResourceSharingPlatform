@@ -25,16 +25,27 @@ namespace CampusResourceSharingPlatform.Web.Pages
 			_userManager = userManager;
 		}
 
-		[TempData]
-		public string StatusMessage { get; set; }
+
+		[BindProperty]
+		public IndexPageModel IndexPage { get; set; }
+
+		public class IndexPageModel
+		{
+			public string UserName { get; set; }
+			[TempData]
+			public string IndexPageStatusMessage { get; set; }
+		}
 
 		public async Task<IActionResult> OnGetAsync()
 		{
-			if (_signInManager.IsSignedIn(User))//用户已登录
+			if (_signInManager.IsSignedIn(User))
 			{
 				var user = await _userManager.GetUserAsync(User);
-				StatusMessage = !user.StudentIdentityConfirmed ?
-					"Error:你还没有验证学生身份，请先去个人设置中验证学生身份。" : "";
+				IndexPage=new IndexPageModel
+				{
+					UserName = user.NickName,
+					IndexPageStatusMessage = !user.StudentIdentityConfirmed ?"Error:你还没有验证学生身份，请先去个人设置中验证学生身份。" : ""
+				};
 			}
 			return Page();
 		}

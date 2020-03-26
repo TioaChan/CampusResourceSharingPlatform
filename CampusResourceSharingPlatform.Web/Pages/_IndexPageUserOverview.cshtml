@@ -1,7 +1,4 @@
-﻿@using CampusResourceSharingPlatform.Model
-@using Microsoft.AspNetCore.Identity
-@inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
+﻿@model CampusResourceSharingPlatform.Web.Pages.IndexModel
 
 @{
 	ViewData["Title"] = "Index";
@@ -9,5 +6,5 @@
 }
 
 <h1>Index</h1>
-<div>欢迎，@UserManager.GetUserAsync(User).Result.NickName!</div>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div>欢迎，@Model.IndexPage.UserName!</div>
+<partial name="_StatusMessage" model="Model.IndexPage.IndexPageStatusMessage" />
