@@ -45,28 +45,38 @@
 	</div>
 	<div class="tab-pane fade" id="pills-users" role="tabpanel" aria-labelledby="pills-users-tab">
 		<ul>
-					@if (Model.Role.UserInRoleName.Count == 0)
-					{
-						<li class="text-danger">当前角色未拥有用户</li>
-					}
-					else
-					{
-						@foreach (var user in Model.Role.UserInRoleName)
-						{
-							<li>@user</li>
-						}
-					}
-				</ul>
+			@if (Model.Role.UsersIncluded.Count == 0)
+			{
+				<li class="text-danger">当前角色未拥有用户</li>
+			}
+			else
+			{
+				@foreach (var user in Model.Role.UsersIncluded)
+				{
+					<li>@user</li>
+				}
+			}
+		</ul>
+		<p>=====================================</p>
+		<form method="post">
+			<h4>可选用户</h4>
+			<input type="hidden" name="roleId" value="@Model.Role.Id" />
+			<select class="custom-select form-group" asp-for="@Model.Role.UserId" asp-items="@(new SelectList(Model.Role.UsersIncluded, "Id", "UserName"))">
+				<option> -- 请选择一个用户 -- </option>
+			</select>
+			<button class="btn btn-danger" asp-page-handler="RemoveUserFromRole" asp-route-roleId="@Model.Role.Id" type="submit">移除</button>
+		</form>
+
 	</div>
 	<div class="tab-pane fade" id="pills-user-packages" role="tabpanel" aria-labelledby="pills-user-packages-tab">
 		<form method="post">
-					<h4>可选用户</h4>
-					<input type="hidden" name="roleId" value="@Model.Role.Id" />
-					<select class="custom-select form-group" asp-for="@Model.Role.UserId" asp-items="@(new SelectList(Model.Role.UserPackages, "Id", "UserName"))">
-						<option> -- 请选择一个用户 -- </option>
-					</select>
-					<button class="btn btn-primary" asp-page-handler="AddUserToRole" asp-route-roleId="@Model.Role.Id" type="submit">添加</button>
-				</form>
+			<h4>可选用户</h4>
+			<input type="hidden" name="roleId" value="@Model.Role.Id" />
+			<select class="custom-select form-group" asp-for="@Model.Role.NewUserId" asp-items="@(new SelectList(Model.Role.UserNotIncluded, "Id", "UserName"))">
+				<option> -- 请选择一个用户 -- </option>
+			</select>
+			<button class="btn btn-primary" asp-page-handler="AddUserToRole" asp-route-roleId="@Model.Role.Id" type="submit">添加</button>
+		</form>
 	</div>
 </div>
 
