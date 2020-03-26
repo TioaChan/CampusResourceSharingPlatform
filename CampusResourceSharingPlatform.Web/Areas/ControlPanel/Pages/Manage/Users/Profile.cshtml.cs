@@ -15,6 +15,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 
 		public ApplicationUser CurrentUser { get; set; }
 
+		[TempData]
+		public string StatusMessage { get; set; }
+
 		public ProfileModel(UserManager<ApplicationUser> userManager)
 		{
 			_userManager = userManager;
