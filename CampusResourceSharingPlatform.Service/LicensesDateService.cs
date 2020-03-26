@@ -1,8 +1,10 @@
 ﻿using CampusResourceSharingPlatform.Interface;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Service
 {
@@ -15,10 +17,15 @@ namespace CampusResourceSharingPlatform.Service
 			_context = context;
 		}
 
-		public IEnumerable<License> GetAll()
+		public List<License> GetAll()
 		{
 			return _context.ThirdLicenses.ToList();
 		}
 
+		public async Task<List<License>> GetAllAsync()
+		{
+			var list =await _context.ThirdLicenses.ToListAsync();
+			return list;
+		}
 	}
 }
