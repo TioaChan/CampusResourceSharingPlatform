@@ -1,14 +1,17 @@
-﻿@using CampusResourceSharingPlatform.Model
+﻿@page
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@model CampusResourceSharingPlatform.Web.Pages.IndexModel
+@{
+}
 @if (SignInManager.IsSignedIn(User))
 {
 	Layout = "~/Pages/Shared/_Layout.cshtml";
-	<partial name="~/Views/Home/_IndexPageUserOverview.cshtml" />
+	<partial name="_IndexPageUserOverview" />
 }
 else
 {
 	Layout = null;
-	<partial name="~/Views/Home/_IndexPageWelcome.cshtml" />
+	<partial name="_IndexPageWelcome" />
 }

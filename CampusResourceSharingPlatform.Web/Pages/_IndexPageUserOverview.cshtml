@@ -1,5 +1,4 @@
-﻿@model CampusResourceSharingPlatform.Web.ViewModels.OverviewIndexViewModel
-@using CampusResourceSharingPlatform.Model
+﻿@using CampusResourceSharingPlatform.Model
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -11,4 +10,4 @@
 
 <h1>Index</h1>
 <div>欢迎，@UserManager.GetUserAsync(User).Result.NickName!</div>
-<partial name="~/Views/Shared/_StatusMessage.cshtml" model="Model.StatusMessage" />
+<partial name="_StatusMessage" model="Model.StatusMessage" />

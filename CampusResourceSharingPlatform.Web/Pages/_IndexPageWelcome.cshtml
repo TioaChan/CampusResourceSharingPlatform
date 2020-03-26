@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>校园闲散资源共享平台</title>
-    <partial name="~/Views/Shared/_LoadBootStrapPartial.cshtml" />
+    <partial name="_LoadBootStrapPartial" />
     <!-- <link rel="stylesheet" href="css.css"> -->
     <link rel="stylesheet" href="/css/newcss.css">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC|Noto+Serif+SC&display=swap" rel="stylesheet">
@@ -36,7 +36,7 @@
                         <a class="nav-link js-scroll-trigger" href="#">Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" asp-controller="Home" asp-action="About">关于</a>
+                        <a class="nav-link js-scroll-trigger" asp-area=""  asp-page="/About" >关于</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#">Team</a>
@@ -113,7 +113,7 @@
             </div>
         </div>
     </section> -->
-	<partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
+	<partial name="_ValidationScriptsPartial" />
 	<environment include="Development">
 		<script src="/js/BrowserCheck.js"></script>
 	</environment>
