@@ -46,15 +46,17 @@
 								</form>
 							</div>
 							<div class="card-body">
-								<div>GUID:@r.RoleId</div>
-								<div>Name:@r.RoleName</div>
-								<div>@r.RoleName 目前拥有一下用户:
-									<ul class="list-group list-group-horizontal-sm">
-										@foreach (var user in r.UserInRoleName)
-										{
-											<li class="list-group-item">@user</li>
-										}
-									</ul>
+								<div class="form-group">
+									<div>GUID:@r.RoleId</div>
+									<div>Name:@r.RoleName</div>
+									<div>@r.RoleName 目前拥有一下用户:
+										<ul class="list-group list-group-horizontal-sm">
+											@foreach (var user in r.UserInRoleName)
+											{
+												<li class="list-group-item">@user</li>
+											}
+										</ul>
+									</div>
 								</div>
 								<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left mr-2">编辑</a>
 							</div>
@@ -78,7 +80,7 @@
 				$("tbody>.parent-row").click(function () {
 					var parent = $(this).attr('id');
 					var child = parent.replace("parent-row-", "child-row-");
-					console.log(parent + "," + child);
+//					console.log(parent + "," + child);
 					$("tr#" + parent).addClass("current").next().show();
 					$(".parent-row:not(#" + parent + ")").removeClass("current").next().hide();
 					return false;
