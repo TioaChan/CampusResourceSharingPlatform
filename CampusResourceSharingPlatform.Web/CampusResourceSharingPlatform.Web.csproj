@@ -23,6 +23,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\js\login\" />
     <Folder Include="wwwroot\lib\" />
+    <Folder Include="Pages\" />
   </ItemGroup>
 
   <ItemGroup>
