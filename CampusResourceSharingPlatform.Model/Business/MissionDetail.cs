@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CampusResourceSharingPlatform.Model
+namespace CampusResourceSharingPlatform.Model.Business
 {
 	public class MissionDetail:MissionBase
 	{

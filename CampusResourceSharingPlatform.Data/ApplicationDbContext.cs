@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Linq.Expressions;
 using CampusResourceSharingPlatform.Model;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +18,8 @@ namespace CampusResourceSharingPlatform.Data
 		public DbSet<MissionType> MissionTypes { get; set; }
 
 		public DbSet<License> ThirdLicenses { get; set; }
+
+		public DbSet<Express> Expresses { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
