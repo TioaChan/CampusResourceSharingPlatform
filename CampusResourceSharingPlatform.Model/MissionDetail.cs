@@ -41,7 +41,7 @@ namespace CampusResourceSharingPlatform.Model
 		/// 任务描述
 		/// </summary>
 		[Required]
-		public string MissionDetails { get; set; }
+		public string MissionNotes { get; set; }
 
 		/// <summary>
 		/// 任务奖励
