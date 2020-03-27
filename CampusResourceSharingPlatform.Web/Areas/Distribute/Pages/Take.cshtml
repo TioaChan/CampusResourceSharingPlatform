@@ -4,13 +4,113 @@
 @{
 	Layout = "_Layout";
 	ViewData["ActivePage"] = DistributeNavPages.Take;
+	ViewData["Title"] = "帮我取";
 }
 
-<h3>帮我取</h3>
 
+<form action="#">
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">物品类型</label>
+					<div class="col-sm-10">
+						<input class="form-control">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">取货地址</label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="off" value="" placeholder="请填写取货地址"
+							   title="取货地址">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">备注地址</label>
+					<div class="col-sm-10">
+						<input type="text" autocomplete="off" class="form-control" placeholder="请填写具体楼号及门牌号"
+							   title="备注地址">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">取货电话</label>
+					<div class="col-sm-10">
+						<input autocomplete="off" maxlength="11" class="form-control" placeholder="请输入取货人手机号码">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">收货地址</label>
+					<div class="col-sm-10">
+						<input type="text" autocomplete="off" class="form-control" value=""
+							   placeholder="请填写收货地址" title="收货地址">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">备注地址</label>
+					<div class="col-sm-10">
+						<input type="text" autocomplete="off" class="form-control" placeholder="请填写具体楼号及门牌号"
+							   title="备注地址">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">收货电话</label>
+					<div class="col-sm-10">
+						<input type="tel" autocomplete="off" maxlength="11" class="form-control"
+							   placeholder="请输入收货人手机号码">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">备注信息</label>
+					<div class="col-sm-10">
+						<textarea autocomplete="off" class="form-control" type="text"
+								  placeholder="请填写物品具体信息"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">取货时间</label>
+					<div class="col-sm-10">
+						<div>
+							<select name="" id="sendTime" class="custom-select">
+								<option value="0">立即取货</option>
+								<option value="1">预约时间</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">物品重量</label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+							<div class="input-group-append">
+								<span class="input-group-text">千克</span>
+							</div>
+						</div>
+					</div>
 
-<p>帮我取</p>
-<p>帮我取</p>
-<p>帮我取</p>
-<p>帮我取</p>
-<p>帮我取</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="form-group row">
+					<button type="submit" class="btn btn-primary" style="width: 100%;">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
