@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CampusResourceSharingPlatform.Model.Application;
 
 namespace CampusResourceSharingPlatform.Model.Business
 {

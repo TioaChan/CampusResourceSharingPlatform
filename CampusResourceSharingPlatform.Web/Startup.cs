@@ -1,7 +1,7 @@
 using System;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Data;
-using CampusResourceSharingPlatform.Model;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

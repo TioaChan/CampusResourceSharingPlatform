@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Data;
-using CampusResourceSharingPlatform.Model;
+using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Service
