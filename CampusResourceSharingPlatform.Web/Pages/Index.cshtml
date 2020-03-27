@@ -8,10 +8,12 @@
 @if (SignInManager.IsSignedIn(User))
 {
 	Layout = "~/Pages/Shared/_Layout.cshtml";
-	<partial name="_IndexPageUserOverview" />
+	ViewData["Title"] = "Index";
+	<partial name="IndexPartial/_IndexPageUserOverview" />
 }
 else
 {
 	Layout = null;
-	<partial name="_IndexPageWelcome" />
+	ViewData["Title"] = "Welcome";
+	<partial name="IndexPartial/_IndexPageWelcome" />
 }

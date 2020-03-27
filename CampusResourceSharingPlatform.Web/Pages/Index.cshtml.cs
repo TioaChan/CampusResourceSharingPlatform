@@ -32,6 +32,8 @@ namespace CampusResourceSharingPlatform.Web.Pages
 		public class IndexPageModel
 		{
 			public string UserName { get; set; }
+
+			public bool IsShowNavFunction { get; set; }
 			[TempData]
 			public string IndexPageStatusMessage { get; set; }
 		}
@@ -44,7 +46,8 @@ namespace CampusResourceSharingPlatform.Web.Pages
 				IndexPage=new IndexPageModel
 				{
 					UserName = user.NickName,
-					IndexPageStatusMessage = !user.StudentIdentityConfirmed ?"Error:你还没有验证学生身份，请先去个人设置中验证学生身份。" : ""
+					IsShowNavFunction = user.StudentIdentityConfirmed,
+					IndexPageStatusMessage = !user.StudentIdentityConfirmed ?"Error:你还没有验证学生身份，无法进行下单，请先去个人设置中验证学生身份。" : ""
 				};
 			}
 			return Page();
