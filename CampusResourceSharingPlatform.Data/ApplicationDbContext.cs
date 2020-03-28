@@ -12,7 +12,6 @@ namespace CampusResourceSharingPlatform.Data
 		{
 			
 		}
-		// public DbSet<MissionDetail> MissionDetails { get; set; }
 
 		public DbSet<MissionType> MissionTypes { get; set; }
 
@@ -28,12 +27,9 @@ namespace CampusResourceSharingPlatform.Data
 			{
 				relationship.DeleteBehavior = DeleteBehavior.Restrict;
 			}
-
-			// modelBuilder.Entity<MissionDetail>().Property(p => p.IsAccepted).HasDefaultValue(0);
-			// modelBuilder.Entity<MissionDetail>().Property(p => p.IsCompleted).HasDefaultValue(0);
-			// modelBuilder.Entity<MissionDetail>().Property(p => p.DeletedMark).HasDefaultValue(0);
 			modelBuilder.Entity<MissionType>().Property(p => p.DeletedMark).HasDefaultValue(0);
 			modelBuilder.Entity<ApplicationUser>().Property(p=>p.DeletedMark).HasDefaultValue(0);
+
 			modelBuilder.Entity<Express>().Property(p=> p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.DeletedMark).HasDefaultValue(0);

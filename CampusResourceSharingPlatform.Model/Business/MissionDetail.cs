@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using CampusResourceSharingPlatform.Model.Application;
 
 namespace CampusResourceSharingPlatform.Model.Business
@@ -46,7 +47,6 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// <summary>
 		/// 任务奖励
 		/// </summary>
-		[Required]
 		public string MissionReward { get; set; }
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// <summary>
 		/// 接受时间
 		/// </summary>
-		public DateTime AcceptTime { get; set; }
+		public DateTime? AcceptTime { get; set; }
 
 		/// <summary>
 		/// 任务是否完成
