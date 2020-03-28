@@ -2,8 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Authentication.ExtendedProtection;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,10 +16,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	public class TakeModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly ITakeExpressService<Express> _takeExpress;
 
-		public TakeModel(UserManager<ApplicationUser> userManager)
+		public TakeModel(UserManager<ApplicationUser> userManager,ITakeExpressService<Express> takeExpress)
 		{
 			_userManager = userManager;
+			_takeExpress = takeExpress;
 		}
 
 
@@ -151,10 +156,32 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
 			if (user.Id!=PostUserId) return RedirectToPage("Index");
-			TakeExpress.PostUserId = PostUserId;
-			var time= DateTime.UtcNow;
-			TakeExpress.PostTime = time;
-			TakeExpress.InvalidTime = time.AddDays(2.0);
+			var time = DateTime.UtcNow;
+			var post=new Express
+			{
+				ExpressCompany = TakeExpress.ExpressCompany,
+				TrackingCode = TakeExpress.TrackingCode,
+				ConsigneePhone = TakeExpress.ConsigneePhone,
+				Consignee = TakeExpress.Consignee,
+				PickCode = TakeExpress.PickCode,
+				YiZhanName = TakeExpress.YiZhanName,
+				Weight = TakeExpress.Weight,
+				ReceiveAddress1 = TakeExpress.ReceiveAddress1,
+				ReceiveAddress2 = TakeExpress.ReceiveAddress2,
+				ReceivePhoneNumber = TakeExpress.ReceivePhoneNumber,
+				MissionName = "【快递】 【"+TakeExpress.ExpressCompany+"】",
+				TypeId = "00000000-0000-0000-0000-000000000001",
+				PostUserId = user.Id,
+				PostTime = time,
+				InvalidTime = time.AddDays(2.0),
+				MissionNotes = TakeExpress.MissionNotes,
+				MissionReward = TakeExpress.MissionReward
+			};
+			var result =_takeExpress.Post(post);
+			if (result==1)
+			{
+				//success
+			}
 			return Page();
 		}
 	}

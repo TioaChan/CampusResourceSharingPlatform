@@ -2,6 +2,7 @@ using System;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using CampusResourceSharingPlatform.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,6 +37,7 @@ namespace CampusResourceSharingPlatform.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 			services.AddScoped<ILicensesDateService<License>,LicenseDateService>();
+			services.AddScoped<ITakeExpressService<Express>,TakeExpress>();
 			services.AddDbContext<ApplicationDbContext> (options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
