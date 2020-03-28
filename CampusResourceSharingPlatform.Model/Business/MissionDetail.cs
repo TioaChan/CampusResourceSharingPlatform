@@ -39,9 +39,8 @@ namespace CampusResourceSharingPlatform.Model.Business
 		public DateTime InvalidTime { get; set; }
 
 		/// <summary>
-		/// 任务描述
+		/// 备注信息
 		/// </summary>
-		[Required]
 		public string MissionNotes { get; set; }
 
 		/// <summary>
