@@ -94,7 +94,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			/// </summary>
 			[Display(Name = "收货人手机号")]
 			[Required(ErrorMessage = "收货人手机号 为必填项")]
-			public int ConsigneePhone { get; set; }
+			public string ConsigneePhone { get; set; }
 
 
 			/// <summary>

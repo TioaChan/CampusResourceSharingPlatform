@@ -27,7 +27,7 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// 快递收件人手机号【后四位？】
 		/// </summary>
 		[Required]
-		public int ConsigneePhone { get; set; }
+		public string ConsigneePhone { get; set; }
 
 
 		/// <summary>
