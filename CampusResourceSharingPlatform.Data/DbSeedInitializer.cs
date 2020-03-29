@@ -107,7 +107,6 @@ namespace CampusResourceSharingPlatform.Data
 			}
 			#endregion
 
-
 			#region ThirdLicensesSeed
 			if (!context.ThirdLicenses.Any())
 			{
@@ -222,6 +221,7 @@ namespace CampusResourceSharingPlatform.Data
 				}
 			#endregion
 
+			#region missiontype
 			if (!context.MissionTypes.Any())
 			{
 				var types = new[]
@@ -245,6 +245,11 @@ namespace CampusResourceSharingPlatform.Data
 				context.SaveChanges();
 				logger.LogInformation("DATABASE:default MissionTypes data has initialized complete.");
 			}
+			else
+			{
+				logger.LogInformation("DATABASE:default MissionTypes in database checked complete.");
+			}
+			#endregion
 
 			logger.LogInformation("DATABASE:database checked complete.");
 			logger.LogInformation("==========================================================");
