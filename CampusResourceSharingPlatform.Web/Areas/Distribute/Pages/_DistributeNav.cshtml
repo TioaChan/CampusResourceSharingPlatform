@@ -6,16 +6,22 @@
 <link href="~/css/Distribute/side.css" rel="stylesheet" />
 
 <ul class="nav nav-pills flex-column distribute-nav">
-	<li class="nav-item"><a class="nav-link distribute-sidebar-nav @DistributeNavPages.TakeExpressNavClass(ViewContext)" id="takexpress" asp-page="./TakeExpress">
-		<h5><i class=""></i></h5>
-		<p>快递</p>
-	</a></li>
-	<li class="nav-item"><a class="nav-link distribute-sidebar-nav @DistributeNavPages.TakeOrderNavClass(ViewContext)" id="role" asp-page="./TakeOrder">
-		<h5><i class=""></i></h5>
-		<p>404</p>
-	</a></li>
-	<li class="nav-item"><a class="nav-link distribute-sidebar-nav @DistributeNavPages.PurchaseNavClass(ViewContext)" id="purchase" asp-page="./Purchase">
-		<h5><i class=""></i></h5>
-		<p>买</p>
-	</a></li>
+	<li class="nav-item">
+		<a class="nav-link distribute-sidebar-nav @DistributeNavPages.TakeExpressNavClass(ViewContext)" id="takexpress" asp-page="./TakeExpress">
+			<h5><i class=""></i></h5>
+			<p>快递</p>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link distribute-sidebar-nav @DistributeNavPages.PurchaseNavClass(ViewContext)" id="purchase" asp-page="./Purchase">
+			<h5><i class=""></i></h5>
+			<p>买</p>
+		</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link distribute-sidebar-nav @DistributeNavPages.TakeOrderNavClass(ViewContext)" id="role" asp-page="./TakeOrder">
+			<h5><i class=""></i></h5>
+			<p>404</p>
+		</a>
+	</li>
 </ul>

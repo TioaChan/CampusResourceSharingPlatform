@@ -5,7 +5,7 @@
 	}
 
 	.pills-btnContent {
-		line-height: 42px;
+		line-height: 44px;
 		padding: 0;
 	}
 
@@ -28,10 +28,10 @@
 			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">帮我领快递</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">空位</a>
+			<a class="nav-link" id="pills-purchase-tab" data-toggle="pill" href="#pills-purchase" role="tab" aria-controls="pills-purchase" aria-selected="false">帮我买</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-purchase-tab" data-toggle="pill" href="#pills-purchase" role="tab" aria-controls="pills-purchase" aria-selected="false">帮我买</a>
+			<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">空位</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="pills-contact1-tab" data-toggle="pill" href="#pills-contact1" role="tab" aria-controls="pills-contact1" aria-selected="false">空位</a>
@@ -74,10 +74,10 @@
 		case 0:
 				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
 			break;
-		case 1:
+		case 2:
 			$("#navbar-btn").attr('href', '/Distribute/Buy').text('404');
 			break;
-		case 2:
+		case 1:
 				$("#navbar-btn").attr('href', '/Distribute/Purchase').text('立即下单');
 			break;
 		case 3:
