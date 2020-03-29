@@ -47,23 +47,5 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// </summary>
 		[Required]
 		public double Weight { get; set; }
-
-		/// <summary>
-		/// 地址1
-		/// </summary>
-		[Required]
-		public string ReceiveAddress1 { get; set; }
-
-		/// <summary>
-		/// 地址2
-		/// </summary>
-		[Required]
-		public string ReceiveAddress2 { get; set; }
-
-		/// <summary>
-		/// 联系方式
-		/// </summary>
-		[Required]
-		public string ReceivePhoneNumber { get; set; }
 	}
 }
