@@ -4,7 +4,7 @@
 		padding: 0;
 	}
 
-	#pills-tabContent {
+	.pills-btnContent {
 		line-height: 42px;
 		padding: 0;
 	}
@@ -41,19 +41,55 @@
 			   aria-controls="pills-contact1" aria-selected="false">代排队</a>
 		</li>
 	</ul>
-	<div class="tab-content col-3" id="pills-tabContent">
-		<div class="tab-pane fade show active " id="pills-home" role="tabpanel"
-			 aria-labelledby="pills-home-tab">
-			<a asp-area="Distribute" asp-page="Take" class="nav-link btn-primary text-center">Take</a>
-		</div>
-		<div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-			<a asp-area="Distribute" asp-page="TakeOrder" class="nav-link btn-primary text-center">TakeOrder</a>
-		</div>
-		<div class="tab-pane fade " id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-			<a asp-area="Distribute" asp-page="Buy" class="nav-link btn-primary text-center">Buy</a>
-		</div>
-		<div class="tab-pane fade" id="pills-contact1" role="tabpanel" aria-labelledby="pills-contact1-tab">
-			<a href="#" class="nav-link btn-primary text-center">立即下单 代排队</a>
-		</div>
+	<div class="tab-content col-3 pills-btnContent">
+		<a class="nav-link btn-primary text-center" id="navbar-btn" href="/Distribute/Take">Take</a>
 	</div>
 </div>
+
+<div class="tab-content" id="pills-tabContent">
+	<div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+		1
+	</div>
+	<div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+		2
+	</div>
+	<div class="tab-pane fade " id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+		3
+	</div>
+	<div class="tab-pane fade" id="pills-contact1" role="tabpanel" aria-labelledby="pills-contact1-tab">
+		4
+	</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		var index = $("#pills-tab .nav-item:has('.active')").parent().index();
+		// console.log(index);
+		ChangeNavbarBtnLink(index);
+		$("#pills-tab a").click(function (e) {
+			index = $(this).parent().index();
+			// console.log(index);
+			ChangeNavbarBtnLink(index);
+		});
+	});
+
+	function ChangeNavbarBtnLink(e) {
+		switch (e) {
+		case 0:
+			$("#navbar-btn").attr('href', '/Distribute/Take').text('Take');
+			break;
+		case 1:
+			$("#navbar-btn").attr('href', '/Distribute/TakeOrder').text('TakeOrder');
+			break;
+		case 2:
+			$("#navbar-btn").attr('href', '/Distribute/Buy').text('Buy');
+			break;
+		case 3:
+			$("#navbar-btn").attr('href', '/Distribute/404').text('404');
+			break;
+		default:
+			$("#navbar-btn").attr('href', '/Distribute/Take').text('Take');
+			break;
+		}
+	}
+</script>
