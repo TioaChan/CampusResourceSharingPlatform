@@ -1,8 +1,8 @@
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users
 {

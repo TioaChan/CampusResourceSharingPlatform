@@ -1,12 +1,12 @@
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Interface;
-using CampusResourceSharingPlatform.Model.Business;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
@@ -15,7 +15,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IPurchaseService<Purchase> _purchase;
 
-		public PurchaseModel(UserManager<ApplicationUser> userManager,IPurchaseService<Purchase> purchase)
+		public PurchaseModel(UserManager<ApplicationUser> userManager, IPurchaseService<Purchase> purchase)
 		{
 			_userManager = userManager;
 			_purchase = purchase;
@@ -116,7 +116,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			return Page();
 		}
 
-		public async Task<IActionResult> OnPostAsync(){
+		public async Task<IActionResult> OnPostAsync()
+		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
 			if (user.Id != PostUserId) return RedirectToPage("Index");
@@ -126,8 +127,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PurchaseContent = PurchaseInput.PurchaseContent,
 				PurchaseAddress = PurchaseInput.PurchaseAddress,
 				PurchaseRequirement = PurchaseInput.PurchaseRequirement,
-				MissionName = "【帮我买】【"+ PurchaseInput.PurchaseContent+"】",
-				TypeId= "00000000-0000-0000-0000-000000000002",
+				MissionName = "【帮我买】【" + PurchaseInput.PurchaseContent + "】",
+				TypeId = "00000000-0000-0000-0000-000000000002",
 				PostUserId = user.Id,
 				PostTime = time,
 				InvalidTime = time.AddDays(2.0),

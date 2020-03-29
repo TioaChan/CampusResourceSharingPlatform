@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Authentication;
 
 namespace CampusResourceSharingPlatform.Model.Business
 {
-	public class Express:MissionDetail
+	public class Express : MissionDetail
 	{
 		/// <summary>
 		/// 快递公司

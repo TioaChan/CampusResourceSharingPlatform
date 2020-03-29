@@ -1,19 +1,20 @@
-﻿using System.Linq;
-using CampusResourceSharingPlatform.Model.Application;
+﻿using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace CampusResourceSharingPlatform.Data
 {
 	public static class DbSeedInitializer
 	{
-		public static void DbSeedInitialize(ApplicationDbContext context,ILogger logger)
+		public static void DbSeedInitialize(ApplicationDbContext context, ILogger logger)
 		{
 			context.Database.EnsureCreated();
 
 			#region aaa2900-UsersSeed
-			if (!context.Users.Any(x=>x.Id== "00000000-0000-0000-0000-000000000001")) { 
+			if (!context.Users.Any(x => x.Id == "00000000-0000-0000-0000-000000000001"))
+			{
 				var users = new[] {
 				new ApplicationUser
 				{
@@ -56,7 +57,7 @@ namespace CampusResourceSharingPlatform.Data
 			#endregion
 
 			#region administrator-role-seed
-			if (!context.Roles.Any(x=>x.Id== "00000000-0000-0000-0000-000000000001"))
+			if (!context.Roles.Any(x => x.Id == "00000000-0000-0000-0000-000000000001"))
 			{
 				var roles = new[]
 				{
@@ -218,7 +219,7 @@ namespace CampusResourceSharingPlatform.Data
 				}
 				context.SaveChanges();
 				logger.LogInformation("DATABASE:database initialized complete.");
-				}
+			}
 			#endregion
 
 			#region missiontype

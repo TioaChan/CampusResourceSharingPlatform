@@ -1,16 +1,16 @@
-﻿using System.Linq;
-using CampusResourceSharingPlatform.Model.Application;
+﻿using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace CampusResourceSharingPlatform.Data
 {
-	public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{
-		public ApplicationDbContext(DbContextOptions options):base(options)
+		public ApplicationDbContext(DbContextOptions options) : base(options)
 		{
-			
+
 		}
 
 		public DbSet<MissionType> MissionTypes { get; set; }
@@ -30,9 +30,9 @@ namespace CampusResourceSharingPlatform.Data
 				relationship.DeleteBehavior = DeleteBehavior.Restrict;
 			}
 			modelBuilder.Entity<MissionType>().Property(p => p.DeletedMark).HasDefaultValue(0);
-			modelBuilder.Entity<ApplicationUser>().Property(p=>p.DeletedMark).HasDefaultValue(0);
+			modelBuilder.Entity<ApplicationUser>().Property(p => p.DeletedMark).HasDefaultValue(0);
 
-			modelBuilder.Entity<Express>().Property(p=> p.IsAccepted).HasDefaultValue(0);
+			modelBuilder.Entity<Express>().Property(p => p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.DeletedMark).HasDefaultValue(0);
 

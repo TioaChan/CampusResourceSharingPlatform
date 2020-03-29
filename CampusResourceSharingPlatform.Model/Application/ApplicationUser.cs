@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace CampusResourceSharingPlatform.Model.Application
 {
-	public class ApplicationUser:IdentityUser
+	public class ApplicationUser : IdentityUser
 	{
 		[MaxLength(18)]
 		public string IdCardNo { get; set; }

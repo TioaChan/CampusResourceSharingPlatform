@@ -1,25 +1,24 @@
-using System;
-using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Data;
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using CampusResourceSharingPlatform.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using System;
 
 namespace CampusResourceSharingPlatform.Web
 {
 	public class Startup
 	{
 		private readonly IWebHostEnvironment _env;
-		public Startup(IConfiguration configuration,IWebHostEnvironment env)
+		public Startup(IConfiguration configuration, IWebHostEnvironment env)
 		{
 			_env = env;
 			Configuration = configuration;
@@ -36,11 +35,11 @@ namespace CampusResourceSharingPlatform.Web
 				options.CheckConsentNeeded = context => true;
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
-			services.AddScoped<ILicensesDateService<License>,LicenseDateService>();
-			services.AddScoped<ITakeExpressService<Express>,TakeExpressService>();
-			services.AddScoped<IPurchaseService<Purchase>,PurchaseService>();
-			services.AddDbContext<ApplicationDbContext> (options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
+			services.AddScoped<ILicensesDateService<License>, LicenseDateService>();
+			services.AddScoped<ITakeExpressService<Express>, TakeExpressService>();
+			services.AddScoped<IPurchaseService<Purchase>, PurchaseService>();
+			services.AddDbContext<ApplicationDbContext>(options =>
+			   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
 				);
 
@@ -49,7 +48,7 @@ namespace CampusResourceSharingPlatform.Web
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders()
 				.AddDefaultUI();
-			
+
 
 			services.AddRazorPages();
 

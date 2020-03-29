@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Pages
 {
@@ -43,11 +40,11 @@ namespace CampusResourceSharingPlatform.Web.Pages
 			if (_signInManager.IsSignedIn(User))
 			{
 				var user = await _userManager.GetUserAsync(User);
-				IndexPage=new IndexPageModel
+				IndexPage = new IndexPageModel
 				{
 					UserName = user.NickName,
 					IsShowNavFunction = user.StudentIdentityConfirmed,
-					IndexPageStatusMessage = !user.StudentIdentityConfirmed ?"Error:你还没有验证学生身份，无法进行下单，请先去个人设置中验证学生身份。" : ""
+					IndexPageStatusMessage = !user.StudentIdentityConfirmed ? "Error:你还没有验证学生身份，无法进行下单，请先去个人设置中验证学生身份。" : ""
 				};
 			}
 			return Page();

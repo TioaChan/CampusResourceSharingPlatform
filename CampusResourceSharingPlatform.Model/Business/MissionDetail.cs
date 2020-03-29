@@ -1,12 +1,11 @@
-﻿using System;
+﻿using CampusResourceSharingPlatform.Model.Application;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
-using CampusResourceSharingPlatform.Model.Application;
 
 namespace CampusResourceSharingPlatform.Model.Business
 {
-	public class MissionDetail:MissionBase
+	public class MissionDetail : MissionBase
 	{
 		#region properties
 		/// <summary>

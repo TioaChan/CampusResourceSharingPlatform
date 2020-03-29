@@ -3,12 +3,13 @@
 [assembly: HostingStartup(typeof(CampusResourceSharingPlatform.Web.Areas.Identity.IdentityHostingStartup))]
 namespace CampusResourceSharingPlatform.Web.Areas.Identity
 {
-    public class IdentityHostingStartup : IHostingStartup
-    {
-        public void Configure(IWebHostBuilder builder)
-        {
-            builder.ConfigureServices((context, services) => {
-            });
-        }
-    }
+	public class IdentityHostingStartup : IHostingStartup
+	{
+		public void Configure(IWebHostBuilder builder)
+		{
+			builder.ConfigureServices((context, services) =>
+			{
+			});
+		}
+	}
 }

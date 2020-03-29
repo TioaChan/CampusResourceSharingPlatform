@@ -2,7 +2,7 @@
 
 namespace CampusResourceSharingPlatform.Model.Business
 {
-	public class MissionType:MissionBase
+	public class MissionType : MissionBase
 	{
 		/// <summary>
 		/// 任务类目名称

@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Authentication.ExtendedProtection;
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
@@ -18,7 +15,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ITakeExpressService<Express> _takeExpress;
 
-		public TakeExpressModel(UserManager<ApplicationUser> userManager,ITakeExpressService<Express> takeExpress)
+		public TakeExpressModel(UserManager<ApplicationUser> userManager, ITakeExpressService<Express> takeExpress)
 		{
 			_userManager = userManager;
 			_takeExpress = takeExpress;
@@ -143,7 +140,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
-			TakeExpressInput=new TakeExpressInputModel
+			TakeExpressInput = new TakeExpressInputModel
 			{
 				PostUserId = user.Id,
 			};
@@ -155,9 +152,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
-			if (user.Id!=PostUserId) return RedirectToPage("Index");
+			if (user.Id != PostUserId) return RedirectToPage("Index");
 			var time = DateTime.UtcNow;
-			var post=new Express
+			var post = new Express
 			{
 				ExpressCompany = TakeExpressInput.ExpressCompany,
 				TrackingCode = TakeExpressInput.TrackingCode,
@@ -169,7 +166,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PosterAddress1 = TakeExpressInput.ReceiveAddress1,
 				PosterAddress2 = TakeExpressInput.ReceiveAddress2,
 				PosterPhoneNumber = TakeExpressInput.ReceivePhoneNumber,
-				MissionName = "【快递】 【"+TakeExpressInput.ExpressCompany+"】",
+				MissionName = "【快递】 【" + TakeExpressInput.ExpressCompany + "】",
 				TypeId = "00000000-0000-0000-0000-000000000001",
 				PostUserId = user.Id,
 				PostTime = time,
@@ -178,7 +175,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				MissionReward = TakeExpressInput.MissionReward
 			};
 			var result = _takeExpress.Post(post);
-			if (result==1)
+			if (result == 1)
 			{
 				//success
 			}
