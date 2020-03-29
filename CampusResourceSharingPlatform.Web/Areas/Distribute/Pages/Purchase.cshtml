@@ -4,8 +4,82 @@
 @{
 	Layout = "_Layout";
 	ViewData["ActivePage"] = DistributeNavPages.Purchase;
+	ViewData["Title"] = "帮我买";
 }
-<h3>帮我买</h3>
 
-
-<p>帮我买</p>
+	<form id="purchase-form" method="post">
+		<div asp-validation-summary="All" class="text-danger"></div>
+		<div class="col mb-4">
+			<div class="card">
+				<div class="card-header">需求信息</div>
+				<div class="card-body">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.PurchaseContent"></label>
+						<div class="col-sm-10">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写购买内容" title="购买内容" asp-for="PurchaseInput.PurchaseContent">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.PurchaseAddress"></label>
+						<div class="col-sm-10">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写购买地址" title="购买地址" asp-for="PurchaseInput.PurchaseAddress">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.PurchaseRequirement"></label>
+						<div class="col-sm-10">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写购买要求" title="购买要求" asp-for="PurchaseInput.PurchaseRequirement">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<div class="card-header">任务信息</div>
+				<div class="card-body">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.ReceiveAddress1"></label>
+						<div class="col-sm-10">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写收货地址" title="收货地址" asp-for="PurchaseInput.ReceiveAddress1">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.ReceiveAddress2"></label>
+						<div class="col-sm-10">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写具体楼号及门牌号" title="备注地址" asp-for="PurchaseInput.ReceiveAddress2">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.ReceivePhoneNumber"></label>
+						<div class="col-sm-10">
+							<input class="form-control" autocomplete="new-off" maxlength="11" placeholder="请输入收货人手机号码" asp-for="PurchaseInput.ReceivePhoneNumber">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col mb-4">
+			<div class="card">
+				<div class="card-header">其他信息</div>
+				<div class="card-body">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.MissionNotes"></label>
+						<div class="col-sm-10">
+							<textarea class="form-control" autocomplete="new-off" placeholder="还需要填写备注信息吗？" asp-for="PurchaseInput.MissionNotes"></textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label" asp-for="PurchaseInput.MissionReward"></label>
+						<div class="col-sm-10">
+							<textarea class="form-control" autocomplete="new-off" placeholder="请填写酬劳" asp-for="PurchaseInput.MissionReward"></textarea>
+						</div>
+					</div>
+					<div class="form-group row">
+						<input type="hidden" name="PostUserId" value="@Model.PurchaseInput.PostUserId" />
+						<button type="submit" class="btn btn-primary m-3" style="width: 100%;">Save</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>

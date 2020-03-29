@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
@@ -14,6 +16,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			_userManager = userManager;
 		}
+
+		[BindProperty]
+		public PurchaseInputModel PurchaseInput { get; set; }
+
+		[BindProperty]
+		public string PostUserId { get; set; }
 
 		public class PurchaseInputModel
 		{
@@ -63,24 +71,45 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			[Required(ErrorMessage = "联系方式 为必填项")]
 			public string ReceivePhoneNumber { get; set; }
 
-			[Required]
+			/// <summary>
+			/// 购买内容
+			/// </summary>
+			[Display(Name = "购买内容")]
+			[Required(ErrorMessage = "购买内容 为必填项")]
 			public string PurchaseContent { get; set; }
 
 			/// <summary>
 			/// 购买地址
 			/// </summary>
-			[Required]
+			[Display(Name = "购买地址")]
+			[Required(ErrorMessage = "购买地址 为必填项")]
 			public string PurchaseAddress { get; set; }
 
 			/// <summary>
 			/// 购买需求
 			/// </summary>
-			[Required]
+			[Display(Name = "购买要求")]
+			[Required(ErrorMessage = "购买要求 为必填项")]
 			public string PurchaseRequirement { get; set; }
+
+			/// <summary>
+			/// 任务奖励
+			/// </summary>
+			[Display(Name = "设置酬劳")]
+			[Required(ErrorMessage = "设置酬劳 为必填项")]
+			public string MissionReward { get; set; }
 		}
 
-		public void OnGet()
+		public async Task<IActionResult> OnGetAsync()
 		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null) return RedirectToPage("Index");
+			PurchaseInput = new PurchaseInputModel
+			{
+				PostUserId = user.Id,
+			};
+			PostUserId = user.Id;
+			return Page();
 		}
 
 	}
