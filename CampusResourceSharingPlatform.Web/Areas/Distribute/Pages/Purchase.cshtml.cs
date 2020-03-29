@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
@@ -11,10 +13,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	public class PurchaseModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IPurchaseService<Purchase> _purchase;
 
-		public PurchaseModel(UserManager<ApplicationUser> userManager)
+		public PurchaseModel(UserManager<ApplicationUser> userManager,IPurchaseService<Purchase> purchase)
 		{
 			_userManager = userManager;
+			_purchase = purchase;
 		}
 
 		[BindProperty]
@@ -109,6 +113,35 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PostUserId = user.Id,
 			};
 			PostUserId = user.Id;
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostAsync(){
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null) return RedirectToPage("Index");
+			if (user.Id != PostUserId) return RedirectToPage("Index");
+			var time = DateTime.UtcNow;
+			var post = new Purchase
+			{
+				PurchaseContent = PurchaseInput.PurchaseContent,
+				PurchaseAddress = PurchaseInput.PurchaseAddress,
+				PurchaseRequirement = PurchaseInput.PurchaseRequirement,
+				MissionName = "【帮我买】【"+ PurchaseInput.PurchaseContent+"】",
+				TypeId= "00000000-0000-0000-0000-000000000002",
+				PostUserId = user.Id,
+				PostTime = time,
+				InvalidTime = time.AddDays(2.0),
+				MissionNotes = PurchaseInput.MissionNotes,
+				MissionReward = PurchaseInput.MissionReward,
+				ReceiveAddress1 = PurchaseInput.ReceiveAddress1,
+				ReceiveAddress2 = PurchaseInput.ReceiveAddress2,
+				ReceivePhoneNumber = PurchaseInput.ReceivePhoneNumber,
+			};
+			var result = _purchase.Post(post);
+			if (result == 1)
+			{
+				//success
+			}
 			return Page();
 		}
 
