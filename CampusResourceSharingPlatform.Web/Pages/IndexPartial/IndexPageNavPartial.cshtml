@@ -25,39 +25,35 @@
 <div class="row border rounded-lg">
 	<ul class="nav nav-pills nav-fill col-9" id="pills-tab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-			   aria-controls="pills-home" aria-selected="true">帮我买</a>
+			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">帮我领快递</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-			   aria-controls="pills-profile" aria-selected="false">帮我送</a>
+			<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">空位</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-			   aria-controls="pills-contact" aria-selected="false">帮我取</a>
+			<a class="nav-link" id="pills-purchase-tab" data-toggle="pill" href="#pills-purchase" role="tab" aria-controls="pills-purchase" aria-selected="false">帮我买</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-contact1-tab" data-toggle="pill" href="#pills-contact1" role="tab"
-			   aria-controls="pills-contact1" aria-selected="false">代排队</a>
+			<a class="nav-link" id="pills-contact1-tab" data-toggle="pill" href="#pills-contact1" role="tab" aria-controls="pills-contact1" aria-selected="false">空位</a>
 		</li>
 	</ul>
 	<div class="tab-content col-3 pills-btnContent">
-		<a class="nav-link btn-primary text-center" id="navbar-btn" href="/Distribute/Take">Take</a>
+		<a class="nav-link btn-primary text-center" id="navbar-btn" asp-area="Distribute" asp-page="TakeExpress">立即下单</a>
 	</div>
 </div>
 
 <div class="tab-content" id="pills-tabContent">
 	<div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-		1
+		帮我领快递
 	</div>
 	<div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-		2
+		空位
 	</div>
-	<div class="tab-pane fade " id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-		3
+	<div class="tab-pane fade " id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab">
+		帮我买
 	</div>
 	<div class="tab-pane fade" id="pills-contact1" role="tabpanel" aria-labelledby="pills-contact1-tab">
-		4
+		空位
 	</div>
 </div>
 
@@ -76,19 +72,19 @@
 	function ChangeNavbarBtnLink(e) {
 		switch (e) {
 		case 0:
-			$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('TakeExpress');
+				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
 			break;
 		case 1:
-			$("#navbar-btn").attr('href', '/Distribute/TakeOrder').text('TakeOrder');
+			$("#navbar-btn").attr('href', '/Distribute/Buy').text('404');
 			break;
 		case 2:
-			$("#navbar-btn").attr('href', '/Distribute/Buy').text('Buy');
+				$("#navbar-btn").attr('href', '/Distribute/Purchase').text('立即下单');
 			break;
 		case 3:
-			$("#navbar-btn").attr('href', '/Distribute/404').text('404');
+				$("#navbar-btn").attr('href', '/Distribute/404').text('404');
 			break;
 		default:
-			$("#navbar-btn").attr('href', '/Distribute/Take').text('Take');
+				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
 			break;
 		}
 	}
