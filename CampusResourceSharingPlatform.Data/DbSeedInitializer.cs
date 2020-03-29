@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
@@ -220,6 +221,31 @@ namespace CampusResourceSharingPlatform.Data
 				logger.LogInformation("DATABASE:database initialized complete.");
 				}
 			#endregion
+
+			if (!context.MissionTypes.Any())
+			{
+				var types = new[]
+				{
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000001",
+						TypeName = "Express"
+					},
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000002",
+						TypeName = "Purchase"
+					}
+				};
+				logger.LogWarning("DATABASE:No MissionTypes data found in Database,start use the seed to initialize the database.");
+				foreach (var missionType in types)
+				{
+					context.MissionTypes.Add(missionType);
+				}
+				context.SaveChanges();
+				logger.LogInformation("DATABASE:default MissionTypes data has initialized complete.");
+			}
+
 			logger.LogInformation("DATABASE:database checked complete.");
 			logger.LogInformation("==========================================================");
 		}

@@ -19,6 +19,8 @@ namespace CampusResourceSharingPlatform.Data
 
 		public DbSet<License> ThirdLicenses { get; set; }
 
+		public DbSet<Buy> MissionPurchase { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -33,6 +35,7 @@ namespace CampusResourceSharingPlatform.Data
 			modelBuilder.Entity<Express>().Property(p=> p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.DeletedMark).HasDefaultValue(0);
+
 		}
 	}
 }
