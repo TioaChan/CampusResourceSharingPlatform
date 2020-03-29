@@ -13,12 +13,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
-	public class TakeModel : PageModel
+	public class TakeExpressModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ITakeExpressService<Express> _takeExpress;
 
-		public TakeModel(UserManager<ApplicationUser> userManager,ITakeExpressService<Express> takeExpress)
+		public TakeExpressModel(UserManager<ApplicationUser> userManager,ITakeExpressService<Express> takeExpress)
 		{
 			_userManager = userManager;
 			_takeExpress = takeExpress;
@@ -26,12 +26,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 
 
 		[BindProperty]
-		public TakeExpressModel TakeExpress { get; set; }
+		public TakeExpressInputModel TakeExpressInput { get; set; }
 
 		[BindProperty]
 		public string PostUserId { get; set; }
 
-		public class TakeExpressModel
+		public class TakeExpressInputModel
 		{
 			public string MissionName { get; set; }
 
@@ -143,7 +143,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
-			TakeExpress=new TakeExpressModel
+			TakeExpressInput=new TakeExpressInputModel
 			{
 				PostUserId = user.Id,
 			};
@@ -159,25 +159,25 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var time = DateTime.UtcNow;
 			var post=new Express
 			{
-				ExpressCompany = TakeExpress.ExpressCompany,
-				TrackingCode = TakeExpress.TrackingCode,
-				ConsigneePhone = TakeExpress.ConsigneePhone,
-				Consignee = TakeExpress.Consignee,
-				PickCode = TakeExpress.PickCode,
-				YiZhanName = TakeExpress.YiZhanName,
-				Weight = TakeExpress.Weight,
-				ReceiveAddress1 = TakeExpress.ReceiveAddress1,
-				ReceiveAddress2 = TakeExpress.ReceiveAddress2,
-				ReceivePhoneNumber = TakeExpress.ReceivePhoneNumber,
-				MissionName = "【快递】 【"+TakeExpress.ExpressCompany+"】",
+				ExpressCompany = TakeExpressInput.ExpressCompany,
+				TrackingCode = TakeExpressInput.TrackingCode,
+				ConsigneePhone = TakeExpressInput.ConsigneePhone,
+				Consignee = TakeExpressInput.Consignee,
+				PickCode = TakeExpressInput.PickCode,
+				YiZhanName = TakeExpressInput.YiZhanName,
+				Weight = TakeExpressInput.Weight,
+				ReceiveAddress1 = TakeExpressInput.ReceiveAddress1,
+				ReceiveAddress2 = TakeExpressInput.ReceiveAddress2,
+				ReceivePhoneNumber = TakeExpressInput.ReceivePhoneNumber,
+				MissionName = "【快递】 【"+TakeExpressInput.ExpressCompany+"】",
 				TypeId = "00000000-0000-0000-0000-000000000001",
 				PostUserId = user.Id,
 				PostTime = time,
 				InvalidTime = time.AddDays(2.0),
-				MissionNotes = TakeExpress.MissionNotes,
-				MissionReward = TakeExpress.MissionReward
+				MissionNotes = TakeExpressInput.MissionNotes,
+				MissionReward = TakeExpressInput.MissionReward
 			};
-			var result =_takeExpress.Post(post);
+			var result = _takeExpress.Post(post);
 			if (result==1)
 			{
 				//success
