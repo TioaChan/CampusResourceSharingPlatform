@@ -37,7 +37,8 @@ namespace CampusResourceSharingPlatform.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 			services.AddScoped<ILicensesDateService<License>,LicenseDateService>();
-			services.AddScoped<ITakeExpressService<Express>,TakeExpress>();
+			services.AddScoped<ITakeExpressService<Express>,TakeExpressService>();
+			services.AddScoped<IPurchaseService<Purchase>,PurchaseService>();
 			services.AddDbContext<ApplicationDbContext> (options =>
 				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),x=>x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))

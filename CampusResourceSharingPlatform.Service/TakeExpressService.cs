@@ -8,11 +8,11 @@ using CampusResourceSharingPlatform.Model.Business;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class TakeExpress:ITakeExpressService<Express>
+	public class TakeExpressService:ITakeExpressService<Express>
 	{
 		private readonly ApplicationDbContext _dbContext;
 
-		public TakeExpress(ApplicationDbContext dbContext)
+		public TakeExpressService(ApplicationDbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}
