@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CampusResourceSharingPlatform.Model.Business
 {
-	public class Buy:MissionDetail
+	public class Purchase:MissionDetail
 	{
 		/// <summary>
 		/// 购买内容

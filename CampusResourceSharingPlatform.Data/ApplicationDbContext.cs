@@ -19,7 +19,7 @@ namespace CampusResourceSharingPlatform.Data
 
 		public DbSet<License> ThirdLicenses { get; set; }
 
-		public DbSet<Buy> MissionPurchase { get; set; }
+		public DbSet<Purchase> MissionPurchase { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
