@@ -6,18 +6,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
-	public class DistributeNavPages
+	public static class DistributeNavPages
 	{
-		public static string Take => "Take";
+		public static string TakeExpress => "TakeExpress";
 
 		public static string TakeOrder => "TakeOrder";
 
-		public static string Buy => "Buy";
+		public static string Purchase => "Purchase";
 
-		public static string TakeNavClass(ViewContext viewContext) => PageNavClass(viewContext, Take);
+		public static string TakeExpressNavClass(ViewContext viewContext) => PageNavClass(viewContext, TakeExpress);
 		public static string TakeOrderNavClass(ViewContext viewContext) => PageNavClass(viewContext, TakeOrder);
 
-		public static string BuyNavClass(ViewContext viewContext) => PageNavClass(viewContext, Buy);
+		public static string PurchaseNavClass(ViewContext viewContext) => PageNavClass(viewContext, Purchase);
 
 		private static string PageNavClass(ViewContext viewContext, string page)
 		{
