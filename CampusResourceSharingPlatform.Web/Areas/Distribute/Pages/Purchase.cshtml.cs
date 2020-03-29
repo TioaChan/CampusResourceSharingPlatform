@@ -133,9 +133,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				InvalidTime = time.AddDays(2.0),
 				MissionNotes = PurchaseInput.MissionNotes,
 				MissionReward = PurchaseInput.MissionReward,
-				ReceiveAddress1 = PurchaseInput.ReceiveAddress1,
-				ReceiveAddress2 = PurchaseInput.ReceiveAddress2,
-				ReceivePhoneNumber = PurchaseInput.ReceivePhoneNumber,
+				PosterAddress1 = PurchaseInput.ReceiveAddress1,
+				PosterAddress2 = PurchaseInput.ReceiveAddress2,
+				PosterPhoneNumber = PurchaseInput.ReceivePhoneNumber,
 			};
 			var result = _purchase.Post(post);
 			if (result == 1)
