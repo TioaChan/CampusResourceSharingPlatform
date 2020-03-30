@@ -15,17 +15,24 @@
 	vertical-align: middle;
 }
 
-
-@media (max-width: 768px) {
-	.distribute-sidebar-nav {
-		height: 100px;
-		width: 100px;
-	}
+.distribute-nav {
+	position: sticky;
+	top: 15px;
 }
 
 
-@media (max-width: 576px) {
-	.distribute-nav {
-		display: none;
+@media (max-width: 768px) {
+	.distribute-sidebar-nav, .distribute-nav-item {
+		height: 100px;
+		width: 100px;
 	}
+	.distribute-nav {
+		position: static;
+		margin:0 15px;
+		flex-direction: unset !important;
+	}
+}
+
+@media (max-width: 576px) {
+
 }
