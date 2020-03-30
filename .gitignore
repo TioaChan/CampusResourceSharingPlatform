@@ -364,3 +364,4 @@ CampusResourceSharingPlatform.Web/wwwroot/avatar/*
 .idea/*
 CampusResourceSharingPlatform.Data/Migrations/*
 CampusResourceSharingPlatform.Web/logs/*
+CampusResourceSharingPlatform.Web/wwwroot/images/distribute/*
