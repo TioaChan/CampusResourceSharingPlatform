@@ -6,16 +6,25 @@
 	ViewData["Title"] = "跳蚤市场";
 }
 
-<form id="sale-form" method="post">
+<form enctype="multipart/form-data" id="sale-form" method="post">
 	<div asp-validation-summary="All" class="text-danger"></div>
 	<div class="col mb-4">
 		<div class="card">
 			<div class="card-header">物品详情</div>
 			<div class="card-body">
-				<div class="form-group row">
-					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsPhotoUrl"></label>
+				<div class="form-group row" id="goods-photo" style="display: none;">
+					<label class="col-sm-2 col-form-label">预览</label>
 					<div class="col-sm-10">
-						<input class="form-control" autocomplete="new-off" placeholder="请上传一张要出售物品的照片" title="照片" asp-for="SaleInput.GoodsPhotoUrl">
+						<img id="goods-photo-img" style="height: 200px;">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsPhoto"></label>
+					<div class="col-sm-10">
+						<div class="custom-file">
+							<input asp-for="SaleInput.GoodsPhoto" class="form-control custom-file-input" accept=".jpg,.png" />
+							<label class="custom-file-label" style="overflow: hidden">请上传一张要出售物品的照片</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -42,7 +51,8 @@
 						<input class="form-control" autocomplete="new-off" placeholder="请填写要出售物品的描述" title="物品描述" asp-for="SaleInput.GoodsDescription">
 					</div>
 				</div>
-			</div>
+			
+				</div>
 		</div>
 	</div>
 	<div class="col mb-4">
@@ -88,3 +98,30 @@
 		</div>
 	</div>
 </form>
+
+<script>
+$(document).ready(function () {
+	function getObjectUrl(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+
+	$(".custom-file-input").on("change",
+		function () {
+			var path = $(this).val();
+			//console.log(path);
+			var fileName = path.split("\\").pop();
+			var objUrl = getObjectUrl(this.files[0]);
+			//console.log(objUrl);
+			$(this).next(".custom-file-label").html(fileName);
+			$("#goods-photo-img").attr('src', objUrl).parent().parent().fadeIn();
+		});
+});
+</script>

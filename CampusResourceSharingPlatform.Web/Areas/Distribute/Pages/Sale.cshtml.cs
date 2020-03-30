@@ -1,9 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,10 +18,16 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	public class SaleModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IWebHostEnvironment _iWebHostEnvironment;
+		private readonly IFleaMarketService<SecondHand> _fleaMarket;
 
-		public SaleModel(UserManager<ApplicationUser> userManager)
+		public SaleModel(UserManager<ApplicationUser> userManager,
+			IWebHostEnvironment iWebHostEnvironment,
+			IFleaMarketService<SecondHand> fleaMarket)
 		{
 			_userManager = userManager;
+			_iWebHostEnvironment = iWebHostEnvironment;
+			_fleaMarket = fleaMarket;
 		}
 
 		[BindProperty]
@@ -73,12 +84,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			[Required(ErrorMessage = "联系方式 为必填项")]
 			public string PosterPhoneNumber { get; set; }
 
-			/// <summary>
-			/// 物品照片url
-			/// </summary>
+			[Display(Name = "Photo")]
 			[Required(ErrorMessage = "请选择一张照片")]
-			[Display(Name = "上传照片")]
-			public string GoodsPhotoUrl { get; set; }
+			public IFormFile GoodsPhoto { get; set; }
 
 			/// <summary>
 			/// 物品名称
@@ -118,6 +126,46 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			};
 			PostUserId = user.Id;
 			return Page();
+		}
+
+		public async Task<IActionResult> OnPostAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null) return RedirectToPage("Index");
+			if (user.Id != PostUserId) return RedirectToPage("Index");
+			if (SaleInput.GoodsPhoto.Length == 0) return Page();
+			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images","distribute");
+			var uploadFileName = Guid.NewGuid() + Path.GetExtension(SaleInput.GoodsPhoto.FileName);
+			var filePath = Path.Combine(uploadFolder, uploadFileName);
+			if (!Directory.Exists(uploadFolder))
+			{
+				Directory.CreateDirectory(uploadFolder);
+			}
+			await SaleInput.GoodsPhoto.CopyToAsync(new FileStream(filePath, FileMode.Create));
+			var time = DateTime.UtcNow;
+			var post = new SecondHand
+			{
+				GoodsPhotoUrl = "/images/distribute/"+uploadFileName,
+				GoodsName = SaleInput.GoodsName,
+				GoodsPrice = SaleInput.GoodsPrice,
+				GoodsQuality = SaleInput.GoodsQuality,
+				GoodsDescription = SaleInput.GoodsDescription,
+				MissionName = "【二手出售】【"+SaleInput.GoodsName+"】",
+				TypeId = "00000000-0000-0000-0000-000000000003",
+				PostUserId = user.Id,
+				PostTime = time,
+				InvalidTime = time.AddDays(2.0),
+				MissionNotes = SaleInput.MissionNotes,
+				PosterAddress1 = SaleInput.PosterAddress1,
+				PosterAddress2 = SaleInput.PosterAddress2,
+				PosterPhoneNumber = SaleInput.PosterPhoneNumber,
+			};
+			var result=_fleaMarket.Post(post);
+			if (result == 1)
+			{
+				//success
+			}
+			return RedirectToPage();
 		}
 	}
 }
