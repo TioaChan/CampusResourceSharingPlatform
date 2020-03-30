@@ -1,10 +1,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
@@ -12,10 +17,16 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	public class HireModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IWebHostEnvironment _iWebHostEnvironment;
+		private readonly IHireService<Hire> _hire;
 
-		public HireModel(UserManager<ApplicationUser> userManager)
+		public HireModel(UserManager<ApplicationUser> userManager,
+			IWebHostEnvironment iWebHostEnvironment,
+			IHireService<Hire> hire)
 		{
 			_userManager = userManager;
+			_iWebHostEnvironment = iWebHostEnvironment;
+			_hire = hire;
 		}
 
 		[BindProperty]
@@ -129,6 +140,48 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			};
 			PostUserId = user.Id;
 			return Page();
+		}
+
+		public async Task<IActionResult> OnPostAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null) return RedirectToPage("Index");
+			if (user.Id != PostUserId) return RedirectToPage("Index");
+			if (HireInput.GoodsPhoto.Length == 0) return Page();
+			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
+			var uploadFileName = Guid.NewGuid() + Path.GetExtension(HireInput.GoodsPhoto.FileName);
+			var filePath = Path.Combine(uploadFolder, uploadFileName);
+			if (!Directory.Exists(uploadFolder))
+			{
+				Directory.CreateDirectory(uploadFolder);
+			}
+			await HireInput.GoodsPhoto.CopyToAsync(new FileStream(filePath, FileMode.Create));
+			var time = DateTime.UtcNow;
+			var post=new Hire
+			{
+				GoodsPhotoUrl = "/images/distribute/" + uploadFileName,
+				GoodsName = HireInput.GoodsName,
+				GoodsPrice = HireInput.GoodsPrice,
+				GoodsDescription = HireInput.GoodsDescription,
+				GoodsCategory = "未实现",
+				GoodsRent = HireInput.GoodsRent,
+				TimeLimit = HireInput.TimeLimit,
+				MissionName = "【物品租借】【" + HireInput.GoodsName + "】",
+				TypeId = "00000000-0000-0000-0000-000000000004",
+				PostUserId = user.Id,
+				PostTime = time,
+				InvalidTime = time.AddDays(2.0),
+				MissionNotes = HireInput.MissionNotes,
+				PosterAddress1 = HireInput.PosterAddress1,
+				PosterAddress2 = HireInput.PosterAddress2,
+				PosterPhoneNumber = HireInput.PosterPhoneNumber,
+			};
+			var result = _hire.Post(post);
+			if (result == 1)
+			{
+				//success
+			}
+			return RedirectToPage();
 		}
 	}
 }
