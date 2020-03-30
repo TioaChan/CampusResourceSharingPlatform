@@ -7,7 +7,7 @@
 }
 
 <form enctype="multipart/form-data" id="sale-form" method="post">
-	<div asp-validation-summary="All" class="text-danger"></div>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<div class="col mb-4">
 		<div class="card">
 			<div class="card-header">物品详情</div>
@@ -25,30 +25,40 @@
 							<input asp-for="SaleInput.GoodsPhoto" class="form-control custom-file-input" accept=".jpg,.png" />
 							<label class="custom-file-label" style="overflow: hidden">请上传一张要出售物品的照片</label>
 						</div>
+						<span asp-validation-for="SaleInput.GoodsPhoto" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsName"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写要出售物品的名称" title="物品名称" asp-for="SaleInput.GoodsName">
+						<span asp-validation-for="SaleInput.GoodsName" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsQuality"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请估算要出售物品的成色" title="物品成色" asp-for="SaleInput.GoodsQuality">
+						<span asp-validation-for="SaleInput.GoodsQuality" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsPrice"></label>
 					<div class="col-sm-10">
-						<input class="form-control" autocomplete="new-off" placeholder="请填写定价" title="物品定价" asp-for="SaleInput.GoodsPrice">
+						<div class="input-group">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写定价" title="物品定价" asp-for="SaleInput.GoodsPrice">
+							<div class="input-group-append">
+								<span class="input-group-text">元</span>
+							</div>
+						</div>
+						<span asp-validation-for="SaleInput.GoodsPrice" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsDescription"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写要出售物品的描述" title="物品描述" asp-for="SaleInput.GoodsDescription">
+						<span asp-validation-for="SaleInput.GoodsDescription" class="text-danger"></span>
 					</div>
 				</div>
 			
@@ -63,18 +73,21 @@
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.PosterAddress1"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写你的联系地址" title="联系地址" asp-for="SaleInput.PosterAddress1">
+						<span asp-validation-for="SaleInput.PosterAddress1" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.PosterAddress2"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写具体楼号及门牌号" title="备注地址" asp-for="SaleInput.PosterAddress2">
+						<span asp-validation-for="SaleInput.PosterAddress2" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.PosterPhoneNumber"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" maxlength="11" placeholder="请输入你的联系方式" asp-for="SaleInput.PosterPhoneNumber">
+						<span asp-validation-for="SaleInput.PosterPhoneNumber" class="text-danger"></span>
 					</div>
 				</div>
 			</div>
@@ -88,11 +101,12 @@
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.MissionNotes"></label>
 					<div class="col-sm-10">
 						<textarea class="form-control" autocomplete="new-off" placeholder="还需要填写备注信息吗？" asp-for="SaleInput.MissionNotes"></textarea>
+						<span asp-validation-for="SaleInput.MissionNotes" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<input type="hidden" name="PostUserId" value="@Model.SaleInput.PostUserId" />
-					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">Save</button>
+					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">保存</button>
 				</div>
 			</div>
 		</div>

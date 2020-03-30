@@ -8,7 +8,7 @@
 }
 
 <form id="take-express-form" method="post">
-	<div asp-validation-summary="All" class="text-danger"></div>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<div class="col mb-4">
 		<div class="card">
 			<div class="card-header">快递包裹信息</div>
@@ -17,36 +17,42 @@
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ExpressCompany"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写快递公司" title="快递公司" asp-for="TakeExpressInput.ExpressCompany">
+						<span asp-validation-for="TakeExpressInput.ExpressCompany" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.TrackingCode"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写快递单号" title="快递单号" asp-for="TakeExpressInput.TrackingCode">
+						<span asp-validation-for="TakeExpressInput.TrackingCode" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.Consignee"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写包裹上的收件人姓名" title="收件人" asp-for="TakeExpressInput.Consignee">
+						<span asp-validation-for="TakeExpressInput.Consignee" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ConsigneePhone"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写包裹上的收件人手机号" title="收件人手机号码" asp-for="TakeExpressInput.ConsigneePhone">
+						<span asp-validation-for="TakeExpressInput.ConsigneePhone" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.YiZhanName"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写包裹所在的菜鸟驿站的地址" title="菜鸟驿站" asp-for="TakeExpressInput.YiZhanName">
+						<span asp-validation-for="TakeExpressInput.YiZhanName" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.PickCode"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写来自菜鸟驿站的取货码" title="菜鸟驿站取货码" asp-for="TakeExpressInput.PickCode">
+						<span asp-validation-for="TakeExpressInput.PickCode" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
@@ -58,6 +64,7 @@
 								<span class="input-group-text">千克</span>
 							</div>
 						</div>
+						<span asp-validation-for="TakeExpressInput.Weight" class="text-danger"></span>
 					</div>
 				</div>
 			</div>
@@ -71,18 +78,21 @@
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ReceiveAddress1"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写收货地址" title="收货地址" asp-for="TakeExpressInput.ReceiveAddress1">
+						<span asp-validation-for="TakeExpressInput.ReceiveAddress1" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ReceiveAddress2"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写具体楼号及门牌号" title="备注地址" asp-for="TakeExpressInput.ReceiveAddress2">
+						<span asp-validation-for="TakeExpressInput.ReceiveAddress2" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ReceivePhoneNumber"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" maxlength="11" placeholder="请输入收货人手机号码" asp-for="TakeExpressInput.ReceivePhoneNumber">
+						<span asp-validation-for="TakeExpressInput.ReceivePhoneNumber" class="text-danger"></span>
 					</div>
 				</div>
 			</div>
@@ -96,17 +106,19 @@
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.MissionNotes"></label>
 					<div class="col-sm-10">
 						<textarea class="form-control" autocomplete="new-off" placeholder="请填写物品具体信息" asp-for="TakeExpressInput.MissionNotes"></textarea>
+						<span asp-validation-for="TakeExpressInput.MissionNotes" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.MissionReward"></label>
 					<div class="col-sm-10">
 						<textarea class="form-control" autocomplete="new-off" placeholder="请填写酬劳" asp-for="TakeExpressInput.MissionReward"></textarea>
+						<span asp-validation-for="TakeExpressInput.MissionReward" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<input type="hidden" name="PostUserId" value="@Model.TakeExpressInput.PostUserId" />
-					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">Save</button>
+					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">提交</button>
 				</div>
 			</div>
 		</div>

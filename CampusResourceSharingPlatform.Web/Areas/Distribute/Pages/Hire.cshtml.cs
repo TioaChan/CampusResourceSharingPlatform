@@ -38,7 +38,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			/// <summary>
 			/// 物品照片url
 			/// </summary>
-			[Display(Name = "Photo")]
+			[Display(Name = "图片")]
 			[Required(ErrorMessage = "请选择一张照片")]
 			public IFormFile GoodsPhoto { get; set; }
 
@@ -132,7 +132,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnGetAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _hire.GetLastMissionInfoAsync(user.Id);
 			HireInput = new HireInputModel
 			{

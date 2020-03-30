@@ -107,7 +107,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnGetAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _purchase.GetLastMissionInfoAsync(user.Id);
 			PurchaseInput = new PurchaseInputModel
 			{

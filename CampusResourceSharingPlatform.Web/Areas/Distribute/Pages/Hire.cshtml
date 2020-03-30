@@ -1,13 +1,13 @@
 ﻿@page
-@using CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 @model CampusResourceSharingPlatform.Web.Areas.Distribute.Pages.HireModel
 @{
 	Layout = "_Layout";
 	ViewData["ActivePage"] = DistributeNavPages.Hire;
+	ViewData["Title"] = "租借";
 }
 
 <form enctype="multipart/form-data" id="sale-form" method="post">
-	<div asp-validation-summary="All" class="text-danger"></div>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<div class="col mb-4">
 		<div class="card">
 			<div class="card-header">物品详情</div>
@@ -23,38 +23,54 @@
 					<div class="col-sm-10">
 						<div class="custom-file">
 							<input asp-for="HireInput.GoodsPhoto" class="form-control custom-file-input" accept=".jpg,.png" />
-							<label class="custom-file-label" style="overflow: hidden"  >请上传一张要租借物品的照片</label>
+							<label class="custom-file-label" style="overflow: hidden">请上传一张要租借物品的照片</label>
 						</div>
+						<span asp-validation-for="HireInput.GoodsPhoto" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsName"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写要租借物品的名称" title="物品名称" asp-for="HireInput.GoodsName">
+						<span asp-validation-for="HireInput.GoodsName" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsRent"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写租金" title="物品成色" asp-for="HireInput.GoodsRent">
+						<span asp-validation-for="HireInput.GoodsRent" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
-					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsPrice"></label>
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsPrice"></label>	
 					<div class="col-sm-10">
-						<input class="form-control" autocomplete="new-off" placeholder="请填写定价" title="物品定价" asp-for="HireInput.GoodsPrice">
+						<div class="input-group">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写定价" title="物品定价" asp-for="HireInput.GoodsPrice">
+							<div class="input-group-append">
+								<span class="input-group-text">元</span>
+							</div>
+						</div>
+						<span asp-validation-for="HireInput.GoodsPrice" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.TimeLimit"></label>
 					<div class="col-sm-10">
-						<input class="form-control" autocomplete="new-off" placeholder="请填写要租借的天数" title="物品定价" asp-for="HireInput.TimeLimit">
+						<div class="input-group">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写要租借的天数" title="包裹重量" asp-for="HireInput.TimeLimit">
+							<div class="input-group-append">
+								<span class="input-group-text">天</span>
+							</div>
+						</div>
+						<span asp-validation-for="HireInput.TimeLimit" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsDescription"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写要租借物品的描述" title="物品描述" asp-for="HireInput.GoodsDescription">
+						<span asp-validation-for="HireInput.GoodsDescription" class="text-danger"></span>
 					</div>
 				</div>
 			</div>
@@ -68,18 +84,21 @@
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.PosterAddress1"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写你的联系地址" title="联系地址" asp-for="HireInput.PosterAddress1">
+						<span asp-validation-for="HireInput.PosterAddress1" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.PosterAddress2"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" placeholder="请填写具体楼号及门牌号" title="备注地址" asp-for="HireInput.PosterAddress2">
+						<span asp-validation-for="HireInput.PosterAddress2" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.PosterPhoneNumber"></label>
 					<div class="col-sm-10">
 						<input class="form-control" autocomplete="new-off" maxlength="11" placeholder="请输入你的联系方式" asp-for="HireInput.PosterPhoneNumber">
+						<span asp-validation-for="HireInput.PosterPhoneNumber" class="text-danger"></span>
 					</div>
 				</div>
 			</div>
@@ -93,6 +112,7 @@
 					<label class="col-sm-2 col-form-label" asp-for="HireInput.MissionNotes"></label>
 					<div class="col-sm-10">
 						<textarea class="form-control" autocomplete="new-off" placeholder="还需要填写备注信息吗？" asp-for="HireInput.MissionNotes"></textarea>
+						<span asp-validation-for="HireInput.MissionNotes" class="text-danger"></span>
 					</div>
 				</div>
 				<div class="form-group row">

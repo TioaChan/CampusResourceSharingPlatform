@@ -82,7 +82,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			[Required(ErrorMessage = "联系方式 为必填项")]
 			public string PosterPhoneNumber { get; set; }
 
-			[Display(Name = "Photo")]
+			[Display(Name = "图片")]
 			[Required(ErrorMessage = "请选择一张照片")]
 			public IFormFile GoodsPhoto { get; set; }
 
@@ -117,7 +117,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnGetAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _fleaMarket.GetLastMissionInfoAsync(user.Id);
 			SaleInput = new SaleInputModel
 			{
