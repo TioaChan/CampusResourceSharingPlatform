@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Data;
+﻿using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Business;
+using System;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class HireService:IHireService<Hire>
+	public class HireService : IHireService<Hire>
 	{
 		private readonly ApplicationDbContext _context;
 

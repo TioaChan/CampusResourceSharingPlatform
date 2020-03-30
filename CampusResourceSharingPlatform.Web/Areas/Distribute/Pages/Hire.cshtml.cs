@@ -1,7 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
@@ -9,8 +5,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
@@ -157,7 +156,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			}
 			await HireInput.GoodsPhoto.CopyToAsync(new FileStream(filePath, FileMode.Create));
 			var time = DateTime.UtcNow;
-			var post=new Hire
+			var post = new Hire
 			{
 				GoodsPhotoUrl = "/images/distribute/" + uploadFileName,
 				GoodsName = HireInput.GoodsName,

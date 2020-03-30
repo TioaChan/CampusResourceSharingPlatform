@@ -3,7 +3,6 @@ using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using Microsoft.AspNetCore.SignalR;
 
 namespace CampusResourceSharingPlatform.Data
 {

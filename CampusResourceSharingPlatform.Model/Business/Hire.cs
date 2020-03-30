@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace CampusResourceSharingPlatform.Model.Business
 {
-	public class Hire:MissionDetail
+	public class Hire : MissionDetail
 	{
 		/// <summary>
 		/// 物品照片url
@@ -35,13 +33,13 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// 分类
 		/// </summary>
 		public string GoodsCategory { get; set; }
-		
+
 		/// <summary>
 		/// 租金
 		/// </summary>
 		[Required]
 		public double GoodsRent { get; set; }
-		
+
 		/// <summary>
 		/// 时限
 		/// </summary>
