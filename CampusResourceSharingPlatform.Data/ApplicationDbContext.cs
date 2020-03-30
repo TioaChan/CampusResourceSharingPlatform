@@ -3,6 +3,7 @@ using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Microsoft.AspNetCore.SignalR;
 
 namespace CampusResourceSharingPlatform.Data
 {
@@ -22,6 +23,8 @@ namespace CampusResourceSharingPlatform.Data
 		public DbSet<Purchase> MissionPurchase { get; set; }
 
 		public DbSet<SecondHand> MissionFleaMarket { get; set; }
+
+		public DbSet<Hire> MissionHire { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -45,6 +48,10 @@ namespace CampusResourceSharingPlatform.Data
 			modelBuilder.Entity<SecondHand>().Property(p => p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<SecondHand>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<SecondHand>().Property(p => p.DeletedMark).HasDefaultValue(0);
+
+			modelBuilder.Entity<Hire>().Property(p => p.IsAccepted).HasDefaultValue(0);
+			modelBuilder.Entity<Hire>().Property(p => p.IsCompleted).HasDefaultValue(0);
+			modelBuilder.Entity<Hire>().Property(p => p.DeletedMark).HasDefaultValue(0);
 
 		}
 	}
