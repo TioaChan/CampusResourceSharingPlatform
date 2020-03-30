@@ -11,10 +11,14 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 
 		public static string Purchase => "Purchase";
 
+		public static string Sale => "Sale";
+
 		public static string TakeExpressNavClass(ViewContext viewContext) => PageNavClass(viewContext, TakeExpress);
 		public static string TakeOrderNavClass(ViewContext viewContext) => PageNavClass(viewContext, TakeOrder);
 
 		public static string PurchaseNavClass(ViewContext viewContext) => PageNavClass(viewContext, Purchase);
+
+		public static string SaleNavClass(ViewContext viewContext) => PageNavClass(viewContext, Sale);
 
 		private static string PageNavClass(ViewContext viewContext, string page)
 		{
