@@ -236,6 +236,11 @@ namespace CampusResourceSharingPlatform.Data
 					{
 						Id = "00000000-0000-0000-0000-000000000002",
 						TypeName = "Purchase"
+					},
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000003",
+						TypeName = "FleaMarket"
 					}
 				};
 				logger.LogWarning("DATABASE:No MissionTypes data found in Database,start use the seed to initialize the database.");
