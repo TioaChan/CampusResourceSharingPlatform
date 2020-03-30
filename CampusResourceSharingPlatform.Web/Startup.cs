@@ -38,7 +38,7 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddScoped<ILicensesDateService<License>, LicenseDateService>();
 			services.AddScoped<ITakeExpressService<Express>, TakeExpressService>();
 			services.AddScoped<IPurchaseService<Purchase>, PurchaseService>();
-			services.AddScoped<IFleaMarketService<SecondHand>,FleaMarketService>();
+			services.AddScoped<IFleaMarketService<SecondHand>, FleaMarketService>();
 			services.AddDbContext<ApplicationDbContext>(options =>
 			   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))

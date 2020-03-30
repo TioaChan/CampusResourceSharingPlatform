@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
@@ -12,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
@@ -134,7 +132,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			if (user == null) return RedirectToPage("Index");
 			if (user.Id != PostUserId) return RedirectToPage("Index");
 			if (SaleInput.GoodsPhoto.Length == 0) return Page();
-			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images","distribute");
+			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
 			var uploadFileName = Guid.NewGuid() + Path.GetExtension(SaleInput.GoodsPhoto.FileName);
 			var filePath = Path.Combine(uploadFolder, uploadFileName);
 			if (!Directory.Exists(uploadFolder))
@@ -145,12 +143,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var time = DateTime.UtcNow;
 			var post = new SecondHand
 			{
-				GoodsPhotoUrl = "/images/distribute/"+uploadFileName,
+				GoodsPhotoUrl = "/images/distribute/" + uploadFileName,
 				GoodsName = SaleInput.GoodsName,
 				GoodsPrice = SaleInput.GoodsPrice,
 				GoodsQuality = SaleInput.GoodsQuality,
 				GoodsDescription = SaleInput.GoodsDescription,
-				MissionName = "【二手出售】【"+SaleInput.GoodsName+"】",
+				MissionName = "【二手出售】【" + SaleInput.GoodsName + "】",
 				TypeId = "00000000-0000-0000-0000-000000000003",
 				PostUserId = user.Id,
 				PostTime = time,
@@ -160,7 +158,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PosterAddress2 = SaleInput.PosterAddress2,
 				PosterPhoneNumber = SaleInput.PosterPhoneNumber,
 			};
-			var result=_fleaMarket.Post(post);
+			var result = _fleaMarket.Post(post);
 			if (result == 1)
 			{
 				//success
