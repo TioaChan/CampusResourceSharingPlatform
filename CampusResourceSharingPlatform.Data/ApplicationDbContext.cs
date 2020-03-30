@@ -21,6 +21,8 @@ namespace CampusResourceSharingPlatform.Data
 
 		public DbSet<Purchase> MissionPurchase { get; set; }
 
+		public DbSet<SecondHand> MissionFleaMarket { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -35,6 +37,14 @@ namespace CampusResourceSharingPlatform.Data
 			modelBuilder.Entity<Express>().Property(p => p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.DeletedMark).HasDefaultValue(0);
+
+			modelBuilder.Entity<Purchase>().Property(p => p.IsAccepted).HasDefaultValue(0);
+			modelBuilder.Entity<Purchase>().Property(p => p.IsCompleted).HasDefaultValue(0);
+			modelBuilder.Entity<Purchase>().Property(p => p.DeletedMark).HasDefaultValue(0);
+
+			modelBuilder.Entity<SecondHand>().Property(p => p.IsAccepted).HasDefaultValue(0);
+			modelBuilder.Entity<SecondHand>().Property(p => p.IsCompleted).HasDefaultValue(0);
+			modelBuilder.Entity<SecondHand>().Property(p => p.DeletedMark).HasDefaultValue(0);
 
 		}
 	}
