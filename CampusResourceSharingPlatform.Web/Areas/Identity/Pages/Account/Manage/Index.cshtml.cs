@@ -1,54 +1,54 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model;
+﻿using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
-    {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IWebHostEnvironment _iWebHostEnvironment;
+	public partial class IndexModel : PageModel
+	{
+		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly SignInManager<ApplicationUser> _signInManager;
+		private readonly IWebHostEnvironment _iWebHostEnvironment;
 
-        public IndexModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IWebHostEnvironment iWebHostEnvironment)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _iWebHostEnvironment = iWebHostEnvironment;
-        }
+		public IndexModel(
+			UserManager<ApplicationUser> userManager,
+			SignInManager<ApplicationUser> signInManager,
+			IWebHostEnvironment iWebHostEnvironment)
+		{
+			_userManager = userManager;
+			_signInManager = signInManager;
+			_iWebHostEnvironment = iWebHostEnvironment;
+		}
 
-        public string Username { get; set; }
-        public string AvatarFileName { get; set; }
+		public string Username { get; set; }
+		public string AvatarFileName { get; set; }
 
-        [TempData]
-        public string StatusMessage { get; set; }
+		[TempData]
+		public string StatusMessage { get; set; }
 
-        [BindProperty]
-        public InputModel Input { get; set; }
+		[BindProperty]
+		public InputModel Input { get; set; }
 
-        [BindProperty]
+		[BindProperty]
 		public AvatarModel Avatar { get; set; }
 
 		[BindProperty]
 		public NickNameModel NickName { get; set; }
 
 		public class InputModel
-        {
-            [Phone]
+		{
+			[Phone]
 			[Required]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
-        }
+			[Display(Name = "Phone number")]
+			public string PhoneNumber { get; set; }
+		}
 		public class AvatarModel
 		{
 			[Display(Name = "Avatar")]
@@ -63,36 +63,36 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		}
 
 		private async Task LoadAsync(ApplicationUser user)
-        {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var nickName =user.NickName;
+		{
+			var userName = await _userManager.GetUserNameAsync(user);
+			var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+			var nickName = user.NickName;
 
-            Username = userName;
+			Username = userName;
 
-            Input = new InputModel
-            {
-                PhoneNumber = phoneNumber
-            };
+			Input = new InputModel
+			{
+				PhoneNumber = phoneNumber
+			};
 
-			NickName=new NickNameModel
+			NickName = new NickNameModel
 			{
 				NewNickName = nickName
 			};
-        }
+		}
 
-        public async Task<IActionResult> OnGetAsync()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
-            await LoadAsync(user);
-            return Page();
-        }
+		public async Task<IActionResult> OnGetAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+			{
+				return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+			}
+			await LoadAsync(user);
+			return Page();
+		}
 
-        public async Task<IActionResult> OnPostAvatarAsync()
+		public async Task<IActionResult> OnPostAvatarAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
 			//判断用户是否存在
@@ -102,7 +102,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 			}
 
 			//判断表达合法
-			if (Avatar.NewAvatar.Length==0)
+			if (Avatar.NewAvatar.Length == 0)
 			{
 				StatusMessage = "Your profile has no changes";
 				return RedirectToPage();

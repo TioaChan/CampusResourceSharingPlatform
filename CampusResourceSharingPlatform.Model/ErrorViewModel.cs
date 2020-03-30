@@ -1,5 +1,3 @@
-using System;
-
 namespace CampusResourceSharingPlatform.Model
 {
 	public class ErrorViewModel

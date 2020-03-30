@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Interface;
-using CampusResourceSharingPlatform.Model;
+﻿using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Pages
 {
@@ -25,7 +23,7 @@ namespace CampusResourceSharingPlatform.Web.Pages
 
 		public async Task<IActionResult> OnGetAsync()
 		{
-			Licenses =await _licenses.GetAllAsync();
+			Licenses = await _licenses.GetAllAsync();
 			return Page();
 		}
 	}

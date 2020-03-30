@@ -1,0 +1,19 @@
+﻿@{
+	Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div>
+	<div class="row">
+		<div class="col-md-2">
+			<partial name="_DistributeNav" />
+			
+		</div>
+		<div class="col-md-10">
+			@RenderBody()
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@RenderSection("Scripts", required: false)
+}

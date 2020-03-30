@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model;
+using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 {
@@ -14,11 +13,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public IndexModel(RoleManager<IdentityRole> roleManager,UserManager<ApplicationUser> userManager)
+		public IndexModel(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
 		{
 			_roleManager = roleManager;
 			_userManager = userManager;
-			RolesModel=new List<RoleModel>();
+			RolesModel = new List<RoleModel>();
 		}
 
 		[TempData]
@@ -43,7 +42,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		private async Task LoadRoles()
 		{
 			var roles = await _roleManager.Roles.ToListAsync();
-			var users= await _userManager.Users.ToListAsync();
+			var users = await _userManager.Users.ToListAsync();
 			foreach (var role in roles)
 			{
 				var userInRoleNames = new List<string>();
@@ -73,7 +72,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		public async Task<IActionResult> OnPostDeleteRoleAsync(string roleId)
 		{
 			var role = await _roleManager.FindByIdAsync(roleId);
-			if (role!=null)
+			if (role != null)
 			{
 				var result = await _roleManager.DeleteAsync(role);
 				StatusMessage = result.Succeeded ? "Success:角色删除成功" : "Error:角色删除失败";

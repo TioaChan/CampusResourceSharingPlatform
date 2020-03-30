@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 
-namespace CampusResourceSharingPlatform.Model
+namespace CampusResourceSharingPlatform.Model.Application
 {
-	public class ApplicationUser:IdentityUser
+	public class ApplicationUser : IdentityUser
 	{
 		[MaxLength(18)]
 		public string IdCardNo { get; set; }

@@ -1,9 +1,9 @@
-using System;
+using CampusResourceSharingPlatform.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using CampusResourceSharingPlatform.Data;
-using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CampusResourceSharingPlatform.Web
 {
@@ -24,7 +24,7 @@ namespace CampusResourceSharingPlatform.Web
 			try
 			{
 				var context = services.GetRequiredService<ApplicationDbContext>();
-				DbSeedInitializer.DbSeedInitialize(context,logger);
+				DbSeedInitializer.DbSeedInitialize(context, logger);
 			}
 			catch (Exception ex)
 			{
@@ -35,14 +35,14 @@ namespace CampusResourceSharingPlatform.Web
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
 
-			#region Log4Net
+		#region Log4Net
 			.ConfigureLogging((context, loggingBuilder) =>
 			{
 				loggingBuilder.AddFilter("System", LogLevel.Warning);//过滤掉命名空间
 				loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
 				loggingBuilder.AddLog4Net();//使用log4net
 			})//扩展日志
-			#endregion
+		#endregion
 
 			.ConfigureWebHostDefaults(webBuilder =>
 				{

@@ -1,0 +1,38 @@
+﻿.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+	background-color: #000;
+}
+
+.distribute-sidebar-nav {
+	height: 200px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.distribute-nav-item {
+	vertical-align: middle;
+}
+
+.distribute-nav {
+	position: sticky;
+	top: 15px;
+}
+
+
+@media (max-width: 768px) {
+	.distribute-sidebar-nav, .distribute-nav-item {
+		height: 100px;
+		width: 100px;
+	}
+	.distribute-nav {
+		position: static;
+		margin:0 15px;
+		flex-direction: unset !important;
+	}
+}
+
+@media (max-width: 576px) {
+
+}

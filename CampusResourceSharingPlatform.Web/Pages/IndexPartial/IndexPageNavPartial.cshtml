@@ -4,8 +4,8 @@
 		padding: 0;
 	}
 
-	#pills-tabContent {
-		line-height: 42px;
+	.pills-btnContent {
+		line-height: 44px;
 		padding: 0;
 	}
 
@@ -25,35 +25,67 @@
 <div class="row border rounded-lg">
 	<ul class="nav nav-pills nav-fill col-9" id="pills-tab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-			   aria-controls="pills-home" aria-selected="true">帮我买</a>
+			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">帮我领快递</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-			   aria-controls="pills-profile" aria-selected="false">帮我送</a>
+			<a class="nav-link" id="pills-purchase-tab" data-toggle="pill" href="#pills-purchase" role="tab" aria-controls="pills-purchase" aria-selected="false">帮我买</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-			   aria-controls="pills-contact" aria-selected="false">帮我取</a>
+			<a class="nav-link" id="pills-flea-market-tab" data-toggle="pill" href="#pills-flea-market" role="tab" aria-controls="pills-flea-market" aria-selected="false">跳蚤市场</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" id="pills-contact1-tab" data-toggle="pill" href="#pills-contact1" role="tab"
-			   aria-controls="pills-contact1" aria-selected="false">代排队</a>
+			<a class="nav-link" id="pills-hire-tab" data-toggle="pill" href="#pills-hire" role="tab" aria-controls="pills-hire" aria-selected="false">租借</a>
 		</li>
 	</ul>
-	<div class="tab-content col-3" id="pills-tabContent">
-		<div class="tab-pane fade show active " id="pills-home" role="tabpanel"
-			 aria-labelledby="pills-home-tab">
-			<a href="#" class="nav-link btn-primary text-center">立即下单 帮我买</a>
-		</div>
-		<div class="tab-pane fade " id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-			<a href="#" class="nav-link btn-primary text-center">立即下单 帮我送</a>
-		</div>
-		<div class="tab-pane fade " id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-			<a href="#" class="nav-link btn-primary text-center">立即下单 帮我取</a>
-		</div>
-		<div class="tab-pane fade" id="pills-contact1" role="tabpanel" aria-labelledby="pills-contact1-tab">
-			<a href="#" class="nav-link btn-primary text-center">立即下单 代排队</a>
-		</div>
+	<div class="tab-content col-3 pills-btnContent">
+		<a class="nav-link btn-primary text-center" id="navbar-btn" asp-area="Distribute" asp-page="TakeExpress">立即下单</a>
 	</div>
 </div>
+
+<div class="tab-content" id="pills-tabContent">
+	<div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+		帮我领快递
+	</div>
+	<div class="tab-pane fade " id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab">
+		帮我买
+	</div>
+	<div class="tab-pane fade " id="pills-flea-market" role="tabpanel" aria-labelledby="pills-flea-market-tab">
+		跳蚤市场
+	</div>
+	<div class="tab-pane fade" id="pills-hire" role="tabpanel" aria-labelledby="pills-hire-tab">
+		空位
+	</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		var index = $("#pills-tab .nav-item:has('.active')").parent().index();
+		// console.log(index);
+		ChangeNavbarBtnLink(index);
+		$("#pills-tab a").click(function (e) {
+			index = $(this).parent().index();
+			// console.log(index);
+			ChangeNavbarBtnLink(index);
+		});
+	});
+
+	function ChangeNavbarBtnLink(e) {
+		switch (e) {
+		case 0:
+				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
+			break;
+		case 1:
+				$("#navbar-btn").attr('href', '/Distribute/Purchase').text('立即下单');
+			break;
+		case 2:
+				$("#navbar-btn").attr('href', '/Distribute/Sale').text('立即下单');
+			break;
+		case 3:
+				$("#navbar-btn").attr('href', '/Distribute/Hire').text('立即下单');
+			break;
+		default:
+				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
+			break;
+		}
+	}
+</script>

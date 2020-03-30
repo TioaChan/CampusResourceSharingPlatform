@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CampusResourceSharingPlatform.Model.Application;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CampusResourceSharingPlatform.Model
+namespace CampusResourceSharingPlatform.Model.Business
 {
-	public class MissionDetail:MissionBase
+	public class MissionDetail : MissionBase
 	{
 		#region properties
 		/// <summary>
@@ -38,15 +39,13 @@ namespace CampusResourceSharingPlatform.Model
 		public DateTime InvalidTime { get; set; }
 
 		/// <summary>
-		/// 任务描述
+		/// 备注信息
 		/// </summary>
-		[Required]
-		public string MissionDetails { get; set; }
+		public string MissionNotes { get; set; }
 
 		/// <summary>
 		/// 任务奖励
 		/// </summary>
-		[Required]
 		public string MissionReward { get; set; }
 
 		/// <summary>
@@ -63,7 +62,7 @@ namespace CampusResourceSharingPlatform.Model
 		/// <summary>
 		/// 接受时间
 		/// </summary>
-		public DateTime AcceptTime { get; set; }
+		public DateTime? AcceptTime { get; set; }
 
 		/// <summary>
 		/// 任务是否完成
@@ -71,6 +70,24 @@ namespace CampusResourceSharingPlatform.Model
 		[Required]
 		public bool IsCompleted { get; set; }
 
+
+		/// <summary>
+		/// 地址1
+		/// </summary>
+		[Required]
+		public string PosterAddress1 { get; set; }
+
+		/// <summary>
+		/// 地址2
+		/// </summary>
+		[Required]
+		public string PosterAddress2 { get; set; }
+
+		/// <summary>
+		/// 联系方式
+		/// </summary>
+		[Required]
+		public string PosterPhoneNumber { get; set; }
 
 		#endregion
 

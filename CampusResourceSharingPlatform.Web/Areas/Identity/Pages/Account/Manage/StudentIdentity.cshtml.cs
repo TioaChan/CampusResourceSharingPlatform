@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model;
+﻿using CampusResourceSharingPlatform.Model.Application;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 {
@@ -18,7 +18,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 		public bool IsStudentIdentityConfirmed { get; set; }
 
 		[Required(ErrorMessage = "你还没有填写身份证号码")]
-		[MaxLength(18,ErrorMessage = "身份证号码长度为18位")]
+		[MaxLength(18, ErrorMessage = "身份证号码长度为18位")]
 		[Display(Name = "身份证号码")]
 		public string PrcId { get; set; }
 

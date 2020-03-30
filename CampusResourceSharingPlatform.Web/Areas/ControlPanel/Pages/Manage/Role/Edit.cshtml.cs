@@ -1,14 +1,12 @@
-using System;
+using CampusResourceSharingPlatform.Model.Application;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 {
@@ -17,7 +15,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public EditModel(RoleManager<IdentityRole> roleManager,UserManager<ApplicationUser> userManager)
+		public EditModel(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
 		{
 			_roleManager = roleManager;
 			_userManager = userManager;
@@ -51,7 +49,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		private async Task LoadAsync(string roleId)
 		{
 			var role = await _roleManager.FindByIdAsync(roleId);
-			if (role==null)
+			if (role == null)
 			{
 				return;
 			}
@@ -90,7 +88,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 		public async Task<IActionResult> OnPostEditRoleAsync(string roleId)
 		{
 			var role = await _roleManager.FindByIdAsync(roleId);
-			if (Role.NewRoleName==role.Name)
+			if (Role.NewRoleName == role.Name)
 			{
 				await LoadAsync(roleId);
 				StatusMessage = "this role is unchanged.";
@@ -118,7 +116,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 				if (result.Succeeded)
 				{
 					StatusMessage = "Success:添加用户成功";
-					return RedirectToPage("Edit",new {roleId });
+					return RedirectToPage("Edit", new { roleId });
 				}
 			}
 			StatusMessage = "Error:添加用户失败";
@@ -136,7 +134,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 				var result = await _userManager.RemoveFromRoleAsync(user, role.Name);
 				if (result.Succeeded)
 				{
-					StatusMessage = "Success:从角色\""+role.Name+ "\"中移除用户\"" + user.UserName+ "\"成功";
+					StatusMessage = "Success:从角色\"" + role.Name + "\"中移除用户\"" + user.UserName + "\"成功";
 					return RedirectToPage("Edit", new { roleId });
 				}
 				StatusMessage = "Error:从角色\"" + role.Name + "\"中移除用户\"" + user.UserName + "\"失败";

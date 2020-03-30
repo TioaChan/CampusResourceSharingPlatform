@@ -1,20 +1,20 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using CampusResourceSharingPlatform.Model;
+﻿using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace CampusResourceSharingPlatform.Data
 {
 	public static class DbSeedInitializer
 	{
-		public static void DbSeedInitialize(ApplicationDbContext context,ILogger logger)
+		public static void DbSeedInitialize(ApplicationDbContext context, ILogger logger)
 		{
 			context.Database.EnsureCreated();
 
 			#region aaa2900-UsersSeed
-			if (!context.Users.Any(x=>x.Id== "00000000-0000-0000-0000-000000000001")) { 
+			if (!context.Users.Any(x => x.Id == "00000000-0000-0000-0000-000000000001"))
+			{
 				var users = new[] {
 				new ApplicationUser
 				{
@@ -57,7 +57,7 @@ namespace CampusResourceSharingPlatform.Data
 			#endregion
 
 			#region administrator-role-seed
-			if (!context.Roles.Any(x=>x.Id== "00000000-0000-0000-0000-000000000001"))
+			if (!context.Roles.Any(x => x.Id == "00000000-0000-0000-0000-000000000001"))
 			{
 				var roles = new[]
 				{
@@ -107,7 +107,6 @@ namespace CampusResourceSharingPlatform.Data
 				logger.LogInformation("DATABASE:default user-role relationship in database checked complete.");
 			}
 			#endregion
-
 
 			#region ThirdLicensesSeed
 			if (!context.ThirdLicenses.Any())
@@ -212,6 +211,20 @@ namespace CampusResourceSharingPlatform.Data
 					LicenseType = "Apache Software License 2.0",
 					RepoUrl = "https://github.com/aspnet/LibraryManager",
 				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000016",
+					LicenseName = "Log4Net.AspNetCore",
+					LicenseType = "Apache Software License 2.0",
+					RepoUrl = "https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore",
+				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000017",
+					LicenseName = "Pomelo.EntityFrameworkCore.MySql",
+					LicenseType = "MIT License",
+					RepoUrl = "https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql",
+				}
 			};
 				logger.LogWarning("DATABASE:No Licenses data found in Database,start use the seed to initialize the database.");
 				foreach (var license in licenses)
@@ -220,8 +233,49 @@ namespace CampusResourceSharingPlatform.Data
 				}
 				context.SaveChanges();
 				logger.LogInformation("DATABASE:database initialized complete.");
-				}
+			}
 			#endregion
+
+			#region missiontype
+			if (!context.MissionTypes.Any())
+			{
+				var types = new[]
+				{
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000001",
+						TypeName = "Express"
+					},
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000002",
+						TypeName = "Purchase"
+					},
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000003",
+						TypeName = "FleaMarket"
+					},
+					new MissionType
+					{
+						Id = "00000000-0000-0000-0000-000000000004",
+						TypeName = "Hire"
+					},
+				};
+				logger.LogWarning("DATABASE:No MissionTypes data found in Database,start use the seed to initialize the database.");
+				foreach (var missionType in types)
+				{
+					context.MissionTypes.Add(missionType);
+				}
+				context.SaveChanges();
+				logger.LogInformation("DATABASE:default MissionTypes data has initialized complete.");
+			}
+			else
+			{
+				logger.LogInformation("DATABASE:default MissionTypes in database checked complete.");
+			}
+			#endregion
+
 			logger.LogInformation("DATABASE:database checked complete.");
 			logger.LogInformation("==========================================================");
 		}

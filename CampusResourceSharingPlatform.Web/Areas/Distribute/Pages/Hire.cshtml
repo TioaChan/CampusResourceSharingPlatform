@@ -1,0 +1,132 @@
+﻿@page
+@using CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
+@model CampusResourceSharingPlatform.Web.Areas.Distribute.Pages.HireModel
+@{
+	Layout = "_Layout";
+	ViewData["ActivePage"] = DistributeNavPages.Hire;
+}
+
+<form enctype="multipart/form-data" id="sale-form" method="post">
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-header">物品详情</div>
+			<div class="card-body">
+				<div class="form-group row" id="goods-photo" style="display: none;">
+					<label class="col-sm-2 col-form-label">预览</label>
+					<div class="col-sm-10">
+						<img id="goods-photo-img" style="height: 200px;">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsPhoto"></label>
+					<div class="col-sm-10">
+						<div class="custom-file">
+							<input asp-for="HireInput.GoodsPhoto" class="form-control custom-file-input" accept=".jpg,.png" />
+							<label class="custom-file-label" style="overflow: hidden"  >请上传一张要租借物品的照片</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsName"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写要租借物品的名称" title="物品名称" asp-for="HireInput.GoodsName">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsRent"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写租金" title="物品成色" asp-for="HireInput.GoodsRent">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsPrice"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写定价" title="物品定价" asp-for="HireInput.GoodsPrice">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.TimeLimit"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写要租借的天数" title="物品定价" asp-for="HireInput.TimeLimit">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.GoodsDescription"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写要租借物品的描述" title="物品描述" asp-for="HireInput.GoodsDescription">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-header">任务信息</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.PosterAddress1"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写你的联系地址" title="联系地址" asp-for="HireInput.PosterAddress1">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.PosterAddress2"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写具体楼号及门牌号" title="备注地址" asp-for="HireInput.PosterAddress2">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.PosterPhoneNumber"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" maxlength="11" placeholder="请输入你的联系方式" asp-for="HireInput.PosterPhoneNumber">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-header">其他信息</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="HireInput.MissionNotes"></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" autocomplete="new-off" placeholder="还需要填写备注信息吗？" asp-for="HireInput.MissionNotes"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<input type="hidden" name="PostUserId" value="@Model.HireInput.PostUserId" />
+					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<script>
+$(document).ready(function () {
+	function getObjectUrl(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+
+	$(".custom-file-input").on("change",
+		function () {
+			var path = $(this).val();
+			//console.log(path);
+			var fileName = path.split("\\").pop();
+			var objUrl = getObjectUrl(this.files[0]);
+			//console.log(objUrl);
+			$(this).next(".custom-file-label").html(fileName);
+			$("#goods-photo-img").attr('src', objUrl).parent().parent().fadeIn();
+		});
+});
+</script>

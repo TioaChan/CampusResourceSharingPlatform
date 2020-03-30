@@ -1,0 +1,114 @@
+﻿@page
+@inject UserManager<ApplicationUser> UserManager
+@model CampusResourceSharingPlatform.Web.Areas.Distribute.Pages.TakeExpressModel
+@{
+	Layout = "_Layout";
+	ViewData["ActivePage"] = DistributeNavPages.TakeExpress;
+	ViewData["Title"] = "帮我取快递";
+}
+
+<form id="take-express-form" method="post">
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-header">快递包裹信息</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ExpressCompany"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写快递公司" title="快递公司" asp-for="TakeExpressInput.ExpressCompany">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.TrackingCode"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写快递单号" title="快递单号" asp-for="TakeExpressInput.TrackingCode">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.Consignee"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写包裹上的收件人姓名" title="收件人" asp-for="TakeExpressInput.Consignee">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ConsigneePhone"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写包裹上的收件人手机号" title="收件人手机号码" asp-for="TakeExpressInput.ConsigneePhone">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.YiZhanName"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写包裹所在的菜鸟驿站的地址" title="菜鸟驿站" asp-for="TakeExpressInput.YiZhanName">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.PickCode"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写来自菜鸟驿站的取货码" title="菜鸟驿站取货码" asp-for="TakeExpressInput.PickCode">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.Weight"></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<input class="form-control" autocomplete="new-off" placeholder="请填写包裹的大致重量，单位：千克" title="包裹重量" asp-for="TakeExpressInput.Weight">
+							<div class="input-group-append">
+								<span class="input-group-text">千克</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-header">任务信息</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ReceiveAddress1"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写收货地址" title="收货地址" asp-for="TakeExpressInput.ReceiveAddress1">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ReceiveAddress2"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" placeholder="请填写具体楼号及门牌号" title="备注地址" asp-for="TakeExpressInput.ReceiveAddress2">
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ReceivePhoneNumber"></label>
+					<div class="col-sm-10">
+						<input class="form-control" autocomplete="new-off" maxlength="11" placeholder="请输入收货人手机号码" asp-for="TakeExpressInput.ReceivePhoneNumber">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col mb-4">
+		<div class="card">
+			<div class="card-header">其他信息</div>
+			<div class="card-body">
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.MissionNotes"></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" autocomplete="new-off" placeholder="请填写物品具体信息" asp-for="TakeExpressInput.MissionNotes"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.MissionReward"></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" autocomplete="new-off" placeholder="请填写酬劳" asp-for="TakeExpressInput.MissionReward"></textarea>
+					</div>
+				</div>
+				<div class="form-group row">
+					<input type="hidden" name="PostUserId" value="@Model.TakeExpressInput.PostUserId" />
+					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

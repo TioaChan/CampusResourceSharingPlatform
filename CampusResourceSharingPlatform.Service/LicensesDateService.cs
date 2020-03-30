@@ -1,14 +1,14 @@
-﻿using CampusResourceSharingPlatform.Interface;
+﻿using CampusResourceSharingPlatform.Data;
+using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Data;
-using CampusResourceSharingPlatform.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class LicenseDateService:ILicensesDateService<License>
+	public class LicenseDateService : ILicensesDateService<License>
 	{
 		private readonly ApplicationDbContext _context;
 
@@ -24,7 +24,7 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<List<License>> GetAllAsync()
 		{
-			var list =await _context.ThirdLicenses.ToListAsync();
+			var list = await _context.ThirdLicenses.ToListAsync();
 			return list;
 		}
 	}
