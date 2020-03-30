@@ -7,5 +7,7 @@ namespace CampusResourceSharingPlatform.Interface
 		int Post(T newPost);
 
 		Task<int> PostAsync(T newPost);
+
+		Task<T> GetLastMissionInfoAsync(string userId);
 	}
 }

@@ -140,10 +140,17 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
+			var post = await _takeExpress.GetLastMissionInfoAsync(user.Id);
 			TakeExpressInput = new TakeExpressInputModel
 			{
 				PostUserId = user.Id,
 			};
+			if (post != null)
+			{
+				TakeExpressInput.ReceiveAddress1 = post.PosterAddress1;
+				TakeExpressInput.ReceiveAddress2 = post.PosterAddress2;
+				TakeExpressInput.ReceivePhoneNumber = post.PosterPhoneNumber;
+			}
 			PostUserId = user.Id;
 			return Page();
 		}

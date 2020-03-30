@@ -1,7 +1,9 @@
 ﻿using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
@@ -27,6 +29,13 @@ namespace CampusResourceSharingPlatform.Service
 		public Task<int> PostAsync(Purchase newPost)
 		{
 			throw new NotImplementedException();
+		}
+
+		public async Task<Purchase> GetLastMissionInfoAsync(string userId)
+		{
+			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime)
+				.Where(p => p.PostUserId == userId).FirstOrDefaultAsync();
+			return post;
 		}
 	}
 }

@@ -133,10 +133,17 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
+			var post = await _hire.GetLastMissionInfoAsync(user.Id);
 			HireInput = new HireInputModel
 			{
-				PostUserId = user.Id,
+				PostUserId = user.Id
 			};
+			if (post != null)
+			{
+				HireInput.PosterAddress1 = post.PosterAddress1;
+				HireInput.PosterAddress2 = post.PosterAddress2;
+				HireInput.PosterPhoneNumber = post.PosterPhoneNumber;
+			}
 			PostUserId = user.Id;
 			return Page();
 		}

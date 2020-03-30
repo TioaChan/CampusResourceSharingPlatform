@@ -108,10 +108,17 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		{
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
+			var post = await _purchase.GetLastMissionInfoAsync(user.Id);
 			PurchaseInput = new PurchaseInputModel
 			{
 				PostUserId = user.Id,
 			};
+			if (post != null)
+			{
+				PurchaseInput.ReceiveAddress1 = post.PosterAddress1;
+				PurchaseInput.ReceiveAddress2 = post.PosterAddress2;
+				PurchaseInput.ReceivePhoneNumber = post.PosterPhoneNumber;
+			}
 			PostUserId = user.Id;
 			return Page();
 		}
