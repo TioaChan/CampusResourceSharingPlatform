@@ -143,7 +143,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			{
 				//success
 			}
-			return Page();
+
+			return RedirectToPage();
 		}
 
 	}
