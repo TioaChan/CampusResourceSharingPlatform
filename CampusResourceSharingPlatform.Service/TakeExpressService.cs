@@ -3,6 +3,7 @@ using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,6 +35,12 @@ namespace CampusResourceSharingPlatform.Service
 		{
 			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime)
 				.Where(p => p.PostUserId == userId).FirstOrDefaultAsync();
+			return post;
+		}
+
+		public async Task<List<Express>> GetAllActiveMissionAsync()
+		{
+			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
 			return post;
 		}
 	}

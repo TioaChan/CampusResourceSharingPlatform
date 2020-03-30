@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Interface
 {
@@ -9,5 +10,7 @@ namespace CampusResourceSharingPlatform.Interface
 		Task<int> PostAsync(T newPost);
 
 		Task<T> GetLastMissionInfoAsync(string userId);
+
+		Task<List<T>> GetAllActiveMissionAsync();
 	}
 }

@@ -1,4 +1,5 @@
-﻿<style>
+﻿@model CampusResourceSharingPlatform.Web.Pages.IndexModel
+<style>
 	#pills-tab {
 		line-height: 42px;
 		padding: 0;
@@ -25,7 +26,7 @@
 <div class="row border rounded-lg">
 	<ul class="nav nav-pills nav-fill col-9" id="pills-tab" role="tablist">
 		<li class="nav-item">
-			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">帮我领快递</a>
+			<a class="nav-link active " id="pills-home-tab" data-toggle="pill" href="#pills-takexpress" role="tab" aria-controls="pills-takexpress" aria-selected="true">帮我领快递</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" id="pills-purchase-tab" data-toggle="pill" href="#pills-purchase" role="tab" aria-controls="pills-purchase" aria-selected="false">帮我买</a>
@@ -42,18 +43,21 @@
 	</div>
 </div>
 
-<div class="tab-content" id="pills-tabContent">
-	<div class="tab-pane fade show active " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-		帮我领快递
+<div class="tab-content row mt-2" id="pills-tabContent">
+	<div class="tab-pane fade show active" id="pills-takexpress" role="tabpanel" aria-labelledby="pills-takexpress-tab">
+		<partial name="~/Pages/IndexPartial/_IndexPillsTakeExpressPartial.cshtml"/>
 	</div>
+
 	<div class="tab-pane fade " id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab">
-		帮我买
+		<partial name="~/Pages/IndexPartial/_IndexPillsPurchasePartial.cshtml"/>
 	</div>
+
 	<div class="tab-pane fade " id="pills-flea-market" role="tabpanel" aria-labelledby="pills-flea-market-tab">
-		跳蚤市场
+		<partial name="~/Pages/IndexPartial/_IndexPillsFleaMarketPartial.cshtml"/>
 	</div>
+
 	<div class="tab-pane fade" id="pills-hire" role="tabpanel" aria-labelledby="pills-hire-tab">
-		空位
+		<partial name="~/Pages/IndexPartial/_IndexPillsHirePartial.cshtml"/>
 	</div>
 </div>
 
@@ -71,21 +75,21 @@
 
 	function ChangeNavbarBtnLink(e) {
 		switch (e) {
-		case 0:
+			case 0:
 				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
-			break;
-		case 1:
+				break;
+			case 1:
 				$("#navbar-btn").attr('href', '/Distribute/Purchase').text('立即下单');
-			break;
-		case 2:
+				break;
+			case 2:
 				$("#navbar-btn").attr('href', '/Distribute/Sale').text('立即下单');
-			break;
-		case 3:
+				break;
+			case 3:
 				$("#navbar-btn").attr('href', '/Distribute/Hire').text('立即下单');
-			break;
-		default:
+				break;
+			default:
 				$("#navbar-btn").attr('href', '/Distribute/TakeExpress').text('立即下单');
-			break;
+				break;
 		}
 	}
 </script>
