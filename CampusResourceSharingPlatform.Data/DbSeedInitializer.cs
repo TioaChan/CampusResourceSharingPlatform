@@ -211,6 +211,20 @@ namespace CampusResourceSharingPlatform.Data
 					LicenseType = "Apache Software License 2.0",
 					RepoUrl = "https://github.com/aspnet/LibraryManager",
 				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000016",
+					LicenseName = "Log4Net.AspNetCore",
+					LicenseType = "Apache Software License 2.0",
+					RepoUrl = "https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore",
+				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000017",
+					LicenseName = "Pomelo.EntityFrameworkCore.MySql",
+					LicenseType = "MIT License",
+					RepoUrl = "https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql",
+				}
 			};
 				logger.LogWarning("DATABASE:No Licenses data found in Database,start use the seed to initialize the database.");
 				foreach (var license in licenses)
