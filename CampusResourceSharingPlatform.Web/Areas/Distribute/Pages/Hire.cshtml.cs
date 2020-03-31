@@ -167,7 +167,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
 			if (user.Id != PostUserId) return RedirectToPage("Index");
-			if (HireInput.GoodsPhoto==null)
+			if (HireInput.GoodsPhoto == null)
 			{
 				PostUserId = user.Id;
 				ModelState.AddModelError("", "请选择一张图片");
@@ -224,7 +224,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _hire.GetMissionById(postId);
-			if (post.PostUserId!=user.Id) return RedirectToPage("Index");
+			if (post.PostUserId != user.Id) return RedirectToPage("Index");
 			HireInput = new HireInputModel
 			{
 				PostUserId = user.Id,
@@ -249,9 +249,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnPostEditMissionAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null || user.Id != PostUserId || PostId==null) return RedirectToPage("Index");
+			if (user == null || user.Id != PostUserId || PostId == null) return RedirectToPage("Index");
 			var post = new Hire();
-			if (HireInput.GoodsPhoto != null && HireInput.GoodsPhoto.Length!=0)
+			if (HireInput.GoodsPhoto != null && HireInput.GoodsPhoto.Length != 0)
 			{
 				var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
 				var uploadFileName = Guid.NewGuid() + Path.GetExtension(HireInput.GoodsPhoto.FileName);

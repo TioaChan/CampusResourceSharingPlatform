@@ -25,6 +25,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public Express ExpressPost { get; set; }
 
+		public string CurrentUserId { get; set; }
+
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
 			var currentUser = await _userManager.GetUserAsync(User);
@@ -33,6 +35,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 				return RedirectToPage("Index");
 			}
 			ExpressPost = await _takeExpressService.GetMissionById(postId);
+			CurrentUserId = currentUser.Id;
 			return Page();
 		}
 	}

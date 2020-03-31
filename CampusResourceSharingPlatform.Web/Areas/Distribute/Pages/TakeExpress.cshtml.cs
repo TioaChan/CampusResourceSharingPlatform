@@ -28,6 +28,15 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		[BindProperty]
 		public string PostUserId { get; set; }
 
+		[BindProperty]
+		public bool EditMark { get; set; }
+
+		[BindProperty]
+		public string GoodsUrl { get; set; }
+
+		[BindProperty]
+		public string PostId { get; set; }
+
 		[TempData]
 		public string StatusMessage { get; set; }
 
@@ -155,6 +164,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				TakeExpressInput.ReceivePhoneNumber = post.PosterPhoneNumber;
 			}
 			PostUserId = user.Id;
+			EditMark = false;
 			return Page();
 		}
 
@@ -193,6 +203,67 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			}
 			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
+		}
+
+		public async Task<IActionResult> OnGetEditMissionAsync(string postId)
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
+			var post = await _takeExpress.GetMissionById(postId);
+			if (post.PostUserId != user.Id) return RedirectToPage("Index");
+			TakeExpressInput = new TakeExpressInputModel
+			{
+				PostUserId = user.Id,
+				ExpressCompany = post.ExpressCompany,
+				TrackingCode = post.TrackingCode,
+				ConsigneePhone = post.ConsigneePhone,
+				Consignee = post.Consignee,
+				PickCode = post.PickCode,
+				YiZhanName = post.YiZhanName,
+				Weight = post.Weight,
+				MissionNotes = post.MissionNotes,
+				ReceiveAddress1 = post.PosterAddress1,
+				ReceiveAddress2 = post.PosterAddress2,
+				ReceivePhoneNumber = post.PosterPhoneNumber,
+				MissionReward = post.MissionReward
+			};
+			PostId = post.Id;
+			PostUserId = user.Id;
+			EditMark = true;
+			return Page();
+		}
+		public async Task<IActionResult> OnPostEditMissionAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null || user.Id != PostUserId || PostId == null) return RedirectToPage("Index");
+			var post = new Express();
+			var time = DateTime.UtcNow;
+			post.Id = PostId;
+			post.ExpressCompany = TakeExpressInput.ExpressCompany;
+			post.TrackingCode = TakeExpressInput.TrackingCode;
+			post.ConsigneePhone = TakeExpressInput.ConsigneePhone;
+			post.Consignee = TakeExpressInput.Consignee;
+			post.PickCode = TakeExpressInput.PickCode;
+			post.YiZhanName = TakeExpressInput.YiZhanName;
+			post.Weight = TakeExpressInput.Weight;
+			post.PosterAddress1 = TakeExpressInput.ReceiveAddress1;
+			post.PosterAddress2 = TakeExpressInput.ReceiveAddress2;
+			post.PosterPhoneNumber = TakeExpressInput.ReceivePhoneNumber;
+			post.MissionName = "【快递】 【" + TakeExpressInput.ExpressCompany + "】";
+			post.TypeId = "00000000-0000-0000-0000-000000000004";
+			post.PostUserId = user.Id;
+			post.PostTime = time;
+			post.InvalidTime = time.AddDays(2.0);
+			post.MissionNotes = TakeExpressInput.MissionNotes;
+			post.MissionReward = TakeExpressInput.MissionReward;
+			var result = _takeExpress.Update(post);
+			if (result == 1)
+			{
+				StatusMessage = "Success:修改成功";
+				return RedirectToPage("/TakeExpress", new { Area = "Posts", postId = post.Id });
+			}
+			StatusMessage = "Success:修改失败";
+			return Page();
 		}
 	}
 }

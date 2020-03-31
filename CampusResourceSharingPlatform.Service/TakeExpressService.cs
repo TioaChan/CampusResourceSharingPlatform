@@ -30,6 +30,13 @@ namespace CampusResourceSharingPlatform.Service
 			throw new NotImplementedException();
 		}
 
+		public int Update(Express newPost)
+		{
+			_dbContext.MissionExpresses.Update(newPost);
+			_dbContext.SaveChanges();
+			return 1;
+		}
+
 		public async Task<Express> GetLastMissionInfoAsync(string userId)
 		{
 			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime)
