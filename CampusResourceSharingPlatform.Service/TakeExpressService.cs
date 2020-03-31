@@ -11,17 +11,17 @@ namespace CampusResourceSharingPlatform.Service
 {
 	public class TakeExpressService : ITakeExpressService<Express>
 	{
-		private readonly ApplicationDbContext _dbContext;
+		private readonly ApplicationDbContext _context;
 
-		public TakeExpressService(ApplicationDbContext dbContext)
+		public TakeExpressService(ApplicationDbContext context)
 		{
-			_dbContext = dbContext;
+			_context = context;
 		}
 		public int Post(Express newPost)
 		{
-			var result = _dbContext.MissionExpresses.AddAsync(newPost);
+			var result = _context.MissionExpresses.AddAsync(newPost);
 			if (!result.IsCompletedSuccessfully) return 0;
-			_dbContext.SaveChanges();
+			_context.SaveChanges();
 			return 1;
 		}
 
@@ -32,33 +32,33 @@ namespace CampusResourceSharingPlatform.Service
 
 		public int Update(Express newPost)
 		{
-			_dbContext.MissionExpresses.Update(newPost);
-			_dbContext.SaveChanges();
+			_context.MissionExpresses.Update(newPost);
+			_context.SaveChanges();
 			return 1;
 		}
 
 		public async Task<Express> GetLastMissionInfoAsync(string userId)
 		{
-			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime)
+			var post = await _context.MissionExpresses.OrderByDescending(p => p.PostTime)
 				.Where(p => p.PostUserId == userId).FirstOrDefaultAsync();
 			return post;
 		}
 
 		public async Task<List<Express>> GetAllActiveMissionAsync()
 		{
-			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
+			var post = await _context.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Express>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			var post = await _context.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
 			return post;
 		}
 
 		public async Task<Express> GetMissionById(string postId)
 		{
-			var post = await _dbContext.MissionExpresses.FindAsync(postId);
+			var post = await _context.MissionExpresses.FindAsync(postId);
 			return post;
 		}
 	}
