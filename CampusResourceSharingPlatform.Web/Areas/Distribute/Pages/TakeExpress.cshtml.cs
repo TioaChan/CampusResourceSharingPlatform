@@ -250,7 +250,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			post.PosterAddress2 = TakeExpressInput.ReceiveAddress2;
 			post.PosterPhoneNumber = TakeExpressInput.ReceivePhoneNumber;
 			post.MissionName = "【快递】 【" + TakeExpressInput.ExpressCompany + "】";
-			post.TypeId = "00000000-0000-0000-0000-000000000004";
+			post.TypeId = "00000000-0000-0000-0000-000000000001";
 			post.PostUserId = user.Id;
 			post.PostTime = time;
 			post.InvalidTime = time.AddDays(2.0);
