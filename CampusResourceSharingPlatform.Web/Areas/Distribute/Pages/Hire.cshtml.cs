@@ -34,8 +34,18 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		[BindProperty]
 		public string PostUserId { get; set; }
 
+		[BindProperty]
+		public bool EditMark { get; set; }
+
+		[BindProperty]
+		public string GoodsUrl { get; set; }
+
+		[BindProperty]
+		public string PostId { get; set; }
+
 		[TempData]
 		public string StatusMessage { get; set; }
+
 
 		public class HireInputModel
 		{
@@ -43,7 +53,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			/// 物品照片url
 			/// </summary>
 			[Display(Name = "图片")]
-			[Required(ErrorMessage = "请选择一张照片")]
 			public IFormFile GoodsPhoto { get; set; }
 
 			/// <summary>
@@ -149,6 +158,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				HireInput.PosterPhoneNumber = post.PosterPhoneNumber;
 			}
 			PostUserId = user.Id;
+			EditMark = false;
 			return Page();
 		}
 
@@ -157,7 +167,18 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
 			if (user.Id != PostUserId) return RedirectToPage("Index");
-			if (HireInput.GoodsPhoto.Length == 0) return Page();
+			if (HireInput.GoodsPhoto==null)
+			{
+				PostUserId = user.Id;
+				ModelState.AddModelError("", "请选择一张图片");
+				return Page();
+			}
+			if (HireInput.GoodsPhoto.Length == 0)
+			{
+				PostUserId = user.Id;
+				ModelState.AddModelError("", "请选择一张图片");
+				return Page();
+			}
 			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
 			var uploadFileName = Guid.NewGuid() + Path.GetExtension(HireInput.GoodsPhoto.FileName);
 			var filePath = Path.Combine(uploadFolder, uploadFileName);
@@ -182,6 +203,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PostUserId = user.Id,
 				PostTime = time,
 				InvalidTime = time.AddDays(2.0),
+				ExpiredTime = time.AddDays(HireInput.TimeLimit),
 				MissionNotes = HireInput.MissionNotes,
 				PosterAddress1 = HireInput.PosterAddress1,
 				PosterAddress2 = HireInput.PosterAddress2,
@@ -195,6 +217,82 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			}
 			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
+		}
+
+		public async Task<IActionResult> OnGetEditMissionAsync(string postId)
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
+			var post = await _hire.GetMissionById(postId);
+			if (post.PostUserId!=user.Id) return RedirectToPage("Index");
+			HireInput = new HireInputModel
+			{
+				PostUserId = user.Id,
+				GoodsName = post.GoodsName,
+				GoodsCategory = "未实现",
+				GoodsPrice = post.GoodsPrice,
+				GoodsDescription = post.GoodsDescription,
+				GoodsRent = post.GoodsRent,
+				TimeLimit = post.TimeLimit,
+				MissionNotes = post.MissionNotes,
+				PosterAddress1 = post.PosterAddress1,
+				PosterAddress2 = post.PosterAddress2,
+				PosterPhoneNumber = post.PosterPhoneNumber,
+			};
+			PostId = post.Id;
+			GoodsUrl = post.GoodsPhotoUrl;
+			PostUserId = user.Id;
+			EditMark = true;
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostEditMissionAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null || user.Id != PostUserId || PostId==null) return RedirectToPage("Index");
+			var post = new Hire();
+			if (HireInput.GoodsPhoto != null && HireInput.GoodsPhoto.Length!=0)
+			{
+				var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
+				var uploadFileName = Guid.NewGuid() + Path.GetExtension(HireInput.GoodsPhoto.FileName);
+				var filePath = Path.Combine(uploadFolder, uploadFileName);
+				if (!Directory.Exists(uploadFolder))
+				{
+					Directory.CreateDirectory(uploadFolder);
+				}
+				await HireInput.GoodsPhoto.CopyToAsync(new FileStream(filePath, FileMode.Create));
+				post.GoodsPhotoUrl = "/images/distribute/" + uploadFileName;
+			}
+			else
+			{
+				post.GoodsPhotoUrl = GoodsUrl;
+			}
+			var time = DateTime.UtcNow;
+			post.Id = PostId;
+			post.GoodsName = HireInput.GoodsName;
+			post.GoodsPrice = HireInput.GoodsPrice;
+			post.GoodsDescription = HireInput.GoodsDescription;
+			post.GoodsCategory = "未实现";
+			post.GoodsRent = HireInput.GoodsRent;
+			post.TimeLimit = HireInput.TimeLimit;
+			post.MissionName = "【物品租借】【" + HireInput.GoodsName + "】";
+			post.TypeId = "00000000-0000-0000-0000-000000000004";
+			post.PostUserId = user.Id;
+			post.PostTime = time;
+			post.InvalidTime = time.AddDays(2.0);
+			post.MissionNotes = HireInput.MissionNotes;
+			post.PosterAddress1 = HireInput.PosterAddress1;
+			post.PosterAddress2 = HireInput.PosterAddress2;
+			post.PosterPhoneNumber = HireInput.PosterPhoneNumber;
+			post.ExpiredTime = time.AddDays(HireInput.TimeLimit);
+			var result = _hire.Update(post);
+			if (result == 1)
+			{
+				StatusMessage = "Success:修改成功";
+				return RedirectToPage("/Hire", new { Area = "Posts", postId = post.Id });
+			}
+			StatusMessage = "Success:修改失败";
+			return Page();
 		}
 	}
 }

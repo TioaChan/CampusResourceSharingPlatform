@@ -25,6 +25,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public Hire HirePost { get; set; }
 
+		public string currentUserId { get; set; }
+
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
 			var currentUser = await _userManager.GetUserAsync(User);
@@ -32,6 +34,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 			{
 				return RedirectToPage("Index");
 			}
+			currentUserId = currentUser.Id;
 			HirePost = await _hireService.GetMissionById(postId);
 			return Page();
 		}

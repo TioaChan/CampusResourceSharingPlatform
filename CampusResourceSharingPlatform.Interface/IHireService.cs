@@ -10,6 +10,13 @@ namespace CampusResourceSharingPlatform.Interface
 		Task<int> PostAsync(T newPost);
 
 		/// <summary>
+		/// 异步 更新
+		/// </summary>
+		/// <param name="newPost"></param>
+		/// <returns></returns>
+		int Update(T newPost);
+
+		/// <summary>
 		/// 异步 返回最后一次提交的表单信息
 		/// </summary>
 		/// <param name="userId">用户id</param>

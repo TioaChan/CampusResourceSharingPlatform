@@ -31,6 +31,13 @@ namespace CampusResourceSharingPlatform.Service
 			throw new NotImplementedException();
 		}
 
+		public int Update(Hire newPost)
+		{
+			_context.MissionHire.Update(newPost);
+			_context.SaveChanges();
+			return 1;
+		}
+
 		public async Task<Hire> GetLastMissionInfoAsync(string userId)
 		{
 			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime)
