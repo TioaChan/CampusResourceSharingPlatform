@@ -18,7 +18,6 @@
 		} else if (Y == X) {
 			$('#pill-navbar').removeClass('shadow');
 		}
-		console.log(X);
 	});
 	//=========================================
 });
