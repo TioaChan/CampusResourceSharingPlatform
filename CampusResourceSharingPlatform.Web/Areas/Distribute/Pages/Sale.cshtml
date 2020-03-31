@@ -12,12 +12,24 @@
 		<div class="card">
 			<div class="card-header">物品详情</div>
 			<div class="card-body">
-				<div class="form-group row" id="goods-photo" style="display: none;">
-					<label class="col-sm-2 col-form-label">预览</label>
-					<div class="col-sm-10">
-						<img id="goods-photo-img" style="height: 200px;">
+				@if (Model.EditMark)
+				{
+					<div class="form-group row" id="goods-photo">
+						<label class="col-sm-2 col-form-label">预览</label>
+						<div class="col-sm-10">
+							<img id="goods-photo-img" href="@Model.GoodsUrl" style="height: 200px;" >
+						</div>
 					</div>
-				</div>
+				}
+				else
+				{
+					<div class="form-group row" id="goods-photo" style="display: none;">
+						<label class="col-sm-2 col-form-label">预览</label>
+						<div class="col-sm-10">
+							<img id="goods-photo-img" style="height: 200px;">
+						</div>
+					</div>
+				}
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="SaleInput.GoodsPhoto"></label>
 					<div class="col-sm-10">
@@ -106,7 +118,16 @@
 				</div>
 				<div class="form-group row">
 					<input type="hidden" name="PostUserId" value="@Model.SaleInput.PostUserId" />
-					<button type="submit" class="btn btn-primary m-3" style="width: 100%;">保存</button>
+					@if (Model.EditMark)
+					{
+						<input type="hidden" name="PostId" value="@Model.PostId" />
+						<input type="hidden" name="GoodsUrl" value="@Model.GoodsUrl" />
+						<button type="submit" class="btn btn-primary m-3" style="width: 100%;" asp-page-handler="EditMission">保存修改</button>
+					}
+					else
+					{
+						<button type="submit" class="btn btn-primary m-3" style="width: 100%;">发布</button>
+					}
 				</div>
 			</div>
 		</div>

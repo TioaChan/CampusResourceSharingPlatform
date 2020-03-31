@@ -55,5 +55,12 @@ namespace CampusResourceSharingPlatform.Service
 			var post = await _context.MissionFleaMarket.FindAsync(postId);
 			return post;
 		}
+
+		public int Update(SecondHand newPost)
+		{
+			_context.MissionFleaMarket.Update(newPost);
+			_context.SaveChanges();
+			return 1;
+		}
 	}
 }

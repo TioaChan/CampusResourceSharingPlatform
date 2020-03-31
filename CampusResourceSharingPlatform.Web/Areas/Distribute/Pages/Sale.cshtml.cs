@@ -37,6 +37,15 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		[TempData]
 		public string StatusMessage { get; set; }
 
+		[BindProperty]
+		public bool EditMark { get; set; }
+
+		[BindProperty]
+		public string GoodsUrl { get; set; }
+
+		[BindProperty]
+		public string PostId { get; set; }
+
 		public class SaleInputModel
 		{
 			public string MissionName { get; set; }
@@ -86,7 +95,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			public string PosterPhoneNumber { get; set; }
 
 			[Display(Name = "图片")]
-			[Required(ErrorMessage = "请选择一张照片")]
 			public IFormFile GoodsPhoto { get; set; }
 
 			/// <summary>
@@ -133,6 +141,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				SaleInput.PosterPhoneNumber = post.PosterPhoneNumber;
 			}
 			PostUserId = user.Id;
+			EditMark = false;
 			return Page();
 		}
 
@@ -141,7 +150,18 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null) return RedirectToPage("Index");
 			if (user.Id != PostUserId) return RedirectToPage("Index");
-			if (SaleInput.GoodsPhoto.Length == 0) return Page();
+			if (SaleInput.GoodsPhoto == null)
+			{
+				PostUserId = user.Id;
+				ModelState.AddModelError("", "请选择一张图片");
+				return Page();
+			}
+			if (SaleInput.GoodsPhoto.Length == 0)
+			{
+				PostUserId = user.Id;
+				ModelState.AddModelError("", "请选择一张图片");
+				return Page();
+			}
 			var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
 			var uploadFileName = Guid.NewGuid() + Path.GetExtension(SaleInput.GoodsPhoto.FileName);
 			var filePath = Path.Combine(uploadFolder, uploadFileName);
@@ -177,6 +197,77 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			}
 			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
+		}
+
+		public async Task<IActionResult> OnGetEditMissionAsync(string postId)
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
+			var post = await _fleaMarket.GetMissionById(postId);
+			if (post.PostUserId != user.Id) return RedirectToPage("Index");
+			SaleInput = new SaleInputModel
+			{
+				PostUserId = user.Id,
+				GoodsName = post.GoodsName,
+				GoodsPrice = post.GoodsPrice,
+				GoodsQuality = post.GoodsQuality,
+				GoodsDescription = post.GoodsDescription,
+				MissionNotes = post.MissionNotes,
+				PosterAddress1 = post.PosterAddress1,
+				PosterAddress2 = post.PosterAddress2,
+				PosterPhoneNumber = post.PosterPhoneNumber,
+			};
+			PostId = post.Id;
+			GoodsUrl = post.GoodsPhotoUrl;
+			PostUserId = user.Id;
+			EditMark = true;
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostEditMissionAsync()
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null || user.Id != PostUserId || PostId == null) return RedirectToPage("Index");
+			var post = new SecondHand();
+			if (SaleInput.GoodsPhoto != null && SaleInput.GoodsPhoto.Length != 0)
+			{
+				var uploadFolder = Path.Combine(_iWebHostEnvironment.WebRootPath, "images", "distribute");
+				var uploadFileName = Guid.NewGuid() + Path.GetExtension(SaleInput.GoodsPhoto.FileName);
+				var filePath = Path.Combine(uploadFolder, uploadFileName);
+				if (!Directory.Exists(uploadFolder))
+				{
+					Directory.CreateDirectory(uploadFolder);
+				}
+				await SaleInput.GoodsPhoto.CopyToAsync(new FileStream(filePath, FileMode.Create));
+				post.GoodsPhotoUrl = "/images/distribute/" + uploadFileName;
+			}
+			else
+			{
+				post.GoodsPhotoUrl = GoodsUrl;
+			}
+			var time = DateTime.UtcNow;
+			post.Id = PostId;
+			post.GoodsName = SaleInput.GoodsName;
+			post.GoodsPrice = SaleInput.GoodsPrice;
+			post.GoodsQuality = SaleInput.GoodsQuality;
+			post.GoodsDescription = SaleInput.GoodsDescription;
+			post.MissionName = "【二手出售】【" + SaleInput.GoodsName + "】";
+			post.TypeId = "00000000-0000-0000-0000-000000000003";
+			post.PostUserId = user.Id;
+			post.PostTime = time;
+			post.InvalidTime = time.AddDays(2.0);
+			post.MissionNotes = SaleInput.MissionNotes;
+			post.PosterAddress1 = SaleInput.PosterAddress1;
+			post.PosterAddress2 = SaleInput.PosterAddress2;
+			post.PosterPhoneNumber = SaleInput.PosterPhoneNumber;
+			var result = _fleaMarket.Update(post);
+			if (result == 1)
+			{
+				StatusMessage = "Success:修改成功";
+				return RedirectToPage("/Sale", new { Area = "Posts", postId = post.Id });
+			}
+			StatusMessage = "Success:修改失败";
+			return Page();
 		}
 	}
 }
