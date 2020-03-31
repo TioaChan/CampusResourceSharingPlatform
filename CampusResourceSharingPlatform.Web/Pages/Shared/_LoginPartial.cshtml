@@ -7,24 +7,26 @@
 <ul class="navbar-nav">
 	@if (SignInManager.IsSignedIn(User))
 	{
-	<li class="nav-item dropdown">
-		<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<li class="nav-item dropdown">
+			<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<img class="user-avatar-img-small" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name">
 			@UserManager.GetUserAsync(User).Result.NickName
-		</a>
-		<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="z-index: 2048">
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">欢迎，@UserManager.GetUserAsync(User).Result.NickName!</a>
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">个人资料</a>
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Email">邮箱管理</a>
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Password">密码管理</a>
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity" title="SI">认证管理</a>
-			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Email" title="Email">邮箱管理</a>
-			<a class="nav-link text-dark" asp-area="ControlPanel" asp-page="/Manage/Index" title="manage">index</a>
-			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
-				<button type="submit" class="nav-link btn btn-link text-dark">登出</button>
-			</form>
-		</div>
-	</li>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="z-index: 2048">
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">欢迎，@UserManager.GetUserAsync(User).Result.NickName!</a>
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">个人资料</a>
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity" title="SI">认证管理</a>
+				<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
+					<button type="submit" class="nav-link btn btn-link text-dark">登出</button>
+				</form>
+			</div>
+		</li>
+		@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Administrators"))
+		{
+			<li class="nav-item">
+				<a class="nav-link text-dark" asp-area="ControlPanel" asp-page="/Manage/Index" title="manage">控制面板</a>
+			</li>
+		}
 		<li class="nav-item">
 			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
 				<button type="submit" class="nav-link btn btn-link text-dark">登出</button>

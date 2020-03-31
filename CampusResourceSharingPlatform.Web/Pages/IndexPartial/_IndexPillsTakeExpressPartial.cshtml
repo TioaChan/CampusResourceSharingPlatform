@@ -1,6 +1,7 @@
 ﻿@model CampusResourceSharingPlatform.Web.Pages.IndexModel
 <div class="card-deck">
-	@if (Model.IndexPage.Expresses.Count!=0){
+	@if (Model.IndexPage.Expresses.Count != 0)
+	{
 		@foreach (var express in Model.IndexPage.Expresses)
 		{
 			<div class="mb-2">
@@ -17,5 +18,11 @@
 				</div>
 			</div>
 		}
+	}
+	else
+	{
+		<div class="text-center">
+			现在还没有有效任务，等会儿再来看看吧
+		</div>
 	}
 </div>
