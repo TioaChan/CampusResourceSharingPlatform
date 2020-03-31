@@ -20,12 +20,7 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\js\login\" />
-    <Folder Include="wwwroot\lib\" />
-  </ItemGroup>
-
-  <ItemGroup>
+	<ItemGroup>
     <ProjectReference Include="..\CampusResourceSharingPlatform.Data\CampusResourceSharingPlatform.Data.csproj" />
     <ProjectReference Include="..\CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj" />
     <ProjectReference Include="..\CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj" />
