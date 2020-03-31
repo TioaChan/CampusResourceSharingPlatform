@@ -28,5 +28,12 @@ namespace CampusResourceSharingPlatform.Interface
 		/// </summary>
 		/// <returns>List</returns>
 		Task<List<T>> GetTop10ActiveMissionAsync();
+
+		/// <summary>
+		/// 异步 按Id返回指定任务
+		/// </summary>
+		/// <param name="postId">MissionId</param>
+		/// <returns>T</returns>
+		Task<T> GetMissionById(string postId);
 	}
 }

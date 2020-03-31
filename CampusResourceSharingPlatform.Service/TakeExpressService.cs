@@ -19,7 +19,6 @@ namespace CampusResourceSharingPlatform.Service
 		}
 		public int Post(Express newPost)
 		{
-			newPost.Id = Guid.NewGuid().ToString();
 			var result = _dbContext.MissionExpresses.AddAsync(newPost);
 			if (!result.IsCompletedSuccessfully) return 0;
 			_dbContext.SaveChanges();
@@ -47,6 +46,12 @@ namespace CampusResourceSharingPlatform.Service
 		public async Task<List<Express>> GetTop10ActiveMissionAsync()
 		{
 			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			return post;
+		}
+
+		public async Task<Express> GetMissionById(string postId)
+		{
+			var post = await _dbContext.MissionExpresses.FindAsync(postId);
 			return post;
 		}
 	}

@@ -28,6 +28,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		[BindProperty]
 		public string PostUserId { get; set; }
 
+		[TempData]
+		public string StatusMessage { get; set; }
+
 		public class TakeExpressInputModel
 		{
 			public string MissionName { get; set; }
@@ -163,6 +166,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var time = DateTime.UtcNow;
 			var post = new Express
 			{
+				Id = Guid.NewGuid().ToString(),
 				ExpressCompany = TakeExpressInput.ExpressCompany,
 				TrackingCode = TakeExpressInput.TrackingCode,
 				ConsigneePhone = TakeExpressInput.ConsigneePhone,
@@ -184,7 +188,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var result = _takeExpress.Post(post);
 			if (result == 1)
 			{
-				//success
+				StatusMessage = "Success:发布成功";
+				return RedirectToPage("TakeExpress","Posts",post.Id);
 			}
 
 			return RedirectToPage();
