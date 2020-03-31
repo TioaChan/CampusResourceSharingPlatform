@@ -1,18 +1,8 @@
 ﻿@model CampusResourceSharingPlatform.Web.Pages.IndexModel
 
-@{
-	
-
-}
-
 <h1>Index</h1>
 <div>欢迎，@Model.IndexPage.UserName!</div>
 <partial name="_StatusMessage" model="Model.IndexPage.IndexPageStatusMessage" />
-
-@if (Model.IndexPage.IsShowNavFunction)
-{
-	<div class="container">
-		<partial name="~/Pages/IndexPartial/IndexPageNavPartial.cshtml" />
-	</div>
-}
-
+<div class="container">
+	<partial name="~/Pages/IndexPartial/IndexPageNavPartial.cshtml" />
+</div>

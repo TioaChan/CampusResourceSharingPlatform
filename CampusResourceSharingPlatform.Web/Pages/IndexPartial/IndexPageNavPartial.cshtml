@@ -1,28 +1,5 @@
 ﻿@model CampusResourceSharingPlatform.Web.Pages.IndexModel
-<style>
-	#pills-tab {
-		line-height: 42px;
-		padding: 0;
-	}
-
-	.pills-btnContent {
-		line-height: 44px;
-		padding: 0;
-	}
-
-	.btn-nav {
-		line-height: 40px;
-	}
-
-	.nav-pills .nav-link.active,
-	.nav-pills .show > .nav-link {
-		border-radius: 1ch;
-		height: 38px;
-		margin: 10px;
-		line-height: 22px;
-		border-radius: 50rem !important;
-	}
-</style>
+<link href="~/css/pills.css" rel="stylesheet" />
 <div class="row border rounded-lg">
 	<ul class="nav nav-pills nav-fill col-9" id="pills-tab" role="tablist">
 		<li class="nav-item">
@@ -39,25 +16,32 @@
 		</li>
 	</ul>
 	<div class="tab-content col-3 pills-btnContent">
-		<a class="nav-link btn-primary text-center" id="navbar-btn" asp-area="Distribute" asp-page="TakeExpress">立即下单</a>
+		@if (Model.IndexPage.IsShowNavFunction)
+		{
+			<a class="nav-link btn-primary text-center" id="navbar-btn" asp-area="Distribute" asp-page="TakeExpress">立即下单</a>
+		}
+		else
+		{
+			<a class="nav-link btn-warning text-center" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity">学生认证</a>
+		}
 	</div>
 </div>
 
 <div class="tab-content row mt-2" id="pills-tabContent">
-	<div class="tab-pane fade show active" id="pills-takexpress" role="tabpanel" aria-labelledby="pills-takexpress-tab">
-		<partial name="~/Pages/IndexPartial/_IndexPillsTakeExpressPartial.cshtml"/>
+	<div class="tab-pane fade show active pills-tab-item" id="pills-takexpress" role="tabpanel" aria-labelledby="pills-takexpress-tab">
+		<partial name="~/Pages/IndexPartial/_IndexPillsTakeExpressPartial.cshtml" />
 	</div>
 
-	<div class="tab-pane fade " id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab">
-		<partial name="~/Pages/IndexPartial/_IndexPillsPurchasePartial.cshtml"/>
+	<div class="tab-pane fade pills-tab-item " id="pills-purchase" role="tabpanel" aria-labelledby="pills-purchase-tab">
+		<partial name="~/Pages/IndexPartial/_IndexPillsPurchasePartial.cshtml" />
 	</div>
 
-	<div class="tab-pane fade " id="pills-flea-market" role="tabpanel" aria-labelledby="pills-flea-market-tab">
-		<partial name="~/Pages/IndexPartial/_IndexPillsFleaMarketPartial.cshtml"/>
+	<div class="tab-pane fade pills-tab-item" id="pills-flea-market" role="tabpanel" aria-labelledby="pills-flea-market-tab">
+		<partial name="~/Pages/IndexPartial/_IndexPillsFleaMarketPartial.cshtml" />
 	</div>
 
-	<div class="tab-pane fade" id="pills-hire" role="tabpanel" aria-labelledby="pills-hire-tab">
-		<partial name="~/Pages/IndexPartial/_IndexPillsHirePartial.cshtml"/>
+	<div class="tab-pane fade pills-tab-item" id="pills-hire" role="tabpanel" aria-labelledby="pills-hire-tab">
+		<partial name="~/Pages/IndexPartial/_IndexPillsHirePartial.cshtml" />
 	</div>
 </div>
 
