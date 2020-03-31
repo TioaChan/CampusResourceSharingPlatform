@@ -6,15 +6,19 @@
 }
 <h5>Sale</h5>
 @Model.SalePost.GoodsName
+<img src="@Model.SalePost.GoodsPhotoUrl" alt="Alternate Text" style="width: 200px;"/>
 <form method="post">
-	@if (Model.SalePost.PostUserId == Model.currentUserId)
+	@if (Model.StudentIdentityConfirmed)
 	{
-		<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Sale" asp-area="Distribute" asp-route-postId="@Model.SalePost.Id">任务修改</a>
-		<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">任务下架</button>
-		<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除任务</button>
-	}
-	else
-	{
-		<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission">领取任务</button>
+		@if (Model.SalePost.PostUserId == Model.currentUserId)
+		{
+			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Sale" asp-area="Distribute" asp-route-postId="@Model.SalePost.Id">任务修改</a>
+			<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">任务下架</button>
+			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除任务</button>
+		}
+		else
+		{
+			<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission">领取任务</button>
+		}
 	}
 </form>

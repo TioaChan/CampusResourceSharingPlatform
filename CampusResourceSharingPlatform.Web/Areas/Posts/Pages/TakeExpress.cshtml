@@ -7,16 +7,18 @@
 <h5>Take Express</h5>
 
 @Model.ExpressPost.MissionName
-
 <form method="post">
-	@if (Model.ExpressPost.PostUserId == Model.CurrentUserId)
+	@if (Model.StudentIdentityConfirmed)
 	{
-		<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="TakeExpress" asp-area="Distribute" asp-route-postId="@Model.ExpressPost.Id">任务修改</a>
-		<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">任务下架</button>
-		<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除任务</button>
-	}
-	else
-	{
-		<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission">领取任务</button>
+		@if (Model.ExpressPost.PostUserId == Model.CurrentUserId)
+		{
+			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="TakeExpress" asp-area="Distribute" asp-route-postId="@Model.ExpressPost.Id">任务修改</a>
+			<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">任务下架</button>
+			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除任务</button>
+		}
+		else
+		{
+			<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission">领取任务</button>
+		}
 	}
 </form>
