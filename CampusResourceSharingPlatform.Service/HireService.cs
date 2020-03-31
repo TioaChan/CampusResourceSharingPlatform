@@ -49,5 +49,11 @@ namespace CampusResourceSharingPlatform.Service
 			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
 			return post;
 		}
+
+		public async Task<Hire> GetMissionById(string postId)
+		{
+			var post = await _context.MissionHire.FindAsync(postId);
+			return post;
+		}
 	}
 }
