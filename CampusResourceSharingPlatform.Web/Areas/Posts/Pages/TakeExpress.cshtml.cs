@@ -1,10 +1,10 @@
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 {
@@ -27,8 +27,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
-			var currentUser =await _userManager.GetUserAsync(User);
-			if (postId==null || currentUser==null)
+			var currentUser = await _userManager.GetUserAsync(User);
+			if (postId == null || currentUser == null)
 			{
 				return RedirectToPage("Index");
 			}
