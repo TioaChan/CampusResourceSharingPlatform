@@ -33,6 +33,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 
 		[BindProperty]
 		public string PostUserId { get; set; }
+
+		[TempData]
+		public string StatusMessage { get; set; }
+
 		public class HireInputModel
 		{
 			/// <summary>
@@ -165,6 +169,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var time = DateTime.UtcNow;
 			var post = new Hire
 			{
+				Id = Guid.NewGuid().ToString(),
 				GoodsPhotoUrl = "/images/distribute/" + uploadFileName,
 				GoodsName = HireInput.GoodsName,
 				GoodsPrice = HireInput.GoodsPrice,
@@ -185,8 +190,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var result = _hire.Post(post);
 			if (result == 1)
 			{
-				//success
+				StatusMessage = "Success:发布成功";
+				return RedirectToPage("/Hire", new { Area = "Posts", postId = post.Id });
 			}
+			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
 		}
 	}

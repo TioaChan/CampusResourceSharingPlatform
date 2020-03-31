@@ -20,7 +20,6 @@ namespace CampusResourceSharingPlatform.Service
 
 		public int Post(SecondHand newPost)
 		{
-			newPost.Id = Guid.NewGuid().ToString();
 			var result = _context.MissionFleaMarket.AddAsync(newPost);
 			if (!result.IsCompletedSuccessfully) return 0;
 			_context.SaveChanges();

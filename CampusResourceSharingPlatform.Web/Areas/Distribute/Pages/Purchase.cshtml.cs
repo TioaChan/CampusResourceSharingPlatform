@@ -21,6 +21,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			_purchase = purchase;
 		}
 
+		[TempData]
+		public string StatusMessage { get; set; }
+
 		[BindProperty]
 		public PurchaseInputModel PurchaseInput { get; set; }
 
@@ -131,6 +134,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var time = DateTime.UtcNow;
 			var post = new Purchase
 			{
+				Id = Guid.NewGuid().ToString(),
 				PurchaseContent = PurchaseInput.PurchaseContent,
 				PurchaseAddress = PurchaseInput.PurchaseAddress,
 				PurchaseRequirement = PurchaseInput.PurchaseRequirement,
@@ -148,11 +152,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var result = _purchase.Post(post);
 			if (result == 1)
 			{
-				//success
+				StatusMessage = "Success:发布成功";
+				return RedirectToPage("/Purchase", new { Area = "Posts", postId = post.Id });
 			}
-
+			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
 		}
-
 	}
 }

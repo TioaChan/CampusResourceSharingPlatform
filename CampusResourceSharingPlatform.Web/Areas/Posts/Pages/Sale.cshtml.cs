@@ -9,6 +9,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 {
     public class SaleModel : PageModel
     {
+
+
+	    [TempData]
+	    public string StatusMessage { get; set; }
+
         public void OnGet()
         {
         }

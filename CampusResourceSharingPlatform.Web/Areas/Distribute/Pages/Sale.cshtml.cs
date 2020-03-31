@@ -34,6 +34,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		[BindProperty]
 		public string PostUserId { get; set; }
 
+		[TempData]
+		public string StatusMessage { get; set; }
+
 		public class SaleInputModel
 		{
 			public string MissionName { get; set; }
@@ -150,6 +153,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var time = DateTime.UtcNow;
 			var post = new SecondHand
 			{
+				Id = Guid.NewGuid().ToString(),
 				GoodsPhotoUrl = "/images/distribute/" + uploadFileName,
 				GoodsName = SaleInput.GoodsName,
 				GoodsPrice = SaleInput.GoodsPrice,
@@ -168,8 +172,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var result = _fleaMarket.Post(post);
 			if (result == 1)
 			{
-				//success
+				StatusMessage = "Success:发布成功";
+				return RedirectToPage("/Sale", new { Area = "Posts", postId = post.Id });
 			}
+			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
 		}
 	}

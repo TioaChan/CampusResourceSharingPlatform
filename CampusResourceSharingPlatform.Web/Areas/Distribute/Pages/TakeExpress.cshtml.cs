@@ -189,9 +189,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			if (result == 1)
 			{
 				StatusMessage = "Success:发布成功";
-				return RedirectToPage("TakeExpress","Posts",post.Id);
+				return RedirectToPage("/TakeExpress", new { Area = "Posts", postId = post.Id });
 			}
-
+			StatusMessage = "Error:发布失败";
 			return RedirectToPage();
 		}
 	}

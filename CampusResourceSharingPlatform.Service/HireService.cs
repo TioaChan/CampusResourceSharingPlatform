@@ -20,7 +20,6 @@ namespace CampusResourceSharingPlatform.Service
 
 		public int Post(Hire newPost)
 		{
-			newPost.Id = Guid.NewGuid().ToString();
 			var result = _context.MissionHire.AddAsync(newPost);
 			if (!result.IsCompletedSuccessfully) return 0;
 			_context.SaveChanges();
