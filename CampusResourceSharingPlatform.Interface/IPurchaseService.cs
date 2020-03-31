@@ -34,5 +34,12 @@ namespace CampusResourceSharingPlatform.Interface
 		/// <param name="postId">MissionId</param>
 		/// <returns>T</returns>
 		Task<T> GetMissionById(string postId);
+
+		/// <summary>
+		/// 异步 更新
+		/// </summary>
+		/// <param name="newPost"></param>
+		/// <returns></returns>
+		int Update(T newPost);
 	}
 }

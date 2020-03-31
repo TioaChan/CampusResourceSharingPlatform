@@ -55,5 +55,12 @@ namespace CampusResourceSharingPlatform.Service
 			var post = await _context.MissionPurchase.FindAsync(postId);
 			return post;
 		}
+
+		public int Update(Purchase newPost)
+		{
+			_context.MissionPurchase.Update(newPost);
+			_context.SaveChanges();
+			return 1;
+		}
 	}
 }
