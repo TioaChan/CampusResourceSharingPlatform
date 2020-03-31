@@ -68,10 +68,10 @@ namespace CampusResourceSharingPlatform.Web.Pages
 				UserName = user.NickName,
 				IsShowNavFunction = user.StudentIdentityConfirmed,
 				IndexPageStatusMessage = !user.StudentIdentityConfirmed ? "Error:你还没有验证学生身份，无法进行下单，请先去个人设置中验证学生身份。" : "",
-				Expresses = await _expressService.GetAllActiveMissionAsync(),
-				Purchases = await _purchaseService.GetAllActiveMissionAsync(),
-				SecondHands = await _fleaMarketService.GetAllActiveMissionAsync(),
-				Hires = await _hireService.GetAllActiveMissionAsync()
+				Expresses = await _expressService.GetTop10ActiveMissionAsync(),
+				Purchases = await _purchaseService.GetTop10ActiveMissionAsync(),
+				SecondHands = await _fleaMarketService.GetTop10ActiveMissionAsync(),
+				Hires = await _hireService.GetTop10ActiveMissionAsync(),
 			};
 			return Page();
 		}

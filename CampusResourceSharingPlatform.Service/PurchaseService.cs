@@ -44,5 +44,11 @@ namespace CampusResourceSharingPlatform.Service
 			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
 			return post;
 		}
+
+		public async Task<List<Purchase>> GetTop10ActiveMissionAsync()
+		{
+			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			return post;
+		}
 	}
 }

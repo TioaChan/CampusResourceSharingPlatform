@@ -43,5 +43,11 @@ namespace CampusResourceSharingPlatform.Service
 			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
 			return post;
 		}
+
+		public async Task<List<Express>> GetTop10ActiveMissionAsync()
+		{
+			var post = await _dbContext.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			return post;
+		}
 	}
 }
