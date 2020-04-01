@@ -28,35 +28,40 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public string CurrentUserId { get; set; }
 
+		public ApplicationUser CurrentUser { get; set; }
+
 		public bool StudentIdentityConfirmed { get; set; }
 
 		[BindProperty]
 		public string PostId { get; set; }
 
+		private async Task LoadAsync(string postId)
+		{
+			CurrentUser = await _userManager.GetUserAsync(User);
+			if (CurrentUser == null || postId == null) return;
+			ExpressPost = await _takeExpressService.GetMissionById(postId);
+			StudentIdentityConfirmed = CurrentUser.StudentIdentityConfirmed;
+			CurrentUserId = CurrentUser.Id;
+			PostId = ExpressPost.Id;
+		}
+
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null)
 			{
 				return RedirectToPage("Index");
 			}
-			ExpressPost = await _takeExpressService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
-			PostId = postId;
 			return Page();
 		}
 
 		public async Task<IActionResult> OnPostAcceptMissionAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null || PostId == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
-			ExpressPost = await _takeExpressService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
 			ExpressPost.AcceptUserId = CurrentUserId;
 			ExpressPost.AcceptTime = DateTime.UtcNow;
 			ExpressPost.IsAccepted = true;
@@ -73,14 +78,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public async Task<IActionResult> OnPostAbortMissionAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null || PostId == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
-			ExpressPost = await _takeExpressService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
 			ExpressPost.AcceptUserId = null;
 			ExpressPost.AcceptTime = null;
 			ExpressPost.IsAccepted = false;

@@ -30,33 +30,38 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public bool StudentIdentityConfirmed { get; set; }
 
+		public ApplicationUser CurrentUser { get; set; }
+
 		[BindProperty]
 		public string PostId { get; set; }
 
+		private async Task LoadAsync(string postId)
+		{
+			CurrentUser = await _userManager.GetUserAsync(User);
+			if (CurrentUser == null || postId == null) return;
+			SalePost = await _fleaMarketService.GetMissionById(postId);
+			StudentIdentityConfirmed = CurrentUser.StudentIdentityConfirmed;
+			CurrentUserId = CurrentUser.Id;
+			PostId = SalePost.Id;
+		}
+
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null)
 			{
 				return RedirectToPage("Index");
 			}
-			CurrentUserId = currentUser.Id;
-			SalePost = await _fleaMarketService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			PostId = postId;
 			return Page();
 		}
 
 		public async Task<IActionResult> OnPostAcceptMissionAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null || PostId == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
-			SalePost = await _fleaMarketService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
 			SalePost.AcceptUserId = CurrentUserId;
 			SalePost.AcceptTime = DateTime.UtcNow;
 			SalePost.IsAccepted = true;
@@ -73,14 +78,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public async Task<IActionResult> OnPostAbortMissionAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null || PostId == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
-			SalePost = await _fleaMarketService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
 			SalePost.AcceptUserId = null;
 			SalePost.AcceptTime = null;
 			SalePost.IsAccepted = false;

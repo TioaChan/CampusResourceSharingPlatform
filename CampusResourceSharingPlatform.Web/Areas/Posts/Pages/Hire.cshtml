@@ -23,7 +23,7 @@
 			{
 				if (Model.HirePost.AcceptUserId==Model.CurrentUserId)
 				{
-					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-posdId="@Model.HirePost.Id">不租了</button>
+					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-postId="@Model.HirePost.Id">不租了</button>
 				}
 				else
 				{
@@ -32,7 +32,7 @@
 			}
 			else
 			{
-				<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission" asp-route-posdId="@Model.HirePost.Id">租赁</button>
+				<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission" asp-route-postId="@Model.HirePost.Id">租赁</button>
 			}
 		}
 	}

@@ -30,33 +30,38 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public bool StudentIdentityConfirmed { get; set; }
 
+		public ApplicationUser CurrentUser { get; set; }
+
 		[BindProperty]
 		public string PostId { get; set; }
 
+		private async Task LoadAsync(string postId)
+		{
+			CurrentUser = await _userManager.GetUserAsync(User);
+			if (CurrentUser == null || postId == null) return;
+			HirePost = await _hireService.GetMissionById(postId);
+			StudentIdentityConfirmed = CurrentUser.StudentIdentityConfirmed;
+			CurrentUserId = CurrentUser.Id;
+			PostId = HirePost.Id;
+		}
+
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null)
 			{
 				return RedirectToPage("Index");
 			}
-			CurrentUserId = currentUser.Id;
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			HirePost = await _hireService.GetMissionById(postId);
-			PostId = postId;
 			return Page();
 		}
 
 		public async Task<IActionResult> OnPostAcceptMissionAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null || PostId == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
-			HirePost = await _hireService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
 			HirePost.AcceptUserId = CurrentUserId;
 			HirePost.AcceptTime = DateTime.UtcNow;
 			HirePost.IsAccepted = true;
@@ -73,14 +78,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 
 		public async Task<IActionResult> OnPostAbortMissionAsync(string postId)
 		{
-			var currentUser = await _userManager.GetUserAsync(User);
-			if (postId == null || currentUser == null || PostId == null)
+			await LoadAsync(postId);
+			if (postId == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
-			HirePost = await _hireService.GetMissionById(postId);
-			StudentIdentityConfirmed = currentUser.StudentIdentityConfirmed;
-			CurrentUserId = currentUser.Id;
 			HirePost.AcceptUserId = null;
 			HirePost.AcceptTime = null;
 			HirePost.IsAccepted = false;

@@ -22,7 +22,7 @@
 			{
 				if (Model.ExpressPost.AcceptUserId==Model.CurrentUserId)
 				{
-					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-posdId="@Model.ExpressPost.Id">放弃任务</button>
+					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-postId="@Model.ExpressPost.Id">放弃任务</button>
 				}
 				else
 				{
@@ -31,7 +31,7 @@
 			}
 			else
 			{
-				<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission" asp-route-posdId="@Model.ExpressPost.Id">领取任务</button>
+				<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission" asp-route-postId="@Model.ExpressPost.Id">领取任务</button>
 			}
 		}
 	}
