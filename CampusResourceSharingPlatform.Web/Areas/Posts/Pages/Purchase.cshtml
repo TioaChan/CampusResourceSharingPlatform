@@ -4,8 +4,57 @@
 	Layout = "_Layout";
 	ViewData["Title"] = "出租";
 }
-<h5>hire</h5>
-帮我买：@Model.PurchasePost.PurchaseContent
+<div class="card mb-4">
+	<div class="card-header">购买需求信息</div>
+	<div class="card-body">
+		<div class="form-row">
+			<div class="form-group col-md-12">
+				<label for="inputState">购买内容</label>
+				<input type="text" class="form-control" id="inputState" asp-for="PurchasePost.PurchaseContent" disabled>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="inputPickCode">购买地址</label>
+				<input type="text" class="form-control" id="inputPickCode" asp-for="PurchasePost.PurchaseAddress" disabled>
+			</div>
+			<div class="form-group col-md-12">
+				<label for="inputPhone">购买需求</label>
+				@* <input type="text" class="form-control" id="inputPhone" asp-for="PurchasePost.PurchaseRequirement" disabled> *@
+				<textarea class="form-control" id="inputPhone" asp-for="PurchasePost.PurchaseRequirement" style="resize: none;height: 70px;" disabled></textarea></div>
+		</div>
+	</div>
+</div>
+
+@if (Model.StudentIdentityConfirmed &&
+   (Model.PurchasePost.PostUserId == Model.CurrentUserId ||
+	   (Model.PurchasePost.IsAccepted && Model.PurchasePost.AcceptUserId == Model.CurrentUserId)))
+{
+	<div class="card mb-4">
+		<div class="card-header">任务信息</div>
+		<div class="card-body row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputadd1">收货地址</label>
+					<input type="text" class="form-control" id="inputadd1" asp-for="PurchasePost.PosterAddress1" disabled>
+				</div>
+				<div class="form-group">
+					<label for="inputadd2">具体楼号及门牌号</label>
+					<input type="text" class="form-control" id="inputadd2" asp-for="PurchasePost.PosterAddress2" disabled>
+				</div>
+				<div class="form-group">
+					<label for="inputadd3">收货人手机号码</label>
+					<input type="text" class="form-control" id="inputadd3" asp-for="PurchasePost.PosterPhoneNumber" disabled>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputNote">任务备注</label>
+					<textarea class="form-control" id="inputNote" asp-for="PurchasePost.MissionNotes" style="resize: none;height: 210px;" disabled></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
 <form method="post">
 	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)
@@ -20,7 +69,7 @@
 		{
 			if (Model.PurchasePost.IsAccepted)
 			{
-				if (Model.PurchasePost.AcceptUserId==Model.CurrentUserId)
+				if (Model.PurchasePost.AcceptUserId == Model.CurrentUserId)
 				{
 					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-postId="@Model.PurchasePost.Id">放弃任务</button>
 				}
