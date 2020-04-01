@@ -1,12 +1,9 @@
 ﻿@{
 	Layout = "/Pages/Shared/_Layout.cshtml";
 }
-<div>
-	<partial name="_StatusMessage" model="Model.StatusMessage" />
-	<div class="row">
-		@RenderBody()
-	</div>
-</div>
+
+<partial name="_StatusMessage" model="Model.StatusMessage"/>
+@RenderBody()
 
 @section Scripts {
 	@RenderSection("Scripts", required: false)

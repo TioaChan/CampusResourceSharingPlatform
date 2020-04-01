@@ -4,9 +4,82 @@
 	Layout = "_Layout";
 	ViewData["Title"] = "快递";
 }
-<h5>Take Express</h5>
 
-帮我取快递：@Model.ExpressPost.YiZhanName @Model.ExpressPost.ExpressCompany
+
+<div class="card mb-4">
+	<div class="card-header">快递包裹信息</div>
+	<div class="card-body">
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputState">驿站地址</label>
+				<input type="text" class="form-control" id="inputState" asp-for="ExpressPost.YiZhanName" disabled>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputPickCode">取货码</label>
+				<input type="text" class="form-control" id="inputPickCode" asp-for="ExpressPost.PickCode" disabled>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputPhone">取货手机号码</label>
+				<input type="text" class="form-control" id="inputPhone" asp-for="ExpressPost.ConsigneePhone" disabled>
+			</div>
+			<div class="form-group col-md-2">
+				<label for="inputWeight">包裹重量</label>
+				<div class="input-group">
+					<input type="text" class="form-control" id="inputWeight" asp-for="ExpressPost.Weight" disabled>
+					<div class="input-group-append">
+						<span class="input-group-text">千克</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="inputTrackingCode">快递单号</label>
+				<input type="text" class="form-control" id="inputTrackingCode" asp-for="ExpressPost.TrackingCode" disabled>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputExpressCompany">快递公司</label>
+				<input type="text" class="form-control" id="inputExpressCompany" asp-for="ExpressPost.ExpressCompany" disabled>
+			</div>
+			<div class="form-group col-md-4">
+				<label for="inputConsignee">收件人姓名</label>
+				<input type="text" class="form-control" id="inputConsignee" asp-for="ExpressPost.Consignee" disabled>
+			</div>
+		</div>
+	</div>
+</div>
+
+@if (Model.StudentIdentityConfirmed && 
+	(Model.ExpressPost.PostUserId == Model.CurrentUserId || 
+		(Model.ExpressPost.IsAccepted && Model.ExpressPost.AcceptUserId == Model.CurrentUserId)))
+{
+	<div class="card mb-4">
+		<div class="card-header">任务信息</div>
+		<div class="card-body row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputadd1">收货地址</label>
+					<input type="text" class="form-control" id="inputadd1" asp-for="ExpressPost.PosterAddress1" disabled>
+				</div>
+				<div class="form-group">
+					<label for="inputadd2">具体楼号及门牌号</label>
+					<input type="text" class="form-control" id="inputadd2" asp-for="ExpressPost.PosterAddress2" disabled>
+				</div>
+				<div class="form-group">
+					<label for="inputadd3">收货人手机号码</label>
+					<input type="text" class="form-control" id="inputadd3" asp-for="ExpressPost.PosterPhoneNumber" disabled>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputNote">任务备注</label>
+					<textarea class="form-control" id="inputNote" asp-for="ExpressPost.MissionNotes" style="resize: none;height: 210px;" disabled></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
 <form method="post">
 	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)
@@ -20,7 +93,7 @@
 		{
 			if (Model.ExpressPost.IsAccepted)
 			{
-				if (Model.ExpressPost.AcceptUserId==Model.CurrentUserId)
+				if (Model.ExpressPost.AcceptUserId == Model.CurrentUserId)
 				{
 					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-postId="@Model.ExpressPost.Id">放弃任务</button>
 				}
