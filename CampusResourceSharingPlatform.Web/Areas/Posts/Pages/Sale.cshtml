@@ -6,7 +6,85 @@
 }
 <h5>Sale</h5>
 @Model.SalePost.GoodsName
-<img src="@Model.SalePost.GoodsPhotoUrl" alt="Alternate Text" style="width: 200px;"/>
+
+
+<div class="card mb-4">
+	<div class="card-header">物品信息</div>
+	<div class="card-body row">
+		<div class="col-md-4">
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label>物品预览</label>
+					<img src="@Model.SalePost.GoodsPhotoUrl" class="card-img-top" alt="Alternate Text" style="max-width: 100%;max-height: 100%;" />
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-md-8">
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="inputGoodsName">物品名称</label>
+					<input type="text" class="form-control" id="inputGoodsName" asp-for="SalePost.GoodsName" disabled>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputGoodsQuality">成色</label>
+					<input type="text" class="form-control" id="inputGoodsQuality" asp-for="SalePost.GoodsQuality" disabled>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputGoodsPrice">定价</label>
+					<div class="input-group">
+						<input type="text" class="form-control" id="inputGoodsPrice" asp-for="SalePost.GoodsPrice" disabled>
+						<div class="input-group-append">
+							<span class="input-group-text">元</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-12">
+					<label for="inputMissionNotes">物品描述</label>
+					<textarea class="form-control" id="inputMissionNotes" asp-for="SalePost.GoodsDescription" style="resize: none; height: 210px;" disabled></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+@if (Model.StudentIdentityConfirmed && 
+     (Model.SalePost.PostUserId == Model.CurrentUserId || 
+      (Model.SalePost.IsAccepted && Model.SalePost.AcceptUserId == Model.CurrentUserId)))
+{
+	<div class="card mb-4">
+		<div class="card-header">卖家信息</div>
+		<div class="card-body row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputadd1">卖家的联系地址</label>
+					<input type="text" class="form-control" id="inputadd1" asp-for="SalePost.PosterAddress1" disabled>
+				</div>
+				<div class="form-group">
+					<label for="inputadd2">卖家的补充地址</label>
+					<input type="text" class="form-control" id="inputadd2" asp-for="SalePost.PosterAddress2" disabled>
+				</div>
+				<div class="form-group">
+					<label for="inputadd3">卖家联系方式</label>
+					<input type="text" class="form-control" id="inputadd3" asp-for="SalePost.PosterPhoneNumber" disabled>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="inputNote">卖家留下的备注</label>
+					<textarea class="form-control" id="inputNote" asp-for="SalePost.MissionNotes" style="resize: none;height: 210px;" disabled></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+}
 <form method="post">
 	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)
