@@ -198,7 +198,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				GoodsCategory = "未实现",
 				GoodsRent = HireInput.GoodsRent,
 				TimeLimit = HireInput.TimeLimit,
-				MissionName = "【物品租借】【" + HireInput.GoodsName + "】",
 				TypeId = "00000000-0000-0000-0000-000000000004",
 				PostUserId = user.Id,
 				PostTime = time,
@@ -275,7 +274,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			post.GoodsCategory = "未实现";
 			post.GoodsRent = HireInput.GoodsRent;
 			post.TimeLimit = HireInput.TimeLimit;
-			post.MissionName = "【物品租借】【" + HireInput.GoodsName + "】";
 			post.TypeId = "00000000-0000-0000-0000-000000000004";
 			post.PostUserId = user.Id;
 			post.PostTime = time;

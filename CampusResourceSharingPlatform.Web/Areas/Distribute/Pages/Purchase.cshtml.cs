@@ -145,7 +145,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PurchaseContent = PurchaseInput.PurchaseContent,
 				PurchaseAddress = PurchaseInput.PurchaseAddress,
 				PurchaseRequirement = PurchaseInput.PurchaseRequirement,
-				MissionName = "【帮我买】【" + PurchaseInput.PurchaseContent + "】",
 				TypeId = "00000000-0000-0000-0000-000000000002",
 				PostUserId = user.Id,
 				PostTime = time,
@@ -200,7 +199,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			post.PurchaseContent = PurchaseInput.PurchaseContent;
 			post.PurchaseAddress = PurchaseInput.PurchaseAddress;
 			post.PurchaseRequirement = PurchaseInput.PurchaseRequirement;
-			post.MissionName = "【帮我买】 【" + PurchaseInput.PurchaseContent + "】";
 			post.TypeId = "00000000-0000-0000-0000-000000000002";
 			post.PostUserId = user.Id;
 			post.PostTime = time;

@@ -179,7 +179,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				GoodsPrice = SaleInput.GoodsPrice,
 				GoodsQuality = SaleInput.GoodsQuality,
 				GoodsDescription = SaleInput.GoodsDescription,
-				MissionName = "【二手出售】【" + SaleInput.GoodsName + "】",
 				TypeId = "00000000-0000-0000-0000-000000000003",
 				PostUserId = user.Id,
 				PostTime = time,
@@ -251,7 +250,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			post.GoodsPrice = SaleInput.GoodsPrice;
 			post.GoodsQuality = SaleInput.GoodsQuality;
 			post.GoodsDescription = SaleInput.GoodsDescription;
-			post.MissionName = "【二手出售】【" + SaleInput.GoodsName + "】";
 			post.TypeId = "00000000-0000-0000-0000-000000000003";
 			post.PostUserId = user.Id;
 			post.PostTime = time;

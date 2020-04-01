@@ -5,7 +5,7 @@
 	ViewData["Title"] = "出租";
 }
 <h5>hire</h5>
-@Model.PurchasePost.MissionName
+帮我买：@Model.PurchasePost.PurchaseContent
 <form method="post">
 	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)

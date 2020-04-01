@@ -187,7 +187,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				PosterAddress1 = TakeExpressInput.ReceiveAddress1,
 				PosterAddress2 = TakeExpressInput.ReceiveAddress2,
 				PosterPhoneNumber = TakeExpressInput.ReceivePhoneNumber,
-				MissionName = "【快递】 【" + TakeExpressInput.ExpressCompany + "】",
 				TypeId = "00000000-0000-0000-0000-000000000001",
 				PostUserId = user.Id,
 				PostTime = time,
@@ -249,7 +248,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			post.PosterAddress1 = TakeExpressInput.ReceiveAddress1;
 			post.PosterAddress2 = TakeExpressInput.ReceiveAddress2;
 			post.PosterPhoneNumber = TakeExpressInput.ReceivePhoneNumber;
-			post.MissionName = "【快递】 【" + TakeExpressInput.ExpressCompany + "】";
 			post.TypeId = "00000000-0000-0000-0000-000000000001";
 			post.PostUserId = user.Id;
 			post.PostTime = time;

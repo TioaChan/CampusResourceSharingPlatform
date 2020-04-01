@@ -5,7 +5,7 @@
 	ViewData["Title"] = "租借";
 }
 <h5>hire</h5>
-<h4>@Model.HirePost.MissionName</h4>
+<h4>出租：@Model.HirePost.GoodsName</h4>
 <img src="@Model.HirePost.GoodsPhotoUrl" alt="Alternate Text" style="width: 200px;" />
 <form method="post">
 	<input type="hidden" name="PostId" value="@Model.PostId" />

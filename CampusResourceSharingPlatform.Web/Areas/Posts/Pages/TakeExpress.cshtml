@@ -6,7 +6,7 @@
 }
 <h5>Take Express</h5>
 
-@Model.ExpressPost.MissionName
+帮我取快递：@Model.ExpressPost.YiZhanName @Model.ExpressPost.ExpressCompany
 <form method="post">
 	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)

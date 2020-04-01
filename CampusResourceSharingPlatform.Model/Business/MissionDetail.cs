@@ -9,12 +9,6 @@ namespace CampusResourceSharingPlatform.Model.Business
 	{
 		#region properties
 		/// <summary>
-		/// 任务名称
-		/// </summary>
-		[Required]
-		public string MissionName { get; set; }
-
-		/// <summary>
 		/// 所属类目编号
 		/// </summary>
 		[Required]
