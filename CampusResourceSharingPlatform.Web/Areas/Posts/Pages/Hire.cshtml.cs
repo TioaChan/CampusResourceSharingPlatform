@@ -64,6 +64,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 			}
 			HirePost.AcceptUserId = CurrentUserId;
 			HirePost.AcceptTime = DateTime.UtcNow;
+			HirePost.ExpiredTime = DateTime.UtcNow.AddDays(HirePost.TimeLimit);
 			HirePost.IsAccepted = true;
 			HirePost.IsCompleted = false;
 			var result = _hireService.Update(HirePost);
