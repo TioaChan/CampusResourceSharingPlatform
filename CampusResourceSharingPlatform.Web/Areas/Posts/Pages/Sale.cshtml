@@ -8,17 +8,31 @@
 @Model.SalePost.GoodsName
 <img src="@Model.SalePost.GoodsPhotoUrl" alt="Alternate Text" style="width: 200px;"/>
 <form method="post">
+	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)
 	{
-		@if (Model.SalePost.PostUserId == Model.currentUserId)
+		@if (Model.SalePost.PostUserId == Model.CurrentUserId)
 		{
-			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Sale" asp-area="Distribute" asp-route-postId="@Model.SalePost.Id">任务修改</a>
-			<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">任务下架</button>
-			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除任务</button>
+			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Sale" asp-area="Distribute" asp-route-postId="@Model.SalePost.Id">修改</a>
+			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除</button>
 		}
 		else
 		{
-			<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission">领取任务</button>
+			if (Model.SalePost.IsAccepted)
+			{
+				if (Model.SalePost.AcceptUserId==Model.CurrentUserId)
+				{
+					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-posdId="@Model.SalePost.Id">不买了</button>
+				}
+				else
+				{
+					<button type="submit" class="btn btn-secondary" disabled="">已经卖掉啦</button>
+				}
+			}
+			else
+			{
+				<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission" asp-route-posdId="@Model.SalePost.Id">我要买</button>
+			}
 		}
 	}
 </form>

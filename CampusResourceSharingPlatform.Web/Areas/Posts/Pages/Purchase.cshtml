@@ -7,17 +7,32 @@
 <h5>hire</h5>
 @Model.PurchasePost.MissionName
 <form method="post">
+	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)
 	{
 		@if (Model.PurchasePost.PostUserId == Model.CurrentUserId)
 		{
-			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Purchase" asp-area="Distribute" asp-route-postId="@Model.PurchasePost.Id">任务修改</a>
+			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="TakeExpress" asp-area="Distribute" asp-route-postId="@Model.PurchasePost.Id">任务修改</a>
 			<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">任务下架</button>
 			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除任务</button>
 		}
 		else
 		{
-			<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission">领取任务</button>
+			if (Model.PurchasePost.IsAccepted)
+			{
+				if (Model.PurchasePost.AcceptUserId==Model.CurrentUserId)
+				{
+					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-posdId="@Model.PurchasePost.Id">放弃任务</button>
+				}
+				else
+				{
+					<button type="submit" class="btn btn-secondary" disabled="">已被别人接受</button>
+				}
+			}
+			else
+			{
+				<button type="submit" class="btn btn-primary" asp-page-handler="AcceptMission" asp-route-posdId="@Model.PurchasePost.Id">领取任务</button>
+			}
 		}
 	}
 </form>
