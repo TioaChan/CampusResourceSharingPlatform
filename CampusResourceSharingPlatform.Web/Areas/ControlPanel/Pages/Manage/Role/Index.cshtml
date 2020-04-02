@@ -5,82 +5,90 @@
 	Layout = "Role/_Layout";
 	ViewData["ActivePage"] = ManageNavPages.RoleIndex;
 }
-<div>
-	<div class="row">
-		<h4 class="col">角色列表</h4>
-		<div class="col-9"></div>
-		<a asp-page="Add" class="text-primary col">添加角色</a>
+<div class="card mb-3">
+	<div class="card-header">
+		<span class="float-right">
+			<a class="btn btn-primary" asp-page="Add">
+				<i class="fa fa-user-plus" aria-hidden="true"></i>
+				添加角色
+			</a>
+		</span>
+		<h4><i class="fa fa-users" aria-hidden="true"></i> 角色列表 (总计&nbsp;@Model.RolesModel.Count &nbsp;角色)</h4>
 	</div>
-
-	<table class="table table-hover">
-		<thead>
-		<tr>
-			<th scope="col">角色ID</th>
-			<th scope="col">角色名</th>
-			<th scope="col">用户数量</th>
-			<th scope="col">操作</th>
-		</tr>
-		</thead>
-		<tbody>
-		@if (Model.RolesModel.Any())
-		{
-			@foreach (var r in Model.RolesModel)
+	
+	<div class="card-body p-0">
+		<div class="table-responsive">
+			<table class="table table-hover">
+			<thead>
+			<tr>
+				<th scope="col">角色ID</th>
+				<th scope="col">角色名</th>
+				<th scope="col">用户数量</th>
+				<th scope="col">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			@if (Model.RolesModel.Any())
 			{
-				<tr class="parent-row" id="parent-row-@r.RoleId">
-					<th scope="row" class="vertical-align-middle">@r.RoleId</th>
-					<td class="vertical-align-middle">@r.RoleName</td>
-					<td class="vertical-align-middle">@r.UserCount</td>
-					<td class="vertical-align-middle text-primary">
-						查看详细信息
-					</td>
-				</tr>
-				<tr class="child-row" id="child-row-@r.RoleId" style="display: none;">
-					<td colspan="4">
-						<div class="card">
-							<div class="card-header">
-								<div class="float-left">@r.RoleName 的详细信息</div>
-								<form asp-page-handler="DeleteRole" asp-route-roleId="@r.RoleId" method="post" class="float-right margin-1x">
-									<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
-										删除
-									</button>
-								</form>
-							</div>
-							<div class="card-body">
-								<div class="form-group">
-									<div>GUID:@r.RoleId</div>
-									<div>Name:@r.RoleName</div>
-									<div>@r.RoleName 目前拥有一下用户:
-										<ul class="list-group list-group-horizontal-sm">
-											@foreach (var user in r.UserInRoleName)
-											{
-												<li class="list-group-item">@user</li>
-											}
-										</ul>
-									</div>
+				@foreach (var r in Model.RolesModel)
+				{
+					<tr class="parent-row" id="parent-row-@r.RoleId">
+						<th scope="row" class="vertical-align-middle">@r.RoleId</th>
+						<td class="vertical-align-middle">@r.RoleName</td>
+						<td class="vertical-align-middle">@r.UserCount</td>
+						<td class="vertical-align-middle text-primary">
+							查看详细信息
+						</td>
+					</tr>
+					<tr class="child-row" id="child-row-@r.RoleId" style="display: none;">
+						<td colspan="4">
+							<div class="card">
+								<div class="card-header">
+									<div class="float-left">@r.RoleName 的详细信息</div>
+									<form asp-page-handler="DeleteRole" asp-route-roleId="@r.RoleId" method="post" class="float-right margin-1x">
+										<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
+											删除
+										</button>
+									</form>
 								</div>
-								<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left mr-2">编辑</a>
+								<div class="card-body">
+									<div class="form-group">
+										<div>GUID:@r.RoleId</div>
+										<div>Name:@r.RoleName</div>
+										<div>
+											@r.RoleName 目前拥有一下用户:
+											<ul class="list-group list-group-horizontal-sm">
+												@foreach (var user in r.UserInRoleName)
+												{
+													<li class="list-group-item">@user</li>
+												}
+											</ul>
+										</div>
+									</div>
+									<a asp-page="Edit" asp-route-roleId="@r.RoleId" class="btn btn-primary float-left mr-2">编辑</a>
+								</div>
 							</div>
-						</div>
-					</td>
+						</td>
+					</tr>
+				}
+			}
+			else
+			{
+				<tr>
+					<td colspan="3" class="text-center text-warning vertical-align-middle"> 未设置任何角色</td>
 				</tr>
 			}
-		}
-		else
-		{
-			<tr>
-				<td colspan="3" class="text-center text-warning vertical-align-middle"> 未设置任何角色</td>
-			</tr>
-		}
-		</tbody>
-	</table>
-	
-	@section Scripts{ 
+			</tbody>
+		</table>
+		</div>
+	</div>
+	@section Scripts{
 		<Script type="text/javascript">
 			$(document).ready(function () {
 				$("tbody>.parent-row").click(function () {
 					var parent = $(this).attr('id');
 					var child = parent.replace("parent-row-", "child-row-");
-//					console.log(parent + "," + child);
+					//					console.log(parent + "," + child);
 					$("tr#" + parent).addClass("current").next().show();
 					$(".parent-row:not(#" + parent + ")").removeClass("current").next().hide();
 					return false;

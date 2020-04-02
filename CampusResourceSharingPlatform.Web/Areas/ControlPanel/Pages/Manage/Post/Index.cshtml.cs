@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
+using CampusResourceSharingPlatform.Model.Application;
+using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 {
@@ -14,16 +16,19 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 		private readonly IPurchaseService<Purchase> _purchaseService;
 		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
 		private readonly IHireService<Hire> _hireService;
+		private readonly UserManager<ApplicationUser> _userManager;
 
 		public IndexModel(ITakeExpressService<Express> takeExpressService,
 			IPurchaseService<Purchase> purchaseService,
 			IFleaMarketService<SecondHand> fleaMarketService,
-			IHireService<Hire> hireService)
+			IHireService<Hire> hireService,
+			UserManager<ApplicationUser> userManager)
 		{
 			_takeExpressService = takeExpressService;
 			_purchaseService = purchaseService;
 			_fleaMarketService = fleaMarketService;
 			_hireService = hireService;
+			_userManager = userManager;
 		}
 
 		[TempData]
@@ -68,6 +73,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 
 		public async Task<IActionResult> OnGetAsync()
 		{
+			var user =await _userManager.GetUserAsync(User);
 			Count = new PostCount
 			{
 				TakeExpress = new TakeExpressPostCount
@@ -78,15 +84,21 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 				},
 				Purchase = new PurchasePostCount
 				{
-
+					ActivePostCount = _purchaseService.GetAllActiveMissionAsync().Result.Count.ToString(),
+					InvalidPostCount = _purchaseService.GetAllInvalidMissionAsync().Result.Count.ToString(),
+					DeletedPostCount = _purchaseService.GetAllDeletedMissionAsync().Result.Count.ToString()
 				},
 				FleaMarket = new FleaMarketPostCount
 				{
-
+					ActivePostCount = _fleaMarketService.GetAllActiveMissionAsync().Result.Count.ToString(),
+					InvalidPostCount = _fleaMarketService.GetAllInvalidMissionAsync().Result.Count.ToString(),
+					DeletedPostCount = _fleaMarketService.GetAllDeletedMissionAsync().Result.Count.ToString()
 				},
 				HirePost = new HirePostCount
 				{
-
+					ActivePostCount = _hireService.GetAllActiveMissionAsync().Result.Count.ToString(),
+					InvalidPostCount = _hireService.GetAllInvalidMissionAsync().Result.Count.ToString(),
+					DeletedPostCount = _hireService.GetAllDeletedMissionAsync().Result.Count.ToString()
 				},
 			};
 			return Page();

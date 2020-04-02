@@ -1,5 +1,4 @@
 ﻿@page
-@using CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 @model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post.IndexModel
 @{
 	ViewData["Title"] = "Role";
@@ -7,13 +6,74 @@
 	ViewData["ActivePage"] = ManageNavPages.PostIndex;
 	ViewData["ActivePageOfPost"] = ManagePostNavPages.Index;
 }
+@* index *@
+@* <br /> *@
+@* 快递需求： *@
+@* <br /> *@
+@* 有效需求数量：     @Model.Count.TakeExpress.ActivePostCount *@
+@* <br /> *@
+@* 过期需求数量：     @Model.Count.TakeExpress.InvalidPostCount *@
+@* <br /> *@
+@* 被删除的需求数量：  @Model.Count.TakeExpress.DeletedPostCount *@
+@* <br /><br /> *@
+@* 代买需求： *@
+@* <br /> *@
+@* 有效需求数量：    	  @Model.Count.Purchase.ActivePostCount *@
+@* <br /> *@
+@* 过期需求数量：		    @Model.Count.Purchase.InvalidPostCount *@
+@* <br /> *@
+@* 被删除的需求数量：	   @Model.Count.Purchase.DeletedPostCount *@
+@* <br /><br /> *@
+@* 二手出售： *@
+@* <br /> *@
+@* 有效需求数量： 	    @Model.Count.FleaMarket.ActivePostCount *@
+@* <br /> *@
+@* 过期需求数量： 	  @Model.Count.FleaMarket.InvalidPostCount *@
+@* <br /> *@
+@* 被删除的需求数量：   @Model.Count.FleaMarket.DeletedPostCount *@
+@* <br /><br /> *@
+@* 租赁： *@
+@* <br /> *@
+@* 有效需求数量：   	      @Model.Count.HirePost.ActivePostCount *@
+@* <br /> *@
+@* 过期需求数量：   	   @Model.Count.HirePost.InvalidPostCount *@
+@* <br /> *@
+@* 被删除的需求数量：	  @Model.Count.HirePost.DeletedPostCount *@
 
+<div class="row">
+	<div class=" col-md-6 col-lg-6 col-xl-3">
+		<div class="card-box noradius border-0 bg-default">
+			<i class="fa fa-file-text-o float-right text-white"></i>
+			<h6 class="text-white text-uppercase">Orders</h6>
+			<h1 class="text-white">1,587</h1>
+			<span class="text-white">15 New Orders</span>
+		</div>
+	</div>
 
-index
+	<div class=" col-md-6 col-lg-6 col-xl-3">
+		<div class="card-box noradius border-0 bg-warning">
+			<i class="fa fa-bar-chart float-right text-white"></i>
+			<h6 class="text-white text-uppercase ">Visitors</h6>
+			<h1 class="text-white">250</h1>
+			<span class="text-white">Bounce rate: 25%</span>
+		</div>
+	</div>
 
+	<div class=" col-md-6 col-lg-6 col-xl-3">
+		<div class="card-box noradius border-0 bg-info">
+			<i class="fa fa-user-o float-right text-white"></i>
+			<h6 class="text-white text-uppercase">Users</h6>
+			<h1 class="text-white">120</h1>
+			<span class="text-white">25 New Users</span>
+		</div>
+	</div>
 
-@Model.Count.TakeExpress.ActivePostCount
-<br />
-@Model.Count.TakeExpress.InvalidPostCount
-<br />
-@Model.Count.TakeExpress.DeletedPostCount
+	<div class=" col-md-6 col-lg-6 col-xl-3">
+		<div class="card-box noradius border-0 bg-danger">
+			<i class="fa fa-bell-o float-right text-white"></i>
+			<h6 class="text-white text-uppercase">Alerts</h6>
+			<h1 class="text-white">58</h1>
+			<span class="text-white">5 New Alerts</span>
+		</div>
+	</div>
+</div>

@@ -96,3 +96,18 @@ body {
     /* text-align: center; */
     vertical-align: middle !important;
 }
+.card-box {
+	padding: 20px;
+	background-clip: padding-box;
+	margin-bottom: 20px;
+	background-color: #ffffff;
+	border: 1px solid rgba(183,183,183,.125);
+}
+
+.noradius {
+	border-radius: 0;
+}
+
+.bg-default {
+	background-color: #64b0f2 !important;
+}
