@@ -1,23 +1,43 @@
 ﻿@{
-    Layout = "/Areas/ControlPanel/Pages/_Layout.cshtml";
+	Layout = "/Areas/ControlPanel/Pages/_Layout.cshtml";
 }
 
 <h1>Post manage</h1>
 
 <div>
-    <h4>Post manage</h4>
-    <hr />
-    <div class="row">
-	    <div class="col-md-2">
-		    <partial name="_PostNav" />
-	    </div>
-	    <div class="col-md-10">
-		    <partial name="_StatusMessage" model="Model.StatusMessage"/>
-		    @RenderBody()
-	    </div>
-    </div>
+	<h4>Post manage</h4>
+	<hr />
+	<div class="row">
+		<div class="col-md-2">
+			<partial name="_PostNav" />
+		</div>
+		<div class="col-md-10">
+			<ul class="nav nav-pills mb-3">
+				<li class="nav-item">
+					<a class="nav-link disabled text-body">State</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @ManagePostNavPages.IndexNavClass(ViewContext)" asp-page="../Post/Index">总览</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @ManagePostNavPages.TakeExpressNavClass(ViewContext)" asp-page="../Post/Express">快递</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @ManagePostNavPages.PurchaseNavClass(ViewContext)" asp-page="../Post/Purchase">代买</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @ManagePostNavPages.FleaMarketNavClass(ViewContext)"  asp-page="../Post/FleaMarket">跳蚤市场</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link @ManagePostNavPages.HireNavClass(ViewContext)" asp-page="../Post/Hire">出租</a>
+				</li>
+			</ul>
+			<partial name="_StatusMessage" model="Model.StatusMessage"/>
+			@RenderBody()
+		</div>
+	</div>
 </div>
 
 @section Scripts {
-    @RenderSection("Scripts", required: false)
+	@RenderSection("Scripts", required: false)
 }
