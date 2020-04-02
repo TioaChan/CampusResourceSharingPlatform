@@ -1,14 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 {
+	[Authorize(Roles = "Administrators")]
 	public class IndexModel : PageModel
 	{
 		private readonly ITakeExpressService<Express> _takeExpressService;
@@ -69,25 +68,25 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 
 		public async Task<IActionResult> OnGetAsync()
 		{
-			Count=new PostCount
+			Count = new PostCount
 			{
 				TakeExpress = new TakeExpressPostCount
 				{
 					ActivePostCount = _takeExpressService.GetAllActiveMissionAsync().Result.Count.ToString(),
-					InvalidPostCount=_takeExpressService.GetAllInvalidMissionAsync().Result.Count.ToString(),
+					InvalidPostCount = _takeExpressService.GetAllInvalidMissionAsync().Result.Count.ToString(),
 					DeletedPostCount = _takeExpressService.GetAllDeletedMissionAsync().Result.Count.ToString()
 				},
-				Purchase =new PurchasePostCount
+				Purchase = new PurchasePostCount
 				{
-				
+
 				},
 				FleaMarket = new FleaMarketPostCount
 				{
-				
+
 				},
 				HirePost = new HirePostCount
 				{
-				
+
 				},
 			};
 			return Page();

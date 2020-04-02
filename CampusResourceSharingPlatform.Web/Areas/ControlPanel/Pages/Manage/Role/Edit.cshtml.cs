@@ -1,4 +1,5 @@
 using CampusResourceSharingPlatform.Model.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Role
 {
+	[Authorize(Roles = "Administrators")]
 	public class EditModel : PageModel
 	{
 		private readonly RoleManager<IdentityRole> _roleManager;

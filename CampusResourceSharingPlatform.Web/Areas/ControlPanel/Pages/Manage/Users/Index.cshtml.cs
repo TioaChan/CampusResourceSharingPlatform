@@ -1,4 +1,5 @@
 using CampusResourceSharingPlatform.Model.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users
 {
+	[Authorize(Roles = "Administrators")]
 	public class IndexModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
