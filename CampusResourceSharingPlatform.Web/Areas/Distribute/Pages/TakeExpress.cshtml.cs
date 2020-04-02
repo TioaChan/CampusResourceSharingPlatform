@@ -209,7 +209,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _takeExpress.GetMissionById(postId);
-			if (post.PostUserId != user.Id) return RedirectToPage("Index");
+			if (post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
 			TakeExpressInput = new TakeExpressInputModel
 			{
 				PostUserId = user.Id,
