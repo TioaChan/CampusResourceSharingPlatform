@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - 校园闲散资源共享平台</title>
+	<link rel="stylesheet" href="~/css/site.css" />
+	<link href="~/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+	<partial name="~/Pages/Shared/_LoadBootStrapPartial.cshtml" />
+
+</head>
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 ">
+			<div class="container-fluid no-gutters w-100">
+				<a class="navbar-brand" asp-area="" asp-page="/Index">校园闲散资源共享平台</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+					<partial name="_LoginPartial" />
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-page="/Index">主页</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-page="/About">关于</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container-fluid no-gutters ">
+		<main role="main" class="pb-3">
+			<div class="row">
+				<div class="col-md-4">
+					<partial name="_UserPartial"/>
+				</div>
+				<div class="col-md-8">
+					<partial name="_StatusMessage" model="Model.StatusMessage" />
+					<partial name="_UCNav"/>
+					@RenderBody()
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<div class="container " style="height: 50px"></div>
+	<footer class="border-top footer text-muted">
+		<div class="container-fluid no-gutters">
+			<partial name="_FootCopyrightPartial" />
+		</div>
+	</footer>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@RenderSection("Scripts", required: false)
+	<partial name="~/Pages/Shared/_ValidationScriptsPartial.cshtml" />
+</body>
+</html>

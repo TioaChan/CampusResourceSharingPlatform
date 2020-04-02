@@ -1,0 +1,25 @@
+﻿@inject UserManager<ApplicationUser> UserManage
+@{
+	var user = UserManage.GetUserAsync(User).Result;
+}
+
+<div id="usercontainer" class="col-md-7 ml-5 float-right">
+	<div class="border rounded-lg pb-2">
+		<img src="@user.ProfilePhotoUrl" style="width: 100%;">
+		@if (user.StudentIdentityConfirmed)
+		{
+			<div class="text-right mr-3 pt-2">已认证</div>
+		}
+		else
+		{
+			<div class="text-right text-warning mr-3 pt-2">未认证学生身份</div>
+		}
+	</div>
+	<div class="mt-2">
+		<div class="font-weight-bolder" style="font-size: 28px;line-height: 30px;">@user.NickName</div>
+		<div class="font-weight-light" style="font-size: 22px;line-height: 25px;">@user.UserName</div>
+	</div>
+	<div class="mt-2">
+		<a class="btn btn-light w-100" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity">账号管理</a>
+	</div>
+</div>

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CampusResourceSharingPlatform.Web.Views.Shared
+namespace CampusResourceSharingPlatform.Web.Pages.Shared
 {
 	public class _LoginPartialModel : PageModel
 	{

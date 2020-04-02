@@ -13,9 +13,10 @@
 			@UserManager.GetUserAsync(User).Result.NickName
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="z-index: 2048">
-				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">欢迎，@UserManager.GetUserAsync(User).Result.NickName!</a>
-				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">个人资料</a>
-				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity" title="SI">认证管理</a>
+				<a class="nav-link text-dark">欢迎，@UserManager.GetUserAsync(User).Result.NickName!</a>
+				<a class="nav-link text-dark"asp-area="i" asp-page="/Index">个人中心</a>
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">账号管理</a>
+				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity" title="SI">学生认证</a>
 				<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
 					<button type="submit" class="nav-link btn btn-link text-dark">登出</button>
 				</form>
