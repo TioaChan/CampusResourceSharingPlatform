@@ -1,0 +1,19 @@
+﻿@page
+@model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post.IndexModel
+@{
+	ViewData["Title"] = "Role";
+	Layout = "Post/_Layout";
+	ViewData["ActivePage"] = ManageNavPages.PostIndex;
+}
+
+<a class="btn btn-primary mr-1" asp-page="/Post/Index" asp-area="ControlPanel" asp-page-handler="Express">Take Express</a>
+<a class="btn btn-primary mr-1" asp-page="/Post/Index" asp-area="ControlPanel" asp-page-handler="Purchase">Purchase</a>
+<a class="btn btn-primary mr-1" asp-page="/Post/Index" asp-area="ControlPanel" asp-page-handler="FleaMarket">Flea Market</a>
+<a class="btn btn-primary mr-1" asp-page="/Post/Index" asp-area="ControlPanel" asp-page-handler="Sale">Sale</a>
+
+
+@Model.Count.TakeExpress.ActivePostCount
+<br />
+@Model.Count.TakeExpress.InvalidPostCount
+<br />
+@Model.Count.TakeExpress.DeletedPostCount

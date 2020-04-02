@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "/Areas/ControlPanel/Pages/_Layout.cshtml";
+}
+
+<h1>Post manage</h1>
+
+<div>
+    <h4>Post manage</h4>
+    <hr />
+    <div class="row">
+	    <div class="col-md-2">
+		    <partial name="_PostNav" />
+	    </div>
+	    <div class="col-md-10">
+		    <partial name="_StatusMessage" model="Model.StatusMessage"/>
+		    @RenderBody()
+	    </div>
+    </div>
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
