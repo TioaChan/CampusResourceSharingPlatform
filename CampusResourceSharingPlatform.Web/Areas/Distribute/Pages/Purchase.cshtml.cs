@@ -136,8 +136,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnPostAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null) return RedirectToPage("Index");
-			if (user.Id != PostUserId) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed || user.Id != PostUserId) return RedirectToPage("Index");
 			var time = DateTime.UtcNow;
 			var post = new Purchase
 			{
@@ -168,9 +167,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnGetEditMissionAsync(string postId)
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _purchase.GetMissionById(postId);
-			if (post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed || post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
 			PurchaseInput = new PurchaseInputModel
 			{
 				PostUserId = user.Id,
@@ -192,7 +190,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnPostEditMissionAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null || user.Id != PostUserId || PostId == null) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed || user.Id != PostUserId || PostId == null) return RedirectToPage("Index");
 			var post = new Purchase();
 			var time = DateTime.UtcNow;
 			post.Id = PostId;

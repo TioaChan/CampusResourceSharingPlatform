@@ -39,7 +39,7 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<List<SecondHand>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime ).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
+			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
 			return post;
 		}
 

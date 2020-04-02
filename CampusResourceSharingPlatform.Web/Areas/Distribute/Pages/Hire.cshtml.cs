@@ -165,8 +165,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnPostAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
-			if (user.Id != PostUserId) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed || user.Id != PostUserId) return RedirectToPage("Index");
 			if (HireInput.GoodsPhoto == null)
 			{
 				PostUserId = user.Id;
@@ -221,9 +220,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 		public async Task<IActionResult> OnGetEditMissionAsync(string postId)
 		{
 			var user = await _userManager.GetUserAsync(User);
-			if (user == null || !user.StudentIdentityConfirmed) return RedirectToPage("Index");
 			var post = await _hire.GetMissionById(postId);
-			if (post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
+			if (user == null || !user.StudentIdentityConfirmed || post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
 			HireInput = new HireInputModel
 			{
 				PostUserId = user.Id,

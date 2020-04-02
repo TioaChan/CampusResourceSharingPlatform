@@ -39,7 +39,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 		{
 			CurrentUser = await _userManager.GetUserAsync(User);
 			ExpressPost = await _takeExpressService.GetActiveMissionById(postId);
-			if (CurrentUser == null || postId == null || ExpressPost==null) return;
+			if (CurrentUser == null || postId == null || ExpressPost == null) return;
 			StudentIdentityConfirmed = CurrentUser.StudentIdentityConfirmed;
 			CurrentUserId = CurrentUser.Id;
 			PostId = ExpressPost.Id;

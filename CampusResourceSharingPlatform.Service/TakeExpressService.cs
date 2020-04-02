@@ -51,7 +51,7 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<List<Express>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark==false).Take(10).ToListAsync();
+			var post = await _context.MissionExpresses.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).Take(10).ToListAsync();
 			return post;
 		}
 
