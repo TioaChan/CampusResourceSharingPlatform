@@ -38,8 +38,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 		private async Task LoadAsync(string postId)
 		{
 			CurrentUser = await _userManager.GetUserAsync(User);
-			if (CurrentUser == null || postId == null) return;
-			HirePost = await _hireService.GetMissionById(postId);
+			HirePost = await _hireService.GetActiveMissionById(postId);
+			if (CurrentUser == null || postId == null || HirePost == null) return;
 			StudentIdentityConfirmed = CurrentUser.StudentIdentityConfirmed;
 			CurrentUserId = CurrentUser.Id;
 			PostId = HirePost.Id;
@@ -48,7 +48,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 		public async Task<IActionResult> OnGetAsync(string postId)
 		{
 			await LoadAsync(postId);
-			if (postId == null || CurrentUser == null)
+			if (HirePost == null || CurrentUser == null)
 			{
 				return RedirectToPage("Index");
 			}
@@ -58,7 +58,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 		public async Task<IActionResult> OnPostAcceptMissionAsync(string postId)
 		{
 			await LoadAsync(postId);
-			if (postId == null || CurrentUser == null || PostId == null)
+			if (HirePost == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
@@ -80,7 +80,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 		public async Task<IActionResult> OnPostAbortMissionAsync(string postId)
 		{
 			await LoadAsync(postId);
-			if (postId == null || CurrentUser == null || PostId == null)
+			if (HirePost == null || CurrentUser == null || PostId == null)
 			{
 				return RedirectToPage("Index");
 			}
@@ -95,6 +95,24 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 				return Page();
 			}
 			StatusMessage = "Error:任务领取失败,请重试";
+			return Page();
+		}
+
+		public async Task<IActionResult> OnPostDeleteMissionAsync(string postId)
+		{
+			await LoadAsync(postId);
+			if (HirePost == null || CurrentUser == null || PostId == null)
+			{
+				return RedirectToPage("Index");
+			}
+			HirePost.DeletedMark = true;
+			var result = _hireService.Update(HirePost);
+			if (result == 1)
+			{
+				StatusMessage = "Success:删除成功";
+				return RedirectToPage("Index");
+			}
+			StatusMessage = "Error:删除失败，请重试";
 			return Page();
 		}
 	}

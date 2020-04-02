@@ -102,8 +102,7 @@
 		@if (Model.HirePost.PostUserId == Model.CurrentUserId)
 		{
 			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Hire" asp-area="Distribute" asp-route-postId="@Model.HirePost.Id">修改</a>
-			<button type="submit" class="btn btn-warning" asp-page-handler="MakeMissionExpire">下架</button>
-			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">任务</button>
+			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除</button>
 		}
 		else
 		{
