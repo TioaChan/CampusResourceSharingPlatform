@@ -41,5 +41,13 @@ namespace CampusResourceSharingPlatform.Interface
 		/// <param name="newPost"></param>
 		/// <returns></returns>
 		int Update(T newPost);
+
+		/// <summary>
+		///  异步 按Id返回未删除的任务
+		/// </summary>
+		/// <param name="postId"></param>
+		/// <returns></returns>
+		Task<T> GetActiveMissionById(string postId);
+
 	}
 }

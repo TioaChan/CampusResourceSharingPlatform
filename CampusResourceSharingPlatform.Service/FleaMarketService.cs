@@ -33,20 +33,19 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<SecondHand> GetLastMissionInfoAsync(string userId)
 		{
-			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime)
-				.Where(p => p.PostUserId == userId).FirstOrDefaultAsync();
+			var post = await _context.MissionFleaMarket.Where(p => p.PostUserId == userId && p.DeletedMark == false).OrderByDescending(p => p.PostTime).FirstOrDefaultAsync();
 			return post;
 		}
 
 		public async Task<List<SecondHand>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
+			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime ).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
 			return post;
 		}
 
 		public async Task<List<SecondHand>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).Take(10).ToListAsync();
 			return post;
 		}
 
@@ -61,6 +60,13 @@ namespace CampusResourceSharingPlatform.Service
 			_context.MissionFleaMarket.Update(newPost);
 			_context.SaveChanges();
 			return 1;
+		}
+
+		public async Task<SecondHand> GetActiveMissionById(string postId)
+		{
+			var post = await _context.MissionFleaMarket.Where(p => p.DeletedMark == false && p.Id == postId)
+				.FirstOrDefaultAsync();
+			return post;
 		}
 	}
 }

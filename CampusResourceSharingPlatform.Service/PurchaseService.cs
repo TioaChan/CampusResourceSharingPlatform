@@ -33,20 +33,19 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<Purchase> GetLastMissionInfoAsync(string userId)
 		{
-			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime)
-				.Where(p => p.PostUserId == userId).FirstOrDefaultAsync();
+			var post = await _context.MissionPurchase.Where(p => p.PostUserId == userId && p.DeletedMark == false).OrderByDescending(p => p.PostTime).FirstOrDefaultAsync();
 			return post;
 		}
 
 		public async Task<List<Purchase>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
+			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Purchase>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			var post = await _context.MissionPurchase.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).Take(10).ToListAsync();
 			return post;
 		}
 
@@ -61,6 +60,13 @@ namespace CampusResourceSharingPlatform.Service
 			_context.MissionPurchase.Update(newPost);
 			_context.SaveChanges();
 			return 1;
+		}
+
+		public async Task<Purchase> GetActiveMissionById(string postId)
+		{
+			var post = await _context.MissionPurchase.Where(p => p.DeletedMark == false && p.Id == postId)
+				.FirstOrDefaultAsync();
+			return post;
 		}
 	}
 }

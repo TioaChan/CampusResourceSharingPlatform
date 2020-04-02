@@ -40,26 +40,32 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<Hire> GetLastMissionInfoAsync(string userId)
 		{
-			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime)
-				.Where(p => p.PostUserId == userId).FirstOrDefaultAsync();
+			var post = await _context.MissionHire.Where(p => p.PostUserId == userId && p.DeletedMark == false).OrderByDescending(p => p.PostTime).FirstOrDefaultAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).ToListAsync();
+			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow).Take(10).ToListAsync();
+			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).Take(10).ToListAsync();
 			return post;
 		}
 
 		public async Task<Hire> GetMissionById(string postId)
 		{
 			var post = await _context.MissionHire.FindAsync(postId);
+			return post;
+		}
+
+		public async Task<Hire> GetActiveMissionById(string postId)
+		{
+			var post = await _context.MissionHire.Where(p => p.DeletedMark == false && p.Id == postId)
+				.FirstOrDefaultAsync();
 			return post;
 		}
 	}
