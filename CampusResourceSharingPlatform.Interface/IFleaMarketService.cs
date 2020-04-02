@@ -17,10 +17,22 @@ namespace CampusResourceSharingPlatform.Interface
 		Task<T> GetLastMissionInfoAsync(string userId);
 
 		/// <summary>
-		/// 异步 返回所有有效任务列表（有效：当前UTC时间未超出失效时间）
+		/// 异步 返回所有有效任务（未标记删除且当前UTC时间未超出失效时间）
 		/// </summary>
 		/// <returns>List</returns>
 		Task<List<T>> GetAllActiveMissionAsync();
+
+		/// <summary>
+		/// 异步 返回所有过期任务（未标记删除且当前UTC时间超出失效时间）
+		/// </summary>
+		/// <returns>List</returns>
+		Task<List<T>> GetAllInvalidMissionAsync();
+
+		/// <summary>
+		/// 异步 返回所有标记删除的任务
+		/// </summary>
+		/// <returns>List</returns>
+		Task<List<T>> GetAllDeletedMissionAsync();
 
 		/// <summary>
 		/// 异步 按时间倒序返回前10个有效任务列表（有效：当前UTC时间未超出失效时间）
@@ -43,7 +55,7 @@ namespace CampusResourceSharingPlatform.Interface
 		int Update(T newPost);
 
 		/// <summary>
-		///  异步 按Id返回未删除的任务
+		/// 异步 按Id返回指定任务(含已删除任务)
 		/// </summary>
 		/// <param name="postId"></param>
 		/// <returns></returns>

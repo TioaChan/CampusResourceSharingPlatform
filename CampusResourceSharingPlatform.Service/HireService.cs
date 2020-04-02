@@ -46,13 +46,25 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<List<Hire>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
+			var post = await _context.MissionHire.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<Hire>> GetAllInvalidMissionAsync()
+		{
+			var post = await _context.MissionHire.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<Hire>> GetAllDeletedMissionAsync()
+		{
+			var post = await _context.MissionHire.Where(p => p.DeletedMark == true).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionHire.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).Take(10).ToListAsync();
+			var post = await _context.MissionHire.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).Take(10).ToListAsync();
 			return post;
 		}
 

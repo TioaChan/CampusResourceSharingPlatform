@@ -39,13 +39,25 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<List<SecondHand>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).ToListAsync();
+			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<SecondHand>> GetAllInvalidMissionAsync()
+		{
+			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<SecondHand>> GetAllDeletedMissionAsync()
+		{
+			var post = await _context.MissionFleaMarket.Where(p => p.DeletedMark == true).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
 		public async Task<List<SecondHand>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionFleaMarket.OrderByDescending(p => p.PostTime).Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).Take(10).ToListAsync();
+			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).Take(10).ToListAsync();
 			return post;
 		}
 
