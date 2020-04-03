@@ -7,14 +7,20 @@
 <ul class="navbar-nav">
 	@if (SignInManager.IsSignedIn(User))
 	{
-		<li class="nav-item dropdown">
+		<li class="nav-item dropdown form-inline">
 			<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			<img class="user-avatar-img-small" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name">
-			@UserManager.GetUserAsync(User).Result.NickName
+				<img class="user-avatar-img-small" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name">
+				@UserManager.GetUserAsync(User).Result.NickName
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="z-index: 2048">
 				<a class="nav-link text-dark">欢迎，@UserManager.GetUserAsync(User).Result.NickName!</a>
-				<a class="nav-link text-dark"asp-area="i" asp-page="/Index">个人中心</a>
+				<hr class="m-1" />
+				<a class="nav-link text-dark" asp-area="i" asp-page="/Index">个人中心</a>
+				<a class="nav-link text-dark" asp-area="i" asp-page="/TakeExpress">我的快递需求</a>
+				<a class="nav-link text-dark" asp-area="i" asp-page="/Purchase">我的代购需求</a>
+				<a class="nav-link text-dark" asp-area="i" asp-page="/FleaMarket">我的二手售卖</a>
+				<a class="nav-link text-dark" asp-area="i" asp-page="/Hire">我的闲置出租</a>
+				<hr class="m-1" />
 				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">账号管理</a>
 				<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity" title="SI">学生认证</a>
 				<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
@@ -24,11 +30,11 @@
 		</li>
 		@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Administrators"))
 		{
-			<li class="nav-item">
+			<li class="nav-item form-inline">
 				<a class="nav-link text-dark" asp-area="ControlPanel" asp-page="/Manage/Index" title="manage">控制面板</a>
 			</li>
 		}
-		<li class="nav-item">
+		<li class="nav-item form-inline">
 			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">
 				<button type="submit" class="nav-link btn btn-link text-dark">登出</button>
 			</form>
@@ -36,10 +42,10 @@
 	}
 	else
 	{
-		<li class="nav-item">
+		<li class="nav-item form-inline">
 			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">注册</a>
 		</li>
-		<li class="nav-item">
+		<li class="nav-item form-inline">
 			<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">登录</a>
 		</li>
 	}
