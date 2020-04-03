@@ -44,7 +44,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<SecondHand>> GetAllActiveMissionAsync(ApplicationUser postUser)
+		public async Task<List<SecondHand>> GetAllActiveMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
@@ -56,7 +56,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<SecondHand>> GetAllInvalidMissionAsync(ApplicationUser postUser)
+		public async Task<List<SecondHand>> GetAllInvalidMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
@@ -68,7 +68,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<SecondHand>> GetAllDeletedMissionAsync(ApplicationUser postUser)
+		public async Task<List<SecondHand>> GetAllDeletedMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionFleaMarket.Where(p => p.DeletedMark == true && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;

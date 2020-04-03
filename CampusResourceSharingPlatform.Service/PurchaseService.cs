@@ -44,7 +44,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Purchase>> GetAllActiveMissionAsync(ApplicationUser postUser)
+		public async Task<List<Purchase>> GetAllActiveMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionPurchase.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
@@ -56,7 +56,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Purchase>> GetAllInvalidMissionAsync(ApplicationUser postUser)
+		public async Task<List<Purchase>> GetAllInvalidMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionPurchase.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
@@ -68,7 +68,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Purchase>> GetAllDeletedMissionAsync(ApplicationUser postUser)
+		public async Task<List<Purchase>> GetAllDeletedMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionPurchase.Where(p => p.DeletedMark == true && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;

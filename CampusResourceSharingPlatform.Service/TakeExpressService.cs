@@ -50,7 +50,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Express>> GetAllActiveMissionAsync(ApplicationUser postUser)
+		public async Task<List<Express>> GetAllActiveMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionExpresses.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
@@ -62,7 +62,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Express>> GetAllInvalidMissionAsync(ApplicationUser postUser)
+		public async Task<List<Express>> GetAllInvalidMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionExpresses.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
@@ -74,7 +74,7 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Express>> GetAllDeletedMissionAsync(ApplicationUser postUser)
+		public async Task<List<Express>> GetAllDeletedMissionByPostUserAsync(ApplicationUser postUser)
 		{
 			var post = await _context.MissionExpresses.Where(p => p.DeletedMark == true && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
