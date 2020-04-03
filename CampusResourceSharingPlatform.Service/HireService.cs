@@ -1,5 +1,6 @@
 ﻿using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -50,15 +51,33 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
+		public async Task<List<Hire>> GetAllActiveMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionHire.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
 		public async Task<List<Hire>> GetAllInvalidMissionAsync()
 		{
 			var post = await _context.MissionHire.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
+		public async Task<List<Hire>> GetAllInvalidMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionHire.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
 		public async Task<List<Hire>> GetAllDeletedMissionAsync()
 		{
 			var post = await _context.MissionHire.Where(p => p.DeletedMark == true).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<Hire>> GetAllDeletedMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionHire.Where(p => p.DeletedMark == true && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 

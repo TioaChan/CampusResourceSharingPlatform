@@ -1,5 +1,6 @@
 ﻿using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,15 +44,33 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
+		public async Task<List<Purchase>> GetAllActiveMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionPurchase.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
 		public async Task<List<Purchase>> GetAllInvalidMissionAsync()
 		{
 			var post = await _context.MissionPurchase.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
+		public async Task<List<Purchase>> GetAllInvalidMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionPurchase.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
 		public async Task<List<Purchase>> GetAllDeletedMissionAsync()
 		{
 			var post = await _context.MissionPurchase.Where(p => p.DeletedMark == true).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<Purchase>> GetAllDeletedMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionPurchase.Where(p => p.DeletedMark == true && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 

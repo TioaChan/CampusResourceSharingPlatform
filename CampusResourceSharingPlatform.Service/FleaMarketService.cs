@@ -1,5 +1,6 @@
 ﻿using CampusResourceSharingPlatform.Data;
 using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -43,15 +44,33 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
+		public async Task<List<SecondHand>> GetAllActiveMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
 		public async Task<List<SecondHand>> GetAllInvalidMissionAsync()
 		{
 			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
+		public async Task<List<SecondHand>> GetAllInvalidMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionFleaMarket.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
 		public async Task<List<SecondHand>> GetAllDeletedMissionAsync()
 		{
 			var post = await _context.MissionFleaMarket.Where(p => p.DeletedMark == true).OrderByDescending(p => p.PostTime).ToListAsync();
+			return post;
+		}
+
+		public async Task<List<SecondHand>> GetAllDeletedMissionAsync(ApplicationUser user)
+		{
+			var post = await _context.MissionFleaMarket.Where(p => p.DeletedMark == true && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
