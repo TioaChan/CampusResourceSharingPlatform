@@ -44,9 +44,9 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Purchase>> GetAllActiveMissionAsync(ApplicationUser user)
+		public async Task<List<Purchase>> GetAllActiveMissionAsync(ApplicationUser postUser)
 		{
-			var post = await _context.MissionPurchase.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionPurchase.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
@@ -56,9 +56,9 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Purchase>> GetAllInvalidMissionAsync(ApplicationUser user)
+		public async Task<List<Purchase>> GetAllInvalidMissionAsync(ApplicationUser postUser)
 		{
-			var post = await _context.MissionPurchase.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionPurchase.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 
@@ -68,9 +68,9 @@ namespace CampusResourceSharingPlatform.Service
 			return post;
 		}
 
-		public async Task<List<Purchase>> GetAllDeletedMissionAsync(ApplicationUser user)
+		public async Task<List<Purchase>> GetAllDeletedMissionAsync(ApplicationUser postUser)
 		{
-			var post = await _context.MissionPurchase.Where(p => p.DeletedMark == true && p.PostUser == user).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionPurchase.Where(p => p.DeletedMark == true && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
 			return post;
 		}
 

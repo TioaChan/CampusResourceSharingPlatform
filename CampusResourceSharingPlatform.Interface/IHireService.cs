@@ -35,7 +35,7 @@ namespace CampusResourceSharingPlatform.Interface
 		/// </summary>
 		/// <param name="user">Application User</param>
 		/// <returns>List</returns>
-		Task<List<T>> GetAllActiveMissionAsync(ApplicationUser user);
+		Task<List<T>> GetAllActiveMissionAsync(ApplicationUser postUser);
 
 		/// <summary>
 		/// 异步 返回所有过期任务（未标记删除且当前UTC时间超出失效时间）
@@ -48,7 +48,7 @@ namespace CampusResourceSharingPlatform.Interface
 		/// </summary>
 		/// <param name="user">Application User</param>
 		/// <returns>List</returns>
-		Task<List<T>> GetAllInvalidMissionAsync(ApplicationUser user);
+		Task<List<T>> GetAllInvalidMissionAsync(ApplicationUser postUser);
 
 		/// <summary>
 		/// 异步 返回所有标记删除的任务
@@ -61,7 +61,7 @@ namespace CampusResourceSharingPlatform.Interface
 		/// </summary>
 		/// <param name="user">Application User</param>
 		/// <returns>List</returns>
-		Task<List<T>> GetAllDeletedMissionAsync(ApplicationUser user);
+		Task<List<T>> GetAllDeletedMissionAsync(ApplicationUser postUser);
 
 		/// <summary>
 		/// 异步 按时间倒序返回前10个有效任务列表（有效：当前UTC时间未超出失效时间）
