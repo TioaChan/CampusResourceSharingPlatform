@@ -1,11 +1,11 @@
 using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model.Application;
-using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 {
@@ -73,7 +73,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 
 		public async Task<IActionResult> OnGetAsync()
 		{
-			var user =await _userManager.GetUserAsync(User);
+			var user = await _userManager.GetUserAsync(User);
 			Count = new PostCount
 			{
 				TakeExpress = new TakeExpressPostCount

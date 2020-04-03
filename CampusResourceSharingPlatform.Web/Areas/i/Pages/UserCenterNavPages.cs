@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 
 namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 {
@@ -21,7 +18,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 		private static string PageNavClass(ViewContext viewContext, string page)
 		{
 			var activePage = viewContext.ViewData["ActivePageOfPost"] as string
-			                 ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
+							 ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
 			return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;
 		}
 	}

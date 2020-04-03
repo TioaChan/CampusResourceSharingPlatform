@@ -34,6 +34,11 @@ html {
 	font-size: 16px;
   }
 }
+@media (max-width: 768px) {
+	#user-sidebar-name {
+		padding-left: 5px;
+	}
+}
 
 .border-top {
   border-top: 1px solid #e5e5e5;
