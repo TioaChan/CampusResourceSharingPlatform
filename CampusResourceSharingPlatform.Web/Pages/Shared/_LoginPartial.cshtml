@@ -7,7 +7,7 @@
 <ul class="navbar-nav">
 	@if (SignInManager.IsSignedIn(User))
 	{
-		<li class="nav-item dropdown form-inline">
+		<li class="nav-item dropdown">
 			<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<img class="user-avatar-img-small" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name">
 				@UserManager.GetUserAsync(User).Result.NickName
