@@ -3,8 +3,8 @@
 	var user = UserManage.GetUserAsync(User).Result;
 }
 
-<div id="usercontainer" class="col-md-7 ml-5 float-right">
-	<div class="border rounded-lg pb-2">
+<div id="usercontainer" class="row mb-2 pl-3 pr-3">
+	<div class="border rounded-lg pb-2 pl-0 pr-0 col-4 col-sm-12 col-xl-12 ">
 		<img src="@user.ProfilePhotoUrl" style="width: 100%;">
 		@if (user.StudentIdentityConfirmed)
 		{
@@ -15,11 +15,11 @@
 			<div class="text-right text-warning mr-3 pt-2">未认证学生身份</div>
 		}
 	</div>
-	<div class="mt-2">
+	<div class="mt-2 p-0 col-8 col-sm-12 col-xl-12 ">
 		<div class="font-weight-bolder" style="font-size: 28px;line-height: 30px;">@user.NickName</div>
 		<div class="font-weight-light" style="font-size: 22px;line-height: 25px;">@user.UserName</div>
 	</div>
-	<div class="mt-2">
+	<div class="mt-2 p-0 col-12 col-sm-12 col-xl-12">
 		<a class="btn btn-light w-100" asp-area="Identity" asp-page="/Account/Manage/StudentIdentity">账号管理</a>
 	</div>
 </div>
