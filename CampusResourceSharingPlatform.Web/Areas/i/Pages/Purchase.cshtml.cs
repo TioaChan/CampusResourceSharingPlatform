@@ -1,11 +1,11 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 {
@@ -14,7 +14,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 		private readonly IPurchaseService<Purchase> _purchaseService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public PurchaseModel(IPurchaseService<Purchase> purchaseService,UserManager<ApplicationUser> userManager)
+		public PurchaseModel(IPurchaseService<Purchase> purchaseService, UserManager<ApplicationUser> userManager)
 		{
 			_purchaseService = purchaseService;
 			_userManager = userManager;
