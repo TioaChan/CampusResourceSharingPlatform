@@ -1,9 +1,75 @@
 ﻿@page
+@inject UserManager<ApplicationUser> UserManager
 @model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post.FleaMarketModel
 @{
-	ViewData["Title"] = "Role";
+	ViewData["Title"] = "FleaMarket";
 	Layout = "Post/_Layout";
 	ViewData["ActivePage"] = ManageNavPages.PostIndex;
 	ViewData["ActivePageOfPost"] = ManagePostNavPages.FleaMarket;
 }
-fleamarket
+<div class="card mb-3">
+	<div class="card-header">
+		<h4><i class="fa fa-user" aria-hidden="true"></i> 有效出售需求 (总计&nbsp;@Model.Posts.Count())</h4>
+	</div>
+	<div class="card-body p-0">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+				<tr>
+					<th>物品</th>
+					<th>价格</th>
+					<th>联系地址</th>
+					<th>联系电话</th>
+					<th>状态</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				@foreach (var u in Model.Posts)
+				{
+					<tr>
+						<td class="vertical-align-middle">
+							<span style="float: left; margin-right: 10px;">
+								<img alt="image" style="max-width: 40px; height: auto;" src="@u.GoodsPhotoUrl" />
+							</span>
+							<strong>@u.GoodsName</strong><br/>
+							<small>成色：@u.GoodsDescription</small>
+						</td>
+						<td class="vertical-align-middle">
+							<strong>@u.GoodsPrice</strong><br/>
+							<small>成色：@u.GoodsQuality</small>
+						</td>
+						<td class="vertical-align-middle">
+							<strong>@u.PosterAddress1</strong><br/>
+							<small>@u.PosterAddress2</small>
+						</td>
+						<td class="vertical-align-middle">@u.PosterPhoneNumber</td>
+						@if (u.IsAccepted)
+						{
+							@if (u.IsCompleted)
+							{
+								<td class="vertical-align-middle">已完成</td>
+							}
+							else
+							{
+								<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
+							}
+						}
+						else
+						{
+							<td class="vertical-align-middle">等待领取</td>
+						}
+						<td class="vertical-align-middle">
+							@if (u.IsAccepted && !u.IsCompleted)
+							{
+								@*<a class="btn btn-sm btn-primary float-left m-1">确认完成</a>*@
+							}
+							<a asp-area="Posts" asp-page="Sale" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
+						</td>
+					</tr>
+				}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
