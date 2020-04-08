@@ -12,51 +12,68 @@
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
-				<tr>
-					<th style="width:5%">ID</th>
-					<th style="width:30%">用户名</th>
-					<th style="width:10%">真实姓名</th>
-					<th style="width:15%">学号</th>
-					<th style="width:15%">联系方式</th>
-					<th>操作</th>
-				</tr>
+					<tr>
+						<th>#</th>
+						<th>用户名</th>
+						<th>认证状态</th>
+						<th>账号状态</th>
+						<th>统计</th>
+						<th>操作</th>
+					</tr>
 				</thead>
 				<tbody>
-					@foreach (var u in Model.Users)
+					@foreach (var u in Model.UserPackage)
 					{
 						<tr>
-							<th class="vertical-align-middle"> @u.Id.Split("-")[4] </th>
+							@* ID *@
+							<th class="vertical-align-middle"> @u.User.Id.Split("-")[4] </th>
+							@* 用户名 *@
 							<td class="vertical-align-middle">
 								<span style="float: left; margin-right: 10px;">
-									<img alt="image" style="max-width: 40px; height: auto;" src="@u.ProfilePhotoUrl" />
+									<img alt="image" style="max-width: 40px; height: auto;" src="@u.User.ProfilePhotoUrl" />
 								</span>
-								<strong>@u.NickName</strong><br />
-								<small>@u.UserName</small>
+								<strong>@u.User.NickName</strong><br />
+								<small>@u.User.UserName</small>
 							</td>
-							@if (u.StudentIdentityConfirmed)
+							@* 认证状态 *@
+							@if (u.User.StudentIdentityConfirmed)
 							{
-								<td class="vertical-align-middle">@u.RealName</td>
-								<td class="vertical-align-middle">@u.IdCardNo</td>
+								<td class="vertical-align-middle" style="color: green">已认证</td>
 							}
 							else
 							{
-								<td colspan="2" class="vertical-align-middle">未进行学生认证</td>
+								<td class="vertical-align-middle" style="color: red">未进行学生认证</td>
 							}
-							@if (u.PhoneNumberConfirmed)
+							@* 账号状态 *@
+							@if (u.User.DeletedMark)
 							{
-								<td class="vertical-align-middle">@u.PhoneNumber</td>
+								<td class="vertical-align-middle" style="color: red">账号已标记删除</td>
 							}
 							else
 							{
-								<td class="vertical-align-middle">未填写联系方式</td>
+								<td class="vertical-align-middle" style="color: green">正常</td>
 							}
 							<td class="vertical-align-middle">
-								<a asp-page="Profile" asp-route-id="@u.Id" class="btn btn-primary float-left">详细信息</a>
-								<form class="float-left ml-2" asp-page-handler="DeleteUser" asp-route-id="@u.Id" method="post">
-									<button type="submit" class="btn btn-danger" onclick="return confirm('确认删除？')">
-										删除
-									</button>
-								</form>
+								@(u.ExpressPostCount+u.PurchasePostCount+u.FleaMarketPostCount+u.HireMarketPostCount) 
+							</td>
+							<td class="vertical-align-middle">
+								<a asp-page="Profile" asp-route-id="@u.User.Id" class="btn btn-sm btn-primary float-left">详细信息</a>
+								@if (u.User.DeletedMark)
+								{
+									<form class="float-left ml-2" asp-page-handler="RestoreUser" asp-route-id="@u.User.Id" method="post">
+										<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('确认恢复？')">
+											恢复
+										</button>
+									</form>
+								}
+								else
+								{
+									<form class="float-left ml-2" asp-page-handler="DeleteUser" asp-route-id="@u.User.Id" method="post">
+										<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('确认删除？')">
+											删除
+										</button>
+									</form>
+								}
 							</td>
 						</tr>
 					}

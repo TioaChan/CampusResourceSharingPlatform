@@ -12,7 +12,7 @@
 	<div class="card-body">
 		<h5 class="card-title">现存用户数量</h5>
 		<p class="card-text">@Model.UserCount.</p>
-		<a href="#" class="btn btn-primary">Go somewhere</a>
+		<a asp-area="ControlPanel" asp-page="./Users/Index" class="btn btn-primary">Go somewhere</a>
 	</div>
 </div>
 <br />
@@ -29,11 +29,12 @@
 <br />
 <div class="card">
 	<div class="card-header">
-		Featured
+		Post Count
 	</div>
 	<div class="card-body">
-		<h5 class="card-title">Special title treatment</h5>
-		<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-		<a href="#" class="btn btn-primary">Go somewhere</a>
+		<h5 class="card-title">有效发布数量</h5>
+		<p class="card-text">@Model.PostsCount</p>
+		<a asp-area="ControlPanel" asp-page="./Post/Index" class="btn btn-primary">Go somewhere</a>
 	</div>
 </div>
+
