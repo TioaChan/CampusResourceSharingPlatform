@@ -30,8 +30,6 @@
 						<th>发布人</th>
 						<th>物品</th>
 						<th>租金（元/天）</th>
-						<th>联系地址</th>
-						<th>联系电话</th>
 						<th>状态</th>
 						<th></th>
 					</tr>
@@ -59,11 +57,6 @@
 							<strong>@u.GoodsRent</strong><br/>
 							<small>原价：@u.GoodsPrice 元</small>
 						</td>
-						<td class="vertical-align-middle">
-							<strong>@u.PosterAddress1</strong><br/>
-							<small>@u.PosterAddress2</small>
-						</td>
-						<td class="vertical-align-middle">@u.PosterPhoneNumber</td>
 						@if (u.IsAccepted)
 						{
 							@if (u.IsCompleted)

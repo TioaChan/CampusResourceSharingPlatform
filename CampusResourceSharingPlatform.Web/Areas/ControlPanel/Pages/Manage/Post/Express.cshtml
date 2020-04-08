@@ -27,15 +27,14 @@
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
-				<tr>
-					<th>发布人</th>
-					<th></th>
-					<th>快递单号</th>
-					<th>菜鸟驿站位置</th>
-					<th>酬劳</th>
-					<th>状态</th>
-					<th></th>
-				</tr>
+					<tr>
+						<th>发布人</th>
+						<th>快递公司</th>
+						<th>酬劳（元）</th>
+						<th>状态</th>
+						<th>备注</th>
+						<th>操作</th>
+					</tr>
 				</thead>
 				<tbody>
 				@foreach (var u in Model.Posts)
@@ -44,17 +43,12 @@
 						<th class="vertical-align-middle">
 							@{ var user = await UserManager.FindByIdAsync(u.PostUserId);}
 							<span style="float: left; margin-right: 10px;">
-								<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl"/>
+								<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl" />
 							</span>
-							<strong>@user.NickName</strong><br/>
+							<strong>@user.NickName</strong><br />
 							<small>@user.UserName</small>
 						</th>
 						<th class="vertical-align-middle"> @u.ExpressCompany </th>
-						<td class="vertical-align-middle">
-							<strong>@u.TrackingCode</strong><br />
-							<small>取货码：@u.PickCode</small>
-						</td>
-						<td class="vertical-align-middle">@u.YiZhanName</td>
 						<td class="vertical-align-middle">@u.MissionReward</td>
 						@if (u.IsAccepted)
 						{
@@ -71,6 +65,9 @@
 						{
 							<td class="vertical-align-middle">等待领取</td>
 						}
+						<td class="vertical-align-middle">
+							@u.MissionNotes
+						</td>
 						<td class="vertical-align-middle">
 							@if (u.IsAccepted && !u.IsCompleted)
 							{
