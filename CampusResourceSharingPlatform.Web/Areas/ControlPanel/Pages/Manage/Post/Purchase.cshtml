@@ -7,61 +7,80 @@
 	ViewData["ActivePage"] = ManageNavPages.PostIndex;
 	ViewData["ActivePageOfPost"] = ManagePostNavPages.Purchase;
 }
-
-	<div class="card mb-3">
-		<div class="card-header">
-			<h4><i class="fa fa-user" aria-hidden="true"></i> 有效代买需求 (总计&nbsp;@Model.Posts.Count())</h4>
-		</div>
-		<div class="card-body p-0">
-			<div class="table-responsive">
-				<table class="table">
-					<thead>
+<div class="card mb-3">
+	<div class="card-header">
+		@if (!Model.SingleUserMark)
+		{
+			<h4><i class="fa fa-user" aria-hidden="true"></i>
+				有效出售需求 (总计&nbsp;@Model.Posts.Count())
+			</h4>
+		}
+		else
+		{
+			<h4><i class="fa fa-user" aria-hidden="true"></i>
+				@Model.queriedUser.UserName 的有效出售需求 (总计&nbsp;@Model.Posts.Count())
+			</h4>
+		}
+	</div>
+	<div class="card-body p-0">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+				<tr>
+					<th>发布人</th>
+					<th>购买内容</th>
+					<th>收货地址</th>
+					<th>收货电话</th>
+					<th>酬劳</th>
+					<th>状态</th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+					@foreach (var u in Model.Posts)
+					{
 						<tr>
-							<th>购买内容</th>
-							<th>收货地址</th>
-							<th>收货电话</th>
-							<th>酬劳</th>
-							<th>状态</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach (var u in Model.Posts)
-						{
-							<tr>
-								<td class="vertical-align-middle">
-									<strong>@u.PurchaseContent</strong><br />
-									<small>购买地址：@u.PurchaseRequirement</small>
-								</td>
-								<td class="vertical-align-middle">@u.PosterAddress1</td>
-								<td class="vertical-align-middle">@u.PosterPhoneNumber</td>
-								<td class="vertical-align-middle">@u.MissionReward</td>
-								@if (u.IsAccepted)
+							<th class="vertical-align-middle">
+								@{ var user = await UserManager.FindByIdAsync(u.PostUserId);}
+								<span style="float: left; margin-right: 10px;">
+									<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl"/>
+								</span>
+								<strong>@user.NickName</strong><br/>
+								<small>@user.UserName</small>
+							</th>
+							<td class="vertical-align-middle">
+								<strong>@u.PurchaseContent</strong><br/>
+								<small>购买地址：@u.PurchaseRequirement</small>
+							</td>
+							<td class="vertical-align-middle">@u.PosterAddress1</td>
+							<td class="vertical-align-middle">@u.PosterPhoneNumber</td>
+							<td class="vertical-align-middle">@u.MissionReward</td>
+							@if (u.IsAccepted)
+							{
+								@if (u.IsCompleted)
 								{
-									@if (u.IsCompleted)
-									{
-										<td class="vertical-align-middle">已完成</td>
-									}
-									else
-									{
-										<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
-									}
+									<td class="vertical-align-middle">已完成</td>
 								}
 								else
 								{
-									<td class="vertical-align-middle">等待领取</td>
+									<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
 								}
-								<td class="vertical-align-middle">
-									@if (u.IsAccepted && !u.IsCompleted)
-									{
-@* 										<a class="btn btn-sm btn-primary float-left m-1">确认完成</a> *@
-									}
-									<a asp-area="Posts" asp-page="Purchase" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
-								</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			</div>
+							}
+							else
+							{
+								<td class="vertical-align-middle">等待领取</td>
+							}
+							<td class="vertical-align-middle">
+								@if (u.IsAccepted && !u.IsCompleted)
+								{
+									@*<a class="btn btn-sm btn-primary float-left m-1">确认完成</a> *@
+								}
+								<a asp-area="Posts" asp-page="/Purchase" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
 		</div>
 	</div>
+</div>

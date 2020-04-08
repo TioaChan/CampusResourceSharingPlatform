@@ -9,28 +9,49 @@
 }
 <div class="card mb-3">
 	<div class="card-header">
-		<h4><i class="fa fa-user" aria-hidden="true"></i> 有效出售需求 (总计&nbsp;@Model.Posts.Count())</h4>
+		@if (!Model.SingleUserMark)
+		{
+			<h4><i class="fa fa-user" aria-hidden="true"></i>
+				有效出售需求 (总计&nbsp;@Model.Posts.Count())
+			</h4>
+		}
+		else
+		{
+			<h4><i class="fa fa-user" aria-hidden="true"></i>
+				@Model.queriedUser.UserName 的有效出售需求 (总计&nbsp;@Model.Posts.Count())
+			</h4>
+		}
 	</div>
 	<div class="card-body p-0">
 		<div class="table-responsive">
 			<table class="table">
 				<thead>
-				<tr>
-					<th>物品</th>
-					<th>价格</th>
-					<th>联系地址</th>
-					<th>联系电话</th>
-					<th>状态</th>
-					<th></th>
-				</tr>
+					<tr>
+						<th>发布人</th>
+						<th>发布人</th>
+						<th>物品</th>
+						<th>价格</th>
+						<th>联系地址</th>
+						<th>联系电话</th>
+						<th>状态</th>
+						<th></th>
+					</tr>
 				</thead>
 				<tbody>
 				@foreach (var u in Model.Posts)
 				{
 					<tr>
+						<th class="vertical-align-middle">
+							@{ var user = await UserManager.FindByIdAsync(u.PostUserId);}
+							<span style="float: left; margin-right: 10px;">
+								<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl"/>
+							</span>
+							<strong>@user.NickName</strong><br/>
+							<small>@user.UserName</small>
+						</th>
 						<td class="vertical-align-middle">
 							<span style="float: left; margin-right: 10px;">
-								<img alt="image" style="max-width: 40px; height: auto;" src="@u.GoodsPhotoUrl" />
+								<img alt="image" style="max-width: 40px; height: auto;" src="@u.GoodsPhotoUrl"/>
 							</span>
 							<strong>@u.GoodsName</strong><br/>
 							<small>成色：@u.GoodsDescription</small>
@@ -64,7 +85,7 @@
 							{
 								@*<a class="btn btn-sm btn-primary float-left m-1">确认完成</a>*@
 							}
-							<a asp-area="Posts" asp-page="Sale" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
+							<a asp-area="Posts" asp-page="/Sale" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
 						</td>
 					</tr>
 				}

@@ -10,3 +10,7 @@
 	<b>@Model.CurrentUser.Id</b>
 
 <a asp-page="Index" class="btn btn-primary">返回</a>
+<a asp-page="../Post/Express" asp-area="ControlPanel" asp-page-handler="SingleUser" asp-route-userId="@Model.CurrentUser.Id">Express</a>
+<a asp-page="../Post/Purchase" asp-area="ControlPanel" asp-page-handler="SingleUser" asp-route-userId="@Model.CurrentUser.Id">Purchase</a>
+<a asp-page="../Post/FleaMarket" asp-area="ControlPanel" asp-page-handler="SingleUser" asp-route-userId="@Model.CurrentUser.Id">FleaMarket</a>
+<a asp-page="../Post/Hire" asp-area="ControlPanel" asp-page-handler="SingleUser" asp-route-userId="@Model.CurrentUser.Id">Hire</a>
