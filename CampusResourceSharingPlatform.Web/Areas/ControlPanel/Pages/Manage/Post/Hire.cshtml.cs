@@ -1,12 +1,12 @@
 using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model.Application;
-using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 {
@@ -16,7 +16,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 		private readonly IHireService<Hire> _hireService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public HireModel(IHireService<Hire> hireService,UserManager<ApplicationUser> userManager)
+		public HireModel(IHireService<Hire> hireService, UserManager<ApplicationUser> userManager)
 		{
 			_hireService = hireService;
 			_userManager = userManager;

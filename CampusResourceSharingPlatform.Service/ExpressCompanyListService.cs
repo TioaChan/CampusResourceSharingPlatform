@@ -1,16 +1,14 @@
-﻿using CampusResourceSharingPlatform.Model.Business;
-using System;
+﻿using CampusResourceSharingPlatform.Data;
+using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Data;
-using CampusResourceSharingPlatform.Interface;
-using Microsoft.EntityFrameworkCore;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class ExpressCompanyListService: IExpressCompanyListService<ExpressCompanyList>
+	public class ExpressCompanyListService : IExpressCompanyListService<ExpressCompanyList>
 	{
 		private readonly ApplicationDbContext _context;
 
@@ -22,6 +20,12 @@ namespace CampusResourceSharingPlatform.Service
 		{
 			var expressCompanyLists = await _context.ExpressCompanyList.ToListAsync();
 			return expressCompanyLists;
+		}
+
+		public async Task<ExpressCompanyList> GetCompanyAsync(string companyId)
+		{
+			var result = await _context.ExpressCompanyList.Where(p => p.Id == companyId).FirstOrDefaultAsync();
+			return result;
 		}
 	}
 }

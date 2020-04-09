@@ -1,5 +1,4 @@
-﻿using System;
-using CampusResourceSharingPlatform.Model.Application;
+﻿using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -275,7 +274,7 @@ namespace CampusResourceSharingPlatform.Data
 			#endregion
 
 			#region ExpressList
-			
+
 			if (!context.ExpressCompanyList.Any())
 			{
 				var lists = new[]

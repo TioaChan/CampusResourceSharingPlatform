@@ -1,5 +1,8 @@
 ﻿@page
 @inject UserManager<ApplicationUser> UserManager
+@using CampusResourceSharingPlatform.Interface
+@using CampusResourceSharingPlatform.Model.Business
+@inject IExpressCompanyListService<ExpressCompanyList> ExpressCompanyListService
 @model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post.ExpressModel
 @{
 	ViewData["Title"] = "Express";
@@ -12,13 +15,15 @@
 	<div class="card-header">
 		@if (!Model.SingleUserMark)
 		{
-			<h4><i class="fa fa-user" aria-hidden="true"></i>
+			<h4>
+				<i class="fa fa-user" aria-hidden="true"></i>
 				有效出售需求 (总计&nbsp;@Model.Posts.Count())
 			</h4>
 		}
 		else
 		{
-			<h4><i class="fa fa-user" aria-hidden="true"></i>
+			<h4>
+				<i class="fa fa-user" aria-hidden="true"></i>
 				@Model.queriedUser.UserName 的有效出售需求 (总计&nbsp;@Model.Posts.Count())
 			</h4>
 		}
@@ -37,46 +42,46 @@
 					</tr>
 				</thead>
 				<tbody>
-				@foreach (var u in Model.Posts)
-				{
-					<tr>
-						<th class="vertical-align-middle">
-							@{ var user = await UserManager.FindByIdAsync(u.PostUserId);}
-							<span style="float: left; margin-right: 10px;">
-								<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl" />
-							</span>
-							<strong>@user.NickName</strong><br />
-							<small>@user.UserName</small>
-						</th>
-						<th class="vertical-align-middle"> @u.ExpressCompanyId </th>
-						<td class="vertical-align-middle">@u.MissionReward</td>
-						@if (u.IsAccepted)
-						{
-							@if (u.IsCompleted)
+					@foreach (var u in Model.Posts)
+					{
+						<tr>
+							<th class="vertical-align-middle">
+								@{ var user = await UserManager.FindByIdAsync(u.PostUserId);}
+								<span style="float: left; margin-right: 10px;">
+									<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl" />
+								</span>
+								<strong>@user.NickName</strong><br />
+								<small>@user.UserName</small>
+							</th>
+							<th class="vertical-align-middle">@ExpressCompanyListService.GetCompanyAsync(u.ExpressCompanyId).Result.CompanyName</th>
+							<td class="vertical-align-middle">@u.MissionReward</td>
+							@if (u.IsAccepted)
 							{
-								<td class="vertical-align-middle">已完成</td>
+								@if (u.IsCompleted)
+								{
+									<td class="vertical-align-middle">已完成</td>
+								}
+								else
+								{
+									<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
+								}
 							}
 							else
 							{
-								<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
+								<td class="vertical-align-middle">等待领取</td>
 							}
-						}
-						else
-						{
-							<td class="vertical-align-middle">等待领取</td>
-						}
-						<td class="vertical-align-middle">
-							@u.MissionNotes
-						</td>
-						<td class="vertical-align-middle">
-							@if (u.IsAccepted && !u.IsCompleted)
-							{
-								@*<a class="btn btn-sm btn-primary float-left m-1">确认完成</a>*@
-							}
-							<a asp-area="Posts" asp-page="/TakeExpress" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
-						</td>
-					</tr>
-				}
+							<td class="vertical-align-middle">
+								@u.MissionNotes
+							</td>
+							<td class="vertical-align-middle">
+								@if (u.IsAccepted && !u.IsCompleted)
+								{
+									@*<a class="btn btn-sm btn-primary float-left m-1">确认完成</a>*@
+								}
+								<a asp-area="Posts" asp-page="/TakeExpress" asp-route-postId="@u.Id" class="btn btn-sm m-1 btn-primary float-left">详细信息</a>
+							</td>
+						</tr>
+					}
 				</tbody>
 			</table>
 		</div>

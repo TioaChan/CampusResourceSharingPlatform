@@ -1,4 +1,6 @@
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,8 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Interface;
-using CampusResourceSharingPlatform.Model.Business;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Users
 {
@@ -41,7 +41,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 		[TempData]
 		public string StatusMessage { get; set; }
 
-		public IndexModel(UserManager<ApplicationUser> userManager, 
+		public IndexModel(UserManager<ApplicationUser> userManager,
 			ITakeExpressService<Express> takeExpressService,
 			IPurchaseService<Purchase> purchaseService,
 			IFleaMarketService<SecondHand> fleaMarketService,
@@ -56,7 +56,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 
 		private async Task LoadUsersAsync()
 		{
-			Users = await _userManager.Users.OrderBy(p=>p.DeletedMark).ToListAsync();
+			Users = await _userManager.Users.OrderBy(p => p.DeletedMark).ToListAsync();
 			UserPackage = new List<UserInformations>();
 			foreach (var user in Users)
 			{
@@ -67,7 +67,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 					PurchasePostCount = (await _purchaseService.GetAllActiveMissionByPostUserAsync(user)).Count,
 					FleaMarketPostCount = (await _fleaMarketService.GetAllActiveMissionByPostUserAsync(user)).Count,
 					HireMarketPostCount = (await _hireService.GetAllActiveMissionByPostUserAsync(user)).Count,
-				};	
+				};
 				UserPackage.Add(userInformation);
 			}
 		}

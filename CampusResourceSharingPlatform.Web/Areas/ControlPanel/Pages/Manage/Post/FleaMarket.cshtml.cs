@@ -1,12 +1,12 @@
 using CampusResourceSharingPlatform.Interface;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model.Application;
-using Microsoft.AspNetCore.Identity;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 {
@@ -16,7 +16,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
 
-		public FleaMarketModel(UserManager<ApplicationUser> userManager,IFleaMarketService<SecondHand> fleaMarketService)
+		public FleaMarketModel(UserManager<ApplicationUser> userManager, IFleaMarketService<SecondHand> fleaMarketService)
 		{
 			_userManager = userManager;
 			_fleaMarketService = fleaMarketService;

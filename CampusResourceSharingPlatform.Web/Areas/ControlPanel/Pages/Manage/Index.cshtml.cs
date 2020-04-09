@@ -1,12 +1,12 @@
+using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
+using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Interface;
-using CampusResourceSharingPlatform.Model.Business;
 
 namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage
 {
@@ -43,9 +43,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage
 			UserCount = await _userManager.Users.CountAsync();
 			RoleCount = await _roleManager.Roles.CountAsync();
 			PostsCount = (await _takeExpressService.GetAllActiveMissionAsync()).Count
-			             + (await _purchaseService.GetAllActiveMissionAsync()).Count
-			             + (await _fleaMarketService.GetAllActiveMissionAsync()).Count
-			             + (await _hireService.GetAllActiveMissionAsync()).Count;
+						 + (await _purchaseService.GetAllActiveMissionAsync()).Count
+						 + (await _fleaMarketService.GetAllActiveMissionAsync()).Count
+						 + (await _hireService.GetAllActiveMissionAsync()).Count;
 			return Page();
 		}
 	}
