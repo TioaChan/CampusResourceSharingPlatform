@@ -16,8 +16,12 @@
 				<div class="form-group row">
 					<label class="col-sm-2 col-form-label" asp-for="TakeExpressInput.ExpressCompany"></label>
 					<div class="col-sm-10">
-						<input class="form-control" autocomplete="new-off" placeholder="请填写快递公司" title="快递公司" asp-for="TakeExpressInput.ExpressCompany">
-						<span asp-validation-for="TakeExpressInput.ExpressCompany" class="text-danger"></span>
+						@* <input class="form-control" autocomplete="new-off" placeholder="请填写快递公司" title="快递公司" asp-for="TakeExpressInput.ExpressCompany"> *@
+						<select class="custom-select form-control" asp-for="@Model.TakeExpressInput.ListExpressCompany" asp-items="@Html.GetEnumSelectList<ExpressCompany>()">
+							<option> -- 请选择快递公司 -- </option>
+						</select>
+						<span asp-validation-for="@Model.TakeExpressInput.ListExpressCompany" class="text-danger"></span>
+
 					</div>
 				</div>
 				<div class="form-group row">

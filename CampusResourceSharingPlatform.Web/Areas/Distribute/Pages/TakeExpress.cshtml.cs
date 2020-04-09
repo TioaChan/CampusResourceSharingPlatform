@@ -84,6 +84,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			[Required(ErrorMessage = "快递公司 为必填项")]
 			public string ExpressCompany { get; set; }
 
+			[Display(Name = "快递公司")]
+			[Required(ErrorMessage = "快递公司 为必选项")]
+			public ExpressCompany ListExpressCompany { get; set; }
+
 			/// <summary>
 			/// 快递单号
 			/// </summary>
@@ -176,7 +180,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var post = new Express
 			{
 				Id = Guid.NewGuid().ToString(),
-				ExpressCompany = TakeExpressInput.ExpressCompany,
+				ExpressCompany = TakeExpressInput.ListExpressCompany.ToString(),
 				TrackingCode = TakeExpressInput.TrackingCode,
 				ConsigneePhone = TakeExpressInput.ConsigneePhone,
 				Consignee = TakeExpressInput.Consignee,
@@ -208,6 +212,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			var post = await _takeExpress.GetMissionById(postId);
 			if (user == null || !user.StudentIdentityConfirmed || post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
+
 			TakeExpressInput = new TakeExpressInputModel
 			{
 				PostUserId = user.Id,
@@ -236,7 +241,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var post = new Express();
 			var time = DateTime.UtcNow;
 			post.Id = PostId;
-			post.ExpressCompany = TakeExpressInput.ExpressCompany;
+			post.ExpressCompany = TakeExpressInput.ListExpressCompany.ToString();
 			post.TrackingCode = TakeExpressInput.TrackingCode;
 			post.ConsigneePhone = TakeExpressInput.ConsigneePhone;
 			post.Consignee = TakeExpressInput.Consignee;
