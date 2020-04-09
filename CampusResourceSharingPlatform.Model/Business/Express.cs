@@ -49,6 +49,6 @@ namespace CampusResourceSharingPlatform.Model.Business
 		public string ExpressCompanyId { get; set; }
 
 		[ForeignKey("ExpressCompanyId")]
-		public virtual ExpressCompanyList ExpressCompany2 { get; set; }
+		public virtual ExpressCompanyList ExpressCompany { get; set; }
 	}
 }
