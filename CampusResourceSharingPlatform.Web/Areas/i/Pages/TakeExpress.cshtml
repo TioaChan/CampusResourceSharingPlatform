@@ -1,8 +1,5 @@
 ﻿@page
-@using CampusResourceSharingPlatform.Interface
-@using CampusResourceSharingPlatform.Model.Business
 @inject UserManager<ApplicationUser> UserManager
-@inject IExpressCompanyListService<ExpressCompanyList> ExpressCompanyListService
 @model CampusResourceSharingPlatform.Web.Areas.i.Pages.TakeExpressModel
 @{
 	Layout = "_Layout";
@@ -31,7 +28,7 @@
 					@foreach (var u in Model.ExpressPost)
 					{
 						<tr>
-							<th class="vertical-align-middle">@ExpressCompanyListService.GetCompanyAsync(u.ExpressCompanyId).Result.CompanyName </th>
+							<th class="vertical-align-middle">@u.ExpressCompany.CompanyName</th>
 							<td class="vertical-align-middle">
 								<strong>@u.TrackingCode</strong><br />
 								<small>取货码：@u.PickCode</small>

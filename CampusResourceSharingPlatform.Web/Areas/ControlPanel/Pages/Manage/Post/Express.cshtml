@@ -1,8 +1,5 @@
 ﻿@page
 @inject UserManager<ApplicationUser> UserManager
-@using CampusResourceSharingPlatform.Interface
-@using CampusResourceSharingPlatform.Model.Business
-@inject IExpressCompanyListService<ExpressCompanyList> ExpressCompanyListService
 @model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post.ExpressModel
 @{
 	ViewData["Title"] = "Express";
@@ -53,7 +50,7 @@
 								<strong>@user.NickName</strong><br />
 								<small>@user.UserName</small>
 							</th>
-							<th class="vertical-align-middle">@ExpressCompanyListService.GetCompanyAsync(u.ExpressCompanyId).Result.CompanyName</th>
+							<th class="vertical-align-middle">@u.ExpressCompany.CompanyName</th>
 							<td class="vertical-align-middle">@u.MissionReward</td>
 							@if (u.IsAccepted)
 							{
