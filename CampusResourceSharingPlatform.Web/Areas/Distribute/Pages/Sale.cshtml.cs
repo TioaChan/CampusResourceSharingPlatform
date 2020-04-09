@@ -1,6 +1,7 @@
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 {
+	[Authorize]
 	public class SaleModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;

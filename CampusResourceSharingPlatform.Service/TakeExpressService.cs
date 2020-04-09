@@ -5,9 +5,9 @@ using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data;
 
 namespace CampusResourceSharingPlatform.Service
 {
@@ -89,7 +89,7 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<Express> GetMissionById(string postId)
 		{
-			var post = await _context.MissionExpresses.Include(f=>f.ExpressCompany).Where(p => p.Id == postId).FirstOrDefaultAsync();
+			var post = await _context.MissionExpresses.Include(f => f.ExpressCompany).Where(p => p.Id == postId).FirstOrDefaultAsync();
 			return post;
 		}
 

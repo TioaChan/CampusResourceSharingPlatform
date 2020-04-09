@@ -1,6 +1,7 @@
 using CampusResourceSharingPlatform.Interface;
 using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 {
+	[Authorize]
 	public class HireModel : PageModel
 	{
 		private readonly IHireService<Hire> _hireService;
