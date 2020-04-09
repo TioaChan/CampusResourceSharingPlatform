@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CampusResourceSharingPlatform.Model.Business
 {
@@ -46,5 +47,14 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// </summary>
 		[Required]
 		public double Weight { get; set; }
+
+		/// <summary>
+		/// 快递公司
+		/// </summary>
+		[Required]
+		public string ExpressCompanyId { get; set; }
+		
+		[ForeignKey("ExpressCompanyId")]
+		public virtual ExpressCompanyList ExpressCompany2 { get; set; }
 	}
 }

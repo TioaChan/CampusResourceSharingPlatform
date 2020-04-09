@@ -1,4 +1,5 @@
-﻿using CampusResourceSharingPlatform.Model.Application;
+﻿using System;
+using CampusResourceSharingPlatform.Model.Application;
 using CampusResourceSharingPlatform.Model.Business;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,7 @@ namespace CampusResourceSharingPlatform.Data
 {
 	public static class DbSeedInitializer
 	{
-		public static void DbSeedInitialize(ApplicationDbContext context, ILogger logger)
+		public static async void DbSeedInitialize(ApplicationDbContext context, ILogger logger)
 		{
 			context.Database.EnsureCreated();
 
@@ -263,16 +264,81 @@ namespace CampusResourceSharingPlatform.Data
 					},
 				};
 				logger.LogWarning("DATABASE:No MissionTypes data found in Database,start use the seed to initialize the database.");
-				foreach (var missionType in types)
-				{
-					context.MissionTypes.Add(missionType);
-				}
+				await context.MissionTypes.AddRangeAsync(types);
 				context.SaveChanges();
 				logger.LogInformation("DATABASE:default MissionTypes data has initialized complete.");
 			}
 			else
 			{
 				logger.LogInformation("DATABASE:default MissionTypes in database checked complete.");
+			}
+			#endregion
+
+			#region ExpressList
+			
+			if (!context.ExpressCompanyList.Any())
+			{
+				var lists = new[]
+				{
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000001",
+						CompanyName = "圆通速递",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000002",
+						CompanyName = "中通速递",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000003",
+						CompanyName = "顺丰速运",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000004",
+						CompanyName = "韵达快递",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000005",
+						CompanyName = "申通快递",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000006",
+						CompanyName = "中国邮政EMS",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000007",
+						CompanyName = "中国邮政国内小包",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000008",
+						CompanyName = "百世快递",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000009",
+						CompanyName = "天天快递",
+					},
+					new ExpressCompanyList
+					{
+						Id = "00000000-0000-0000-0000-000000000010",
+						CompanyName = "京东快递",
+					},
+				};
+				logger.LogWarning("DATABASE:No ExpressCompanyList data found in Database,start use the seed to initialize the database.");
+				await context.ExpressCompanyList.AddRangeAsync(lists);
+				context.SaveChanges();
+				logger.LogInformation("DATABASE:default ExpressCompanyList data has initialized complete.");
+			}
+			else
+			{
+				logger.LogInformation("DATABASE:default ExpressCompanyList in database checked complete.");
 			}
 			#endregion
 

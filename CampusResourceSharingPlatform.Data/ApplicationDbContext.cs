@@ -25,6 +25,8 @@ namespace CampusResourceSharingPlatform.Data
 
 		public DbSet<Hire> MissionHire { get; set; }
 
+		public DbSet<ExpressCompanyList> ExpressCompanyList { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
@@ -39,6 +41,8 @@ namespace CampusResourceSharingPlatform.Data
 			modelBuilder.Entity<Express>().Property(p => p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<Express>().Property(p => p.DeletedMark).HasDefaultValue(0);
+			modelBuilder.Entity<Express>().Property(p => p.ExpressCompanyId)
+				.HasDefaultValue("00000000-0000-0000-0000-000000000001");
 
 			modelBuilder.Entity<Purchase>().Property(p => p.IsAccepted).HasDefaultValue(0);
 			modelBuilder.Entity<Purchase>().Property(p => p.IsCompleted).HasDefaultValue(0);
@@ -52,6 +56,7 @@ namespace CampusResourceSharingPlatform.Data
 			modelBuilder.Entity<Hire>().Property(p => p.IsCompleted).HasDefaultValue(0);
 			modelBuilder.Entity<Hire>().Property(p => p.DeletedMark).HasDefaultValue(0);
 
+			modelBuilder.Entity<ExpressCompanyList>().Property(p => p.DeletedMark).HasDefaultValue(0);
 		}
 	}
 }
