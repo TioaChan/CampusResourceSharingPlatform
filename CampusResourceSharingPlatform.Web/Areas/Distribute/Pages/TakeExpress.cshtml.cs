@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -14,11 +15,13 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ITakeExpressService<Express> _takeExpress;
+		private readonly IExpressCompanyListService<ExpressCompanyList> _expressCompanyListService;
 
-		public TakeExpressModel(UserManager<ApplicationUser> userManager, ITakeExpressService<Express> takeExpress)
+		public TakeExpressModel(UserManager<ApplicationUser> userManager, ITakeExpressService<Express> takeExpress, IExpressCompanyListService<ExpressCompanyList> expressCompanyListService)
 		{
 			_userManager = userManager;
 			_takeExpress = takeExpress;
+			_expressCompanyListService = expressCompanyListService;
 		}
 
 
@@ -39,6 +42,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 
 		[TempData]
 		public string StatusMessage { get; set; }
+
+		public List<ExpressCompanyList> ExpressCompanyList { get; set; }
 
 		public class TakeExpressInputModel
 		{
@@ -84,9 +89,16 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			[Required(ErrorMessage = "快递公司 为必填项")]
 			public string ExpressCompany { get; set; }
 
-			[Display(Name = "快递公司")]
-			[Required(ErrorMessage = "快递公司 为必选项")]
-			public ExpressCompany ListExpressCompany { get; set; }
+			// [Display(Name = "快递公司")]
+			// [Required(ErrorMessage = "快递公司 为必选项")]
+			// public ExpressCompany ListExpressCompany { get; set; }
+
+			/// <summary>
+			/// 快递公司
+			/// </summary>
+			[Display(Name = "快递公司Id")]
+			[Required(ErrorMessage = "快递公司 为必填项")]
+			public string ExpressCompanyId { get; set; }
 
 			/// <summary>
 			/// 快递单号
@@ -151,7 +163,6 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 
 		}
 
-
 		public async Task<IActionResult> OnGetAsync()
 		{
 			var user = await _userManager.GetUserAsync(User);
@@ -167,6 +178,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 				TakeExpressInput.ReceiveAddress2 = post.PosterAddress2;
 				TakeExpressInput.ReceivePhoneNumber = post.PosterPhoneNumber;
 			}
+			ExpressCompanyList = await _expressCompanyListService.GetAllAsync();
 			PostUserId = user.Id;
 			EditMark = false;
 			return Page();
@@ -180,7 +192,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var post = new Express
 			{
 				Id = Guid.NewGuid().ToString(),
-				ExpressCompany = TakeExpressInput.ListExpressCompany.ToString(),
+				// ExpressCompany = TakeExpressInput.ListExpressCompany.ToString(),
+				ExpressCompanyId = TakeExpressInput.ExpressCompanyId,
 				TrackingCode = TakeExpressInput.TrackingCode,
 				ConsigneePhone = TakeExpressInput.ConsigneePhone,
 				Consignee = TakeExpressInput.Consignee,
@@ -212,11 +225,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var user = await _userManager.GetUserAsync(User);
 			var post = await _takeExpress.GetMissionById(postId);
 			if (user == null || !user.StudentIdentityConfirmed || post.PostUserId != user.Id || post.DeletedMark) return RedirectToPage("Index");
-
+			ExpressCompanyList = await _expressCompanyListService.GetAllAsync();
 			TakeExpressInput = new TakeExpressInputModel
 			{
 				PostUserId = user.Id,
-				ExpressCompany = post.ExpressCompany,
+				ExpressCompany = post.ExpressCompanyId,
+				ExpressCompanyId = post.ExpressCompanyId,
 				TrackingCode = post.TrackingCode,
 				ConsigneePhone = post.ConsigneePhone,
 				Consignee = post.Consignee,
@@ -241,7 +255,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 			var post = new Express();
 			var time = DateTime.UtcNow;
 			post.Id = PostId;
-			post.ExpressCompany = TakeExpressInput.ListExpressCompany.ToString();
+			post.ExpressCompanyId = TakeExpressInput.ExpressCompanyId;
 			post.TrackingCode = TakeExpressInput.TrackingCode;
 			post.ConsigneePhone = TakeExpressInput.ConsigneePhone;
 			post.Consignee = TakeExpressInput.Consignee;

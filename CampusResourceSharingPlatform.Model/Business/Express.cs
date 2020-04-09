@@ -6,12 +6,6 @@ namespace CampusResourceSharingPlatform.Model.Business
 	public class Express : MissionDetail
 	{
 		/// <summary>
-		/// 快递公司
-		/// </summary>
-		[Required]
-		public string ExpressCompany { get; set; }
-
-		/// <summary>
 		/// 快递单号
 		/// </summary>
 		[Required]

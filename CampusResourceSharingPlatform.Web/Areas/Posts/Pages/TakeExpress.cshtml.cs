@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
@@ -13,12 +14,15 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ITakeExpressService<Express> _takeExpressService;
+		private readonly IExpressCompanyListService<ExpressCompanyList> _expressCompanyListService;
 
 		public TakeExpressModel(UserManager<ApplicationUser> userManager,
-			ITakeExpressService<Express> takeExpressService)
+			ITakeExpressService<Express> takeExpressService,
+			IExpressCompanyListService<ExpressCompanyList> expressCompanyListService)
 		{
 			_userManager = userManager;
 			_takeExpressService = takeExpressService;
+			_expressCompanyListService = expressCompanyListService;
 		}
 
 		[TempData]
@@ -35,11 +39,14 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 		[BindProperty]
 		public string PostId { get; set; }
 
+		public List<ExpressCompanyList> ExpressCompanyList { get; set; }
+
 		private async Task LoadAsync(string postId)
 		{
 			CurrentUser = await _userManager.GetUserAsync(User);
 			ExpressPost = await _takeExpressService.GetActiveMissionById(postId);
 			if (CurrentUser == null || postId == null || ExpressPost == null) return;
+			ExpressCompanyList = await _expressCompanyListService.GetAllAsync();
 			StudentIdentityConfirmed = CurrentUser.StudentIdentityConfirmed;
 			CurrentUserId = CurrentUser.Id;
 			PostId = ExpressPost.Id;

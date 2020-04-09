@@ -36,6 +36,7 @@ namespace CampusResourceSharingPlatform.Web
 				options.MinimumSameSitePolicy = SameSiteMode.None;
 			});
 			services.AddScoped<ILicensesDateService<License>, LicenseDateService>();
+			services.AddScoped<IExpressCompanyListService<ExpressCompanyList>, ExpressCompanyListService>();
 			services.AddScoped<ITakeExpressService<Express>, TakeExpressService>();
 			services.AddScoped<IPurchaseService<Purchase>, PurchaseService>();
 			services.AddScoped<IFleaMarketService<SecondHand>, FleaMarketService>();
