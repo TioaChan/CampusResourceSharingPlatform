@@ -1,5 +1,4 @@
 ﻿@page
-@inject UserManager<ApplicationUser> UserManager
 @model CampusResourceSharingPlatform.Web.Areas.i.Pages.TakeExpressModel
 @{
 	Layout = "_Layout";
@@ -43,7 +42,7 @@
 								}
 								else
 								{
-									<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
+									<td class="vertical-align-middle">已被 @u.AcceptUser.UserName 领取</td>
 								}
 							}
 							else

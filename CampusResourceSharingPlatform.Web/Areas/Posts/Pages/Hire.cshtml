@@ -101,8 +101,16 @@
 	{
 		@if (Model.HirePost.PostUserId == Model.CurrentUserId)
 		{
-			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Hire" asp-area="Distribute" asp-route-postId="@Model.HirePost.Id">修改</a>
-			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除</button>
+			@if (Model.HirePost.IsAccepted)
+			{
+				<a class="btn btn-secondary disabled">已被领取，不可修改</a>
+				<button type="submit" class="btn btn-danger" disabled>已被领取，不可删除</button>
+			}
+			else
+			{
+				<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Hire" asp-area="Distribute" asp-route-postId="@Model.HirePost.Id">修改</a>
+				<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除</button>
+			}
 		}
 		else
 		{

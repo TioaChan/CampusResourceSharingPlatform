@@ -1,5 +1,4 @@
 ﻿@page
-@inject UserManager<ApplicationUser> UserManager
 @model CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post.ExpressModel
 @{
 	ViewData["Title"] = "Express";
@@ -21,7 +20,7 @@
 		{
 			<h4>
 				<i class="fa fa-user" aria-hidden="true"></i>
-				@Model.queriedUser.UserName 的有效出售需求 (总计&nbsp;@Model.Posts.Count())
+				@Model.QueriedUser.UserName 的有效出售需求 (总计&nbsp;@Model.Posts.Count())
 			</h4>
 		}
 	</div>
@@ -43,12 +42,11 @@
 					{
 						<tr>
 							<th class="vertical-align-middle">
-								@{ var user = await UserManager.FindByIdAsync(u.PostUserId);}
 								<span style="float: left; margin-right: 10px;">
-									<img alt="image" style="max-width: 40px; height: auto;" src="@user.ProfilePhotoUrl" />
+									<img alt="image" style="max-width: 40px; height: auto;" src="@u.PostUser.ProfilePhotoUrl" />
 								</span>
-								<strong>@user.NickName</strong><br />
-								<small>@user.UserName</small>
+								<strong>@u.PostUser.NickName</strong><br />
+								<small>@u.PostUser.UserName</small>
 							</th>
 							<th class="vertical-align-middle">@u.ExpressCompany.CompanyName</th>
 							<td class="vertical-align-middle">@u.MissionReward</td>
@@ -60,7 +58,7 @@
 								}
 								else
 								{
-									<td class="vertical-align-middle">已被 @UserManager.FindByIdAsync(u.AcceptUserId).Result.UserName 领取</td>
+									<td class="vertical-align-middle">已被 @u.AcceptUser.UserName 领取</td>
 								}
 							}
 							else

@@ -24,7 +24,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 
 		public List<SecondHand> Posts;
 		public bool SingleUserMark { get; set; }
-		public ApplicationUser queriedUser { get; set; }
+		public ApplicationUser QueriedUser { get; set; }
 		[TempData]
 		public string StatusMessage { get; set; }
 		public async Task<IActionResult> OnGetAsync()
@@ -36,8 +36,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 
 		public async Task<IActionResult> OnGetSingleUserAsync(string userId)
 		{
-			queriedUser = await _userManager.FindByIdAsync(userId);
-			Posts = await _fleaMarketService.GetAllActiveMissionByPostUserAsync(queriedUser);
+			QueriedUser = await _userManager.FindByIdAsync(userId);
+			Posts = await _fleaMarketService.GetAllActiveMissionByPostUserAsync(QueriedUser);
 			SingleUserMark = true;
 			return Page();
 		}

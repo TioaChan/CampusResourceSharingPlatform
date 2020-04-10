@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+}
 
 
 <ul class="navbar-nav">
@@ -9,11 +11,11 @@
 	{
 		<li class="nav-item dropdown">
 			<a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img class="user-avatar-img-small" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name">
-				@UserManager.GetUserAsync(User).Result.NickName
+				<img class="user-avatar-img-small" src="@currentUser.ProfilePhotoUrl" alt="Avatar of @currentUser.UserName">
+				@currentUser.NickName
 			</a>
 			<div class="dropdown-menu" aria-labelledby="navbarDropdown" style="z-index: 2048">
-				<a class="nav-link text-dark">欢迎，@UserManager.GetUserAsync(User).Result.NickName!</a>
+				<a class="nav-link text-dark">欢迎，@currentUser.NickName!</a>
 				<hr class="m-1" />
 				<a class="nav-link text-dark" asp-area="i" asp-page="/Index">个人中心</a>
 				<a class="nav-link text-dark" asp-area="i" asp-page="/TakeExpress">我的快递需求</a>
@@ -28,7 +30,7 @@
 				</form>
 			</div>
 		</li>
-		@if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Administrators"))
+		@if (await UserManager.IsInRoleAsync(currentUser, "Administrators"))
 		{
 			<li class="nav-item form-inline">
 				<a class="nav-link text-dark" asp-area="ControlPanel" asp-page="/Manage/Index" title="manage">控制面板</a>

@@ -5,6 +5,11 @@
 	ViewData["Title"] = "快递";
 }
 
+@* 
+1.学生身份认证 且
+2.帖子发布者为当前用户 或 者任务被接受且接受者为当前用户
+显示敏感信息
+*@
 
 @if (Model.StudentIdentityConfirmed &&
   (Model.ExpressPost.PostUserId == Model.CurrentUserId ||
@@ -89,6 +94,7 @@
 }
 else
 {
+	// 脱敏后的信息
 	<div class="card mb-4">
 		<div class="card-header">快递包裹信息</div>
 		<div class="card-body">
@@ -147,15 +153,27 @@ else
 	<input type="hidden" name="PostId" value="@Model.PostId" />
 	@if (Model.StudentIdentityConfirmed)
 	{
+		// 当前浏览用户为任务发布者
 		@if (Model.ExpressPost.PostUserId == Model.CurrentUserId)
 		{
-			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="TakeExpress" asp-area="Distribute" asp-route-postId="@Model.ExpressPost.Id">任务修改</a>
-			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission" asp-route-postId="@Model.ExpressPost.Id">删除任务</button>
+			//被接受无法修改删除
+			@if (Model.ExpressPost.IsAccepted)
+			{
+				<a class="btn btn-secondary disabled">已被领取，不可修改</a>
+				<button type="submit" class="btn btn-danger" disabled>已被领取，不可删除</button>
+			}
+			else
+			{
+				<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="TakeExpress" asp-area="Distribute" asp-route-postId="@Model.ExpressPost.Id">任务修改</a>
+				<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission" asp-route-postId="@Model.ExpressPost.Id">删除任务</button>
+			}
 		}
 		else
 		{
+			// 任务未被接受
 			if (Model.ExpressPost.IsAccepted)
 			{
+				//任务被浏览者接受
 				if (Model.ExpressPost.AcceptUserId == Model.CurrentUserId)
 				{
 					<button type="submit" class="btn btn-primary"
@@ -166,7 +184,7 @@ else
 				}
 				else
 				{
-					<button type="submit" class="btn btn-secondary" disabled="">已被别人接受</button>
+					<button type="submit" class="btn btn-secondary" disabled>已被别人接受</button>
 				}
 			}
 			else

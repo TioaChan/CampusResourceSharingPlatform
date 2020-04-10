@@ -50,7 +50,7 @@
 
 
 
-
+@* 领取或者发布者为本人的情况下显示敏感信息 *@
 @if (Model.StudentIdentityConfirmed && 
      (Model.SalePost.PostUserId == Model.CurrentUserId || 
       (Model.SalePost.IsAccepted && Model.SalePost.AcceptUserId == Model.CurrentUserId)))
@@ -87,20 +87,28 @@
 	{
 		@if (Model.SalePost.PostUserId == Model.CurrentUserId)
 		{
-			<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Sale" asp-area="Distribute" asp-route-postId="@Model.SalePost.Id">修改</a>
-			<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除</button>
+			@if (Model.SalePost.IsAccepted)
+			{
+				<a class="btn btn-secondary disabled">已被领取，不可修改</a>
+				<button type="submit" class="btn btn-danger" disabled>已被领取，不可删除</button>
+			}
+			else
+			{
+				<a class="btn btn-secondary" asp-page-handler="EditMission" asp-page="Sale" asp-area="Distribute" asp-route-postId="@Model.SalePost.Id">修改</a>
+				<button type="submit" class="btn btn-danger" asp-page-handler="DeleteMission">删除</button>
+			}
 		}
 		else
 		{
 			if (Model.SalePost.IsAccepted)
 			{
-				if (Model.SalePost.AcceptUserId==Model.CurrentUserId)
+				if (Model.SalePost.AcceptUserId == Model.CurrentUserId)
 				{
 					<button type="submit" class="btn btn-primary" asp-page-handler="AbortMission" asp-route-postId="@Model.SalePost.Id">不买了</button>
 				}
 				else
 				{
-					<button type="submit" class="btn btn-secondary" disabled="">已经卖掉啦</button>
+					<button type="submit" class="btn btn-secondary" disabled>已经卖掉啦</button>
 				}
 			}
 			else

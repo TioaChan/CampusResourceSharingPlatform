@@ -41,49 +41,78 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<Hire> GetLastMissionInfoAsync(string userId)
 		{
-			var post = await _context.MissionHire.Where(p => p.PostUserId == userId && p.DeletedMark == false).OrderByDescending(p => p.PostTime).FirstOrDefaultAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.PostUserId == userId && p.DeletedMark == false)
+				.OrderByDescending(p => p.PostTime)
+				.FirstOrDefaultAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllActiveMissionAsync()
 		{
-			var post = await _context.MissionHire.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false)
+				.Include(f => f.PostUser)
+				.Include(f => f.AcceptUser)
+				.OrderByDescending(p => p.PostTime)
+				.ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllActiveMissionByPostUserAsync(ApplicationUser postUser)
 		{
-			var post = await _context.MissionHire.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser)
+				.Include(f => f.PostUser)
+				.Include(f => f.AcceptUser)
+				.OrderByDescending(p => p.PostTime)
+				.ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllInvalidMissionAsync()
 		{
-			var post = await _context.MissionHire.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false)
+				.OrderByDescending(p => p.PostTime)
+				.ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllInvalidMissionByPostUserAsync(ApplicationUser postUser)
 		{
-			var post = await _context.MissionHire.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.InvalidTime < DateTime.UtcNow && p.DeletedMark == false && p.PostUser == postUser)
+				.OrderByDescending(p => p.PostTime)
+				.ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllDeletedMissionAsync()
 		{
-			var post = await _context.MissionHire.Where(p => p.DeletedMark == true).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.DeletedMark == true)
+				.OrderByDescending(p => p.PostTime)
+				.ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetAllDeletedMissionByPostUserAsync(ApplicationUser postUser)
 		{
-			var post = await _context.MissionHire.Where(p => p.DeletedMark == true && p.PostUser == postUser).OrderByDescending(p => p.PostTime).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.DeletedMark == true && p.PostUser == postUser)
+				.OrderByDescending(p => p.PostTime)
+				.ToListAsync();
 			return post;
 		}
 
 		public async Task<List<Hire>> GetTop10ActiveMissionAsync()
 		{
-			var post = await _context.MissionHire.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false).OrderByDescending(p => p.PostTime).Take(10).ToListAsync();
+			var post = await _context.MissionHire
+				.Where(p => p.InvalidTime > DateTime.UtcNow && p.DeletedMark == false)
+				.OrderByDescending(p => p.PostTime)
+				.Take(10)
+				.ToListAsync();
 			return post;
 		}
 
@@ -95,7 +124,8 @@ namespace CampusResourceSharingPlatform.Service
 
 		public async Task<Hire> GetActiveMissionById(string postId)
 		{
-			var post = await _context.MissionHire.Where(p => p.DeletedMark == false && p.Id == postId)
+			var post = await _context.MissionHire
+				.Where(p => p.DeletedMark == false && p.Id == postId)
 				.FirstOrDefaultAsync();
 			return post;
 		}

@@ -1,13 +1,16 @@
 ﻿@inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@{
+	var currentUser = await UserManager.GetUserAsync(User);
+}
 
 <link rel="stylesheet" href="/css/Manage/nav.css">
 
 <ul class="nav nav-pills flex-column">
 	<li class="user-avatar">
-		<div class="user-header"><img class="user-avatar-img" src="@UserManager.GetUserAsync(User).Result.ProfilePhotoUrl" alt="Avatar of @User.Identity.Name"></div>
+		<div class="user-header"><img class="user-avatar-img" src="@currentUser.ProfilePhotoUrl" alt="Avatar of @currentUser.UserName"></div>
 		<h4 class="user-email text-base text-black">
-			@UserManager.GetUserAsync(User).Result.NickName
+			@currentUser.NickName
 		</h4>
 	</li>
 

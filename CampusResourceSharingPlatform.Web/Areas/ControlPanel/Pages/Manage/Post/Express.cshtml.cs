@@ -23,7 +23,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 		}
 		public List<Express> Posts { get; set; }
 		public bool SingleUserMark { get; set; }
-		public ApplicationUser queriedUser { get; set; }
+		public ApplicationUser QueriedUser { get; set; }
 
 		[TempData]
 		public string StatusMessage { get; set; }
@@ -35,8 +35,8 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 		}
 		public async Task<IActionResult> OnGetSingleUserAsync(string userId)
 		{
-			queriedUser = await _userManager.FindByIdAsync(userId);
-			Posts = await _takeExpressService.GetAllActiveMissionByPostUserAsync(queriedUser);
+			QueriedUser = await _userManager.FindByIdAsync(userId);
+			Posts = await _takeExpressService.GetAllActiveMissionByPostUserAsync(QueriedUser);
 			SingleUserMark = true;
 			return Page();
 		}
