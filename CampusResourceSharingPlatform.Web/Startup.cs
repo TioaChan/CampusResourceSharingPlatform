@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CampusResourceSharingPlatform.Web
 {
@@ -42,7 +43,7 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddScoped<IFleaMarketService<SecondHand>, FleaMarketService>();
 			services.AddScoped<IHireService<Hire>, HireService>();
 			services.AddDbContext<ApplicationDbContext>(options =>
-			   options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
+			   options.UseSqlServer(Configuration.GetConnectionString("SQLServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
 				);
 
@@ -51,7 +52,6 @@ namespace CampusResourceSharingPlatform.Web
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders()
 				.AddDefaultUI();
-
 
 			services.AddRazorPages();
 
