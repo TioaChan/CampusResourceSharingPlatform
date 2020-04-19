@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CampusResourceSharingPlatform.Data\CampusResourceSharingPlatform.Data.csproj" />
     <ProjectReference Include="..\CampusResourceSharingPlatform.Interface\CampusResourceSharingPlatform.Interface.csproj" />
     <ProjectReference Include="..\CampusResourceSharingPlatform.Model\CampusResourceSharingPlatform.Model.csproj" />

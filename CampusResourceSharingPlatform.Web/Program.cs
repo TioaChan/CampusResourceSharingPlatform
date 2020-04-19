@@ -4,6 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
+using System.IO;
+using Serilog;
+using Serilog.Events;
 
 namespace CampusResourceSharingPlatform.Web
 {
@@ -11,6 +14,13 @@ namespace CampusResourceSharingPlatform.Web
 	{
 		public static void Main(string[] args)
 		{
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Debug()
+				.MinimumLevel.Override("Microsoft",LogEventLevel.Information)
+				.Enrich.FromLogContext()
+				.WriteTo.Console()
+				.WriteTo.File(Path.Combine("logs","log.txt"),rollingInterval:RollingInterval.Day)
+				.CreateLogger();
 			var host = CreateHostBuilder(args).Build();
 			CreateDbIfNotExists(host);
 			host.Run();
@@ -34,17 +44,8 @@ namespace CampusResourceSharingPlatform.Web
 
 		public static IHostBuilder CreateHostBuilder(string[] args) =>
 			Host.CreateDefaultBuilder(args)
-
-		#region Log4Net
-			.ConfigureLogging((context, loggingBuilder) =>
-			{
-				loggingBuilder.AddFilter("System", LogLevel.Warning);//过滤掉命名空间
-				loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
-				loggingBuilder.AddLog4Net();//使用log4net
-			})//扩展日志
-		#endregion
-
-			.ConfigureWebHostDefaults(webBuilder =>
+				.UseSerilog()
+				.ConfigureWebHostDefaults(webBuilder =>
 				{
 					webBuilder.UseStartup<Startup>();
 				});
