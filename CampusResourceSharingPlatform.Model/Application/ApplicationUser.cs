@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace CampusResourceSharingPlatform.Model.Application
@@ -14,6 +15,9 @@ namespace CampusResourceSharingPlatform.Model.Application
 		public string NickName { get; set; }
 		public string RealName { get; set; }
 		public bool DeletedMark { get; set; }
-
+		public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
+		public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+		public virtual ICollection<IdentityUserToken<string>> Tokens { get; set; }
+		public virtual ICollection<IdentityUserRole<string>> UserRoles { get; set; }
 	}
 }
