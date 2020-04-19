@@ -44,6 +44,7 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 		{
 			[Required(ErrorMessage = "用户名为必填项。")]
 			[Display(Name = "用户名")]
+			[PageRemote(PageHandler = "CheckUserNameExist",HttpMethod = "Get",ErrorMessage = "用户名已存在")]
 			public string UserName { get; set; }
 
 			//            [Required(ErrorMessage = "邮箱地址为必填项。")]
@@ -114,6 +115,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 
 			// If we got this far, something failed, redisplay form
 			return Page();
+		}
+
+		public async Task<IActionResult> OnGetCheckUserNameExist(InputModel input)
+		{
+			var user =await _userManager.FindByNameAsync(input.UserName);
+			return user!=null ? new JsonResult($"用户名{input.UserName}已存在") : new JsonResult(true);
 		}
 	}
 }
