@@ -16,10 +16,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	public class TakeExpressModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly ITakeExpressService<Express> _takeExpress;
+		private readonly IMissionService<Express> _takeExpress;
 		private readonly IExpressCompanyListService<ExpressCompanyList> _expressCompanyListService;
 
-		public TakeExpressModel(UserManager<ApplicationUser> userManager, ITakeExpressService<Express> takeExpress, IExpressCompanyListService<ExpressCompanyList> expressCompanyListService)
+		public TakeExpressModel(UserManager<ApplicationUser> userManager, IMissionService<Express> takeExpress, IExpressCompanyListService<ExpressCompanyList> expressCompanyListService)
 		{
 			_userManager = userManager;
 			_takeExpress = takeExpress;

@@ -12,16 +12,16 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 	[Authorize(Roles = "Administrators")]
 	public class IndexModel : PageModel
 	{
-		private readonly ITakeExpressService<Express> _takeExpressService;
-		private readonly IPurchaseService<Purchase> _purchaseService;
+		private readonly IMissionService<Express> _takeExpressService;
+		private readonly IMissionService<Purchase> _purchaseService;
 		private readonly IMissionService<SecondHand> _fleaMarketService;
-		private readonly IHireService<Hire> _hireService;
+		private readonly IMissionService<Hire> _hireService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public IndexModel(ITakeExpressService<Express> takeExpressService,
-			IPurchaseService<Purchase> purchaseService,
+		public IndexModel(IMissionService<Express> takeExpressService,
+			IMissionService<Purchase> purchaseService,
 			IMissionService<SecondHand> fleaMarketService,
-			IHireService<Hire> hireService,
+			IMissionService<Hire> hireService,
 			UserManager<ApplicationUser> userManager)
 		{
 			_takeExpressService = takeExpressService;

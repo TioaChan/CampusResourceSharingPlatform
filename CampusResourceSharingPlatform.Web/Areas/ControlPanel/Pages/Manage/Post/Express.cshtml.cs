@@ -13,10 +13,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 	[Authorize(Roles = "Administrators")]
 	public class ExpressModel : PageModel
 	{
-		private readonly ITakeExpressService<Express> _takeExpressService;
+		private readonly IMissionService<Express> _takeExpressService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public ExpressModel(ITakeExpressService<Express> takeExpressService, UserManager<ApplicationUser> userManager)
+		public ExpressModel(IMissionService<Express> takeExpressService, UserManager<ApplicationUser> userManager)
 		{
 			_takeExpressService = takeExpressService;
 			_userManager = userManager;

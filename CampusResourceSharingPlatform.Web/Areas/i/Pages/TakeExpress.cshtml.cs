@@ -13,10 +13,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 	[Authorize]
 	public class TakeExpressModel : PageModel
 	{
-		private readonly ITakeExpressService<Express> _takeExpressService;
+		private readonly IMissionService<Express> _takeExpressService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public TakeExpressModel(ITakeExpressService<Express> takeExpressService, UserManager<ApplicationUser> userManager)
+		public TakeExpressModel(IMissionService<Express> takeExpressService, UserManager<ApplicationUser> userManager)
 		{
 			_takeExpressService = takeExpressService;
 			_userManager = userManager;

@@ -13,10 +13,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 	[Authorize(Roles = "Administrators")]
 	public class PurchaseModel : PageModel
 	{
-		private readonly IPurchaseService<Purchase> _purchaseService;
+		private readonly IMissionService<Purchase> _purchaseService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public PurchaseModel(IPurchaseService<Purchase> purchaseService, UserManager<ApplicationUser> userManager)
+		public PurchaseModel(IMissionService<Purchase> purchaseService, UserManager<ApplicationUser> userManager)
 		{
 			_purchaseService = purchaseService;
 			_userManager = userManager;
