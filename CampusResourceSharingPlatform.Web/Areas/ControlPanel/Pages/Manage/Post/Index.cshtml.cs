@@ -14,13 +14,13 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 	{
 		private readonly ITakeExpressService<Express> _takeExpressService;
 		private readonly IPurchaseService<Purchase> _purchaseService;
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
 		private readonly IHireService<Hire> _hireService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
 		public IndexModel(ITakeExpressService<Express> takeExpressService,
 			IPurchaseService<Purchase> purchaseService,
-			IFleaMarketService<SecondHand> fleaMarketService,
+			IMissionService<SecondHand> fleaMarketService,
 			IHireService<Hire> hireService,
 			UserManager<ApplicationUser> userManager)
 		{

@@ -17,14 +17,14 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage
 		private readonly RoleManager<IdentityRole> _roleManager;
 		private readonly ITakeExpressService<Express> _takeExpressService;
 		private readonly IPurchaseService<Purchase> _purchaseService;
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
 		private readonly IHireService<Hire> _hireService;
 
 		public IndexModel(UserManager<ApplicationUser> userManager,
 			RoleManager<IdentityRole> roleManager,
 			ITakeExpressService<Express> takeExpressService,
 			IPurchaseService<Purchase> purchaseService,
-			IFleaMarketService<SecondHand> fleaMarketService,
+			IMissionService<SecondHand> fleaMarketService,
 			IHireService<Hire> hireService)
 		{
 			_userManager = userManager;
