@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class HireService : IHireService<Hire>
+	public class HireService : IMissionService<Hire>
 	{
 		private readonly ApplicationDbContext _context;
 

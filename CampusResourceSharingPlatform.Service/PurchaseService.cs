@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class PurchaseService : IPurchaseService<Purchase>
+	public class PurchaseService : IMissionService<Purchase>
 	{
 		private readonly ApplicationDbContext _context;
 
