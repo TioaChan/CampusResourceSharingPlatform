@@ -91,22 +91,22 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account.Manage
 			var email = await _userManager.GetEmailAsync(user);
 			if (Input.NewEmail != email)
 			{
-				//var userId = await _userManager.GetUserIdAsync(user);
+				var userId = await _userManager.GetUserIdAsync(user);
 				var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-				//var callbackUrl = Url.Page(
-				//    "/Account/ConfirmEmailChange",
-				//    pageHandler: null,
-				//    values: new { userId = userId, email = Input.NewEmail, code = code },
-				//    protocol: Request.Scheme);
-				//await _emailSender.SendEmailAsync(
-				//    Input.NewEmail,
-				//    "Confirm your email",
-				//    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-				var result = await _userManager.ChangeEmailAsync(user, Input.NewEmail, code);
-				StatusMessage = "Your email is changed.";
-				IsEmailSubmited = true;
+				var callbackUrl = Url.Page(
+					"/Account/ConfirmEmailChange",
+					pageHandler: null,
+					values: new { userId = userId, email = Input.NewEmail, code = code },
+					protocol: Request.Scheme);
+				await _emailSender.SendEmailAsync(
+					Input.NewEmail,
+					"Confirm your email",
+					$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.<br /> If your browser cannot jump to our website,please copy the link below to jump.<br />{callbackUrl}");
+
+				StatusMessage = "Confirmation link to change email sent. Please check your email.";
 				return RedirectToPage();
 			}
+
 			StatusMessage = "Your email is unchanged.";
 			return RedirectToPage();
 		}

@@ -9,7 +9,10 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 {
@@ -47,10 +50,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 			[PageRemote(PageHandler = "CheckUserNameExist",HttpMethod = "Get",ErrorMessage = "用户名已存在")]
 			public string UserName { get; set; }
 
-			//            [Required(ErrorMessage = "邮箱地址为必填项。")]
-			//            [EmailAddress]
-			//            [Display(Name = "邮箱地址")]
-			//            public string Email { get; set; }
+			[Required(ErrorMessage = "邮箱地址为必填项。")]
+			[EmailAddress]
+			[Display(Name = "邮箱地址")]
+			public string Email { get; set; }
 
 			[Required(ErrorMessage = "密码为必填项")]
 			[StringLength(100, ErrorMessage = "{0}的长度应该控制在{2}-{1}之间。", MinimumLength = 6)]
@@ -78,11 +81,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 			{
 				return Page();
 			}
-			//var user = new ApplicationUser { UserName = Input.UserName, Email = Input.Email };
 			var user = new ApplicationUser
 			{
 				UserName = Input.UserName,
 				NickName = Input.UserName,
+				Email = Input.Email,
 				ProfilePhotoUrl = "/avatar/default.jpg",
 			};
 			var result = await _userManager.CreateAsync(user, Input.Password);
@@ -90,30 +93,33 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 			{
 				_logger.LogInformation("User created a new account with password.");
 
-				//                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-				//                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-				//                    var callbackUrl = Url.Page(
-				//                        "/Account/ConfirmEmail",
-				//                        pageHandler: null,
-				//                        values: new { area = "Identity", userId = user.Id, code = code },
-				//                        protocol: Request.Scheme);
-				//
-				//                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-				//                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+				var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+				code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+				var callbackUrl = Url.Page(
+					"/Account/ConfirmEmail",
+					pageHandler: null,
+					values: new { area = "Identity", userId = user.Id, code = code },
+					protocol: Request.Scheme);
+				await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+					$"<h3>欢迎使用校园闲散资源共享平台</h3>" +
+					$"请<a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>点击这里</a>验证你的邮箱。<br />" +
+					$" 如果你的浏览器不支持跳转，请复制下面的网址到浏览器地址栏进行手动跳转。" +
+					$"<br /><br /> {callbackUrl}");
 
-				//                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-				//                    {
-				//                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
-				//                    }
-				await _signInManager.SignInAsync(user, isPersistent: false);
-				return LocalRedirect(returnUrl);
+				if (_userManager.Options.SignIn.RequireConfirmedAccount)
+				{
+					return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+				}
+				else
+				{
+					await _signInManager.SignInAsync(user, isPersistent: false);
+					return LocalRedirect(returnUrl);
+				}
 			}
 			foreach (var error in result.Errors)
 			{
 				ModelState.AddModelError(string.Empty, error.Description);
 			}
-
-			// If we got this far, something failed, redisplay form
 			return Page();
 		}
 

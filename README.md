@@ -35,9 +35,16 @@ libman restore
 
 角色分级功能暂未实现
 
-### 备注
+### EmailSender
 
-使用用户名进行用户的注册与登录，在`Startup.cs`中设置
-```csharp
-options.SignIn.RequireConfirmedAccount = false
+使用SMTP发送验证邮件，请在用户机密或`appsettings.json`中配置SMTP服务器，如下：
+
+```json
+"EmailConfiguration": {
+	"MailServer": "your smtp server and port",
+	"MailPort": 0,
+	"SenderName": "your name",
+	"Sender": "your email",
+	"Password": "your password"
+}
 ```

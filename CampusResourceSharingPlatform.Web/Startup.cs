@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using NETCore.MailKit.Core;
 
 namespace CampusResourceSharingPlatform.Web
 {
@@ -48,10 +50,17 @@ namespace CampusResourceSharingPlatform.Web
 				);
 
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-					options.SignIn.RequireConfirmedAccount = false)
+					options.SignIn.RequireConfirmedAccount = true)
 				.AddEntityFrameworkStores<ApplicationDbContext>()
 				.AddDefaultTokenProviders()
 				.AddDefaultUI();
+
+			//set data safety token time limit for 3 hours.
+			services.Configure<DataProtectionTokenProviderOptions>(o =>
+				o.TokenLifespan = TimeSpan.FromHours(3));
+
+			services.Configure<EmailSettings>(Configuration.GetSection("EmailConfiguration"));
+			services.AddSingleton<IEmailSender, EmailSender>();
 
 			services.AddRazorPages();
 
@@ -59,23 +68,32 @@ namespace CampusResourceSharingPlatform.Web
 			{
 				services.Configure<IdentityOptions>(options =>
 				{
-					// Password settings.
 					options.Password.RequireDigit = false;
 					options.Password.RequireLowercase = false;
-					options.Password.RequireNonAlphanumeric = false;
 					options.Password.RequireUppercase = false;
-					options.Password.RequiredLength = 1;
-					options.Password.RequiredUniqueChars = 1;
-					// Lockout settings.
-					options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-					options.Lockout.MaxFailedAccessAttempts = 5;
-					options.Lockout.AllowedForNewUsers = true;
-					// User settings.
-					options.User.AllowedUserNameCharacters =
-						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-					options.User.RequireUniqueEmail = false;
+					options.Password.RequireNonAlphanumeric = false;
 				});
 			}
+			else if (_env.IsProduction())
+			{
+				services.Configure<IdentityOptions>(options =>
+				{
+					options.Password.RequireDigit = true;
+					options.Password.RequireLowercase = true;
+					options.Password.RequireUppercase = true;
+					options.Password.RequireNonAlphanumeric = true;
+				});
+			}
+			services.Configure<IdentityOptions>(options =>
+			{
+				options.Password.RequiredLength = 6;
+				options.Password.RequiredUniqueChars = 1;
+				options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+				options.Lockout.MaxFailedAccessAttempts = 5;
+				options.Lockout.AllowedForNewUsers = true;
+				options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+				options.User.RequireUniqueEmail = false;
+			});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,7 +107,6 @@ namespace CampusResourceSharingPlatform.Web
 			else
 			{
 				app.UseExceptionHandler("/Error");
-				// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 				app.UseHsts();
 			}
 
