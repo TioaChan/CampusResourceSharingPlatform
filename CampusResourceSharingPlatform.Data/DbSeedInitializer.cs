@@ -213,17 +213,38 @@ namespace CampusResourceSharingPlatform.Data
 				},
 				new License
 				{
-					Id = "00000000-0000-0000-0000-000000000016",
-					LicenseName = "Log4Net.AspNetCore",
-					LicenseType = "Apache Software License 2.0",
-					RepoUrl = "https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore",
-				},
-				new License
-				{
 					Id = "00000000-0000-0000-0000-000000000017",
 					LicenseName = "Pomelo.EntityFrameworkCore.MySql",
 					LicenseType = "MIT License",
 					RepoUrl = "https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql",
+				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000018",
+					LicenseName = "Serilog.AspNetCore",
+					LicenseType = "Apache Software License 2.0",
+					RepoUrl = "https://github.com/serilog/serilog-aspnetcore",
+				},
+				new License
+				{
+				Id = "00000000-0000-0000-0000-000000000019",
+				LicenseName = "Serilog.Sinks.Console",
+				LicenseType = "Apache Software License 2.0",
+				RepoUrl = "https://github.com/serilog/serilog-sinks-console",
+				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000020",
+					LicenseName = "Serilog.Sinks.File",
+					LicenseType = "Apache Software License 2.0",
+					RepoUrl = "https://github.com/serilog/serilog-sinks-file",
+				},
+				new License
+				{
+					Id = "00000000-0000-0000-0000-000000000021",
+					LicenseName = "NETCore.MailKit",
+					LicenseType = "MIT",
+					RepoUrl = "https://github.com/myloveCc/NETCore.MailKit",
 				}
 			};
 				logger.LogWarning("DATABASE:No Licenses data found in Database,start use the seed to initialize the database.");
