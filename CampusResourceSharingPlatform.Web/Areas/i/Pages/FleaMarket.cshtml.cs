@@ -13,10 +13,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.i.Pages
 	[Authorize]
 	public class FleaMarketModel : PageModel
 	{
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
 		private readonly UserManager<ApplicationUser> _userManager;
 
-		public FleaMarketModel(IFleaMarketService<SecondHand> fleaMarketService, UserManager<ApplicationUser> userManager)
+		public FleaMarketModel(IMissionService<SecondHand> fleaMarketService, UserManager<ApplicationUser> userManager)
 		{
 			_fleaMarketService = fleaMarketService;
 			_userManager = userManager;

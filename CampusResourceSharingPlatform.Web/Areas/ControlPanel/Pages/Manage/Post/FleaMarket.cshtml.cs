@@ -14,9 +14,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.Post
 	public class FleaMarketModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
 
-		public FleaMarketModel(UserManager<ApplicationUser> userManager, IFleaMarketService<SecondHand> fleaMarketService)
+		public FleaMarketModel(UserManager<ApplicationUser> userManager, IMissionService<SecondHand> fleaMarketService)
 		{
 			_userManager = userManager;
 			_fleaMarketService = fleaMarketService;

@@ -19,11 +19,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IWebHostEnvironment _iWebHostEnvironment;
-		private readonly IHireService<Hire> _hire;
+		private readonly IMissionService<Hire> _hire;
 
 		public HireModel(UserManager<ApplicationUser> userManager,
 			IWebHostEnvironment iWebHostEnvironment,
-			IHireService<Hire> hire)
+			IMissionService<Hire> hire)
 		{
 			_userManager = userManager;
 			_iWebHostEnvironment = iWebHostEnvironment;

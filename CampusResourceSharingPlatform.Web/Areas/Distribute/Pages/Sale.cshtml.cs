@@ -19,11 +19,11 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IWebHostEnvironment _iWebHostEnvironment;
-		private readonly IFleaMarketService<SecondHand> _fleaMarket;
+		private readonly IMissionService<SecondHand> _fleaMarket;
 
 		public SaleModel(UserManager<ApplicationUser> userManager,
 			IWebHostEnvironment iWebHostEnvironment,
-			IFleaMarketService<SecondHand> fleaMarket)
+			IMissionService<SecondHand> fleaMarket)
 		{
 			_userManager = userManager;
 			_iWebHostEnvironment = iWebHostEnvironment;

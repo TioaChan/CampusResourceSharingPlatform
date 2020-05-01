@@ -38,10 +38,10 @@ namespace CampusResourceSharingPlatform.Web
 			});
 			services.AddScoped<ILicensesDateService<License>, LicenseDateService>();
 			services.AddScoped<IExpressCompanyListService<ExpressCompanyList>, ExpressCompanyListService>();
-			services.AddScoped<ITakeExpressService<Express>, TakeExpressService>();
-			services.AddScoped<IPurchaseService<Purchase>, PurchaseService>();
-			services.AddScoped<IFleaMarketService<SecondHand>, FleaMarketService>();
-			services.AddScoped<IHireService<Hire>, HireService>();
+			services.AddScoped<IMissionService<Express>, TakeExpressService>();
+			services.AddScoped<IMissionService<Purchase>, PurchaseService>();
+			services.AddScoped<IMissionService<SecondHand>, FleaMarketService>();
+			services.AddScoped<IMissionService<Hire>, HireService>();
 			services.AddDbContext<ApplicationDbContext>(options =>
 			   options.UseSqlServer(Configuration.GetConnectionString("SQLServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))

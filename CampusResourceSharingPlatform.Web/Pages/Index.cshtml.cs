@@ -15,18 +15,18 @@ namespace CampusResourceSharingPlatform.Web.Pages
 		private readonly ILogger<IndexModel> _logger;
 		private readonly SignInManager<ApplicationUser> _signInManager;
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly ITakeExpressService<Express> _expressService;
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
-		private readonly IHireService<Hire> _hireService;
-		private readonly IPurchaseService<Purchase> _purchaseService;
+		private readonly IMissionService<Express> _expressService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<Hire> _hireService;
+		private readonly IMissionService<Purchase> _purchaseService;
 
 		public IndexModel(ILogger<IndexModel> logger,
 			SignInManager<ApplicationUser> signInManager,
 			UserManager<ApplicationUser> userManager,
-			ITakeExpressService<Express> expressService,
-			IFleaMarketService<SecondHand> fleaMarketService,
-			IHireService<Hire> hireService,
-			IPurchaseService<Purchase> purchaseService
+			IMissionService<Express> expressService,
+			IMissionService<SecondHand> fleaMarketService,
+			IMissionService<Hire> hireService,
+			IMissionService<Purchase> purchaseService
 			)
 		{
 			_logger = logger;

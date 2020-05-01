@@ -12,10 +12,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 	public class PurchaseModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IPurchaseService<Purchase> _purchaseService;
+		private readonly IMissionService<Purchase> _purchaseService;
 
 		public PurchaseModel(UserManager<ApplicationUser> userManager,
-			IPurchaseService<Purchase> purchaseService)
+			IMissionService<Purchase> purchaseService)
 		{
 			_userManager = userManager;
 			_purchaseService = purchaseService;

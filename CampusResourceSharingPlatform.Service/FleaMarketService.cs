@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class FleaMarketService : IFleaMarketService<SecondHand>
+	public class FleaMarketService : IMissionService<SecondHand>
 	{
 		private readonly ApplicationDbContext _context;
 

@@ -15,9 +15,9 @@ namespace CampusResourceSharingPlatform.Web.Areas.Distribute.Pages
 	public class PurchaseModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IPurchaseService<Purchase> _purchase;
+		private readonly IMissionService<Purchase> _purchase;
 
-		public PurchaseModel(UserManager<ApplicationUser> userManager, IPurchaseService<Purchase> purchase)
+		public PurchaseModel(UserManager<ApplicationUser> userManager, IMissionService<Purchase> purchase)
 		{
 			_userManager = userManager;
 			_purchase = purchase;

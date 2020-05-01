@@ -16,10 +16,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 	public class IndexModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly ITakeExpressService<Express> _takeExpressService;
-		private readonly IPurchaseService<Purchase> _purchaseService;
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
-		private readonly IHireService<Hire> _hireService;
+		private readonly IMissionService<Express> _takeExpressService;
+		private readonly IMissionService<Purchase> _purchaseService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<Hire> _hireService;
 
 		public IEnumerable<ApplicationUser> Users { get; set; }
 
@@ -42,10 +42,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.ControlPanel.Pages.Manage.User
 		public string StatusMessage { get; set; }
 
 		public IndexModel(UserManager<ApplicationUser> userManager,
-			ITakeExpressService<Express> takeExpressService,
-			IPurchaseService<Purchase> purchaseService,
-			IFleaMarketService<SecondHand> fleaMarketService,
-			IHireService<Hire> hireService)
+			IMissionService<Express> takeExpressService,
+			IMissionService<Purchase> purchaseService,
+			IMissionService<SecondHand> fleaMarketService,
+			IMissionService<Hire> hireService)
 		{
 			_userManager = userManager;
 			_takeExpressService = takeExpressService;

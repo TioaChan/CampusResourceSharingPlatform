@@ -12,10 +12,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 	public class HireModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IHireService<Hire> _hireService;
+		private readonly IMissionService<Hire> _hireService;
 
 		public HireModel(UserManager<ApplicationUser> userManager,
-			IHireService<Hire> hireService)
+			IMissionService<Hire> hireService)
 		{
 			_userManager = userManager;
 			_hireService = hireService;

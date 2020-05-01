@@ -12,10 +12,10 @@ namespace CampusResourceSharingPlatform.Web.Areas.Posts.Pages
 	public class SaleModel : PageModel
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IFleaMarketService<SecondHand> _fleaMarketService;
+		private readonly IMissionService<SecondHand> _fleaMarketService;
 
 		public SaleModel(UserManager<ApplicationUser> userManager,
-			IFleaMarketService<SecondHand> fleaMarketService)
+			IMissionService<SecondHand> fleaMarketService)
 		{
 			_userManager = userManager;
 			_fleaMarketService = fleaMarketService;

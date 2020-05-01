@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
 {
-	public class TakeExpressService : ITakeExpressService<Express>
+	public class TakeExpressService : IMissionService<Express>
 	{
 		private readonly ApplicationDbContext _context;
 
