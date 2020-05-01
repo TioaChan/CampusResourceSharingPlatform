@@ -42,10 +42,20 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddScoped<IMissionService<Purchase>, PurchaseService>();
 			services.AddScoped<IMissionService<SecondHand>, FleaMarketService>();
 			services.AddScoped<IMissionService<Hire>, HireService>();
-			services.AddDbContext<ApplicationDbContext>(options =>
-			   options.UseSqlServer(Configuration.GetConnectionString("SQLServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
-				//options.UseMySql(Configuration.GetConnectionString("MySQLConnection"))
+			if(_env.IsDevelopment())
+			{
+				services.AddDbContext<ApplicationDbContext>(options =>
+					options.UseSqlServer(Configuration.GetConnectionString("SQLServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				);
+			}else if(_env.IsProduction()){
+				services.AddDbContext<ApplicationDbContext>(options =>
+					options.UseMySql(Configuration.GetConnectionString("MySQLConnection"),x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
+				);
+			}else{
+				services.AddDbContext<ApplicationDbContext>(options =>
+					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
+				);
+			}
 
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 					options.SignIn.RequireConfirmedAccount = true)
