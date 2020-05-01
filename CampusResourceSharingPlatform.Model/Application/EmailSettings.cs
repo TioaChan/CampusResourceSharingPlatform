@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CampusResourceSharingPlatform.Model.Application
+﻿namespace CampusResourceSharingPlatform.Model.Application
 {
 	public class EmailSettings
 	{

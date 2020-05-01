@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.IO;
 using Serilog;
 using Serilog.Events;
+using System;
+using System.IO;
 
 namespace CampusResourceSharingPlatform.Web
 {
@@ -16,10 +16,10 @@ namespace CampusResourceSharingPlatform.Web
 		{
 			Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Debug()
-				.MinimumLevel.Override("Microsoft",LogEventLevel.Information)
+				.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
 				.Enrich.FromLogContext()
 				.WriteTo.Console()
-				.WriteTo.File(Path.Combine("logs","log.txt"),rollingInterval:RollingInterval.Day)
+				.WriteTo.File(Path.Combine("logs", "log.txt"), rollingInterval: RollingInterval.Day)
 				.CreateLogger();
 			var host = CreateHostBuilder(args).Build();
 			CreateDbIfNotExists(host);

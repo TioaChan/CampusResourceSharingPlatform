@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using CampusResourceSharingPlatform.Model.Application;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
-using System.Threading.Tasks;
-using CampusResourceSharingPlatform.Model.Application;
-using MailKit.Net.Smtp;
 using MimeKit;
+using System;
+using System.Threading.Tasks;
 
 namespace CampusResourceSharingPlatform.Service
 {
@@ -58,5 +56,5 @@ namespace CampusResourceSharingPlatform.Service
 				throw new InvalidOperationException(ex.Message);
 			}
 		}
-    }
+	}
 }
