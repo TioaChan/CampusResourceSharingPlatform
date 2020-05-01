@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 {
@@ -47,12 +47,13 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 		{
 			[Required(ErrorMessage = "用户名为必填项。")]
 			[Display(Name = "用户名")]
-			[PageRemote(PageHandler = "CheckUserNameExist",HttpMethod = "Get",ErrorMessage = "用户名已存在")]
+			[PageRemote(PageHandler = "CheckUserNameExist", HttpMethod = "Get", ErrorMessage = "用户名已存在")]
 			public string UserName { get; set; }
 
 			[Required(ErrorMessage = "邮箱地址为必填项。")]
 			[EmailAddress]
 			[Display(Name = "邮箱地址")]
+			[PageRemote(PageHandler = "CheckUserEmailExist", HttpMethod = "Get", ErrorMessage = "用户名已存在")]
 			public string Email { get; set; }
 
 			[Required(ErrorMessage = "密码为必填项")]
@@ -125,8 +126,14 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 
 		public async Task<IActionResult> OnGetCheckUserNameExist(InputModel input)
 		{
-			var user =await _userManager.FindByNameAsync(input.UserName);
-			return user!=null ? new JsonResult($"用户名{input.UserName}已存在") : new JsonResult(true);
+			var user = await _userManager.FindByNameAsync(input.UserName);
+			return user != null ? new JsonResult($"用户名{input.UserName}已存在") : new JsonResult(true);
+		}
+
+		public async Task<IActionResult> OnGetCheckUserEmailExist(InputModel input)
+		{
+			var user = await _userManager.FindByEmailAsync(input.Email);
+			return user != null ? new JsonResult($"邮箱{input.Email}已被注册") : new JsonResult(true);
 		}
 	}
 }
