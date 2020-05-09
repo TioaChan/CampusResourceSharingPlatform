@@ -45,7 +45,7 @@ namespace CampusResourceSharingPlatform.Web
 			if(_env.IsDevelopment())
 			{
 				services.AddDbContext<ApplicationDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("SQLServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
+					options.UseSqlServer(Configuration.GetConnectionString("RemoteSqlServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
 				);
 			}else if(_env.IsProduction()){
 				services.AddDbContext<ApplicationDbContext>(options =>

@@ -7,9 +7,13 @@
 要使用EF Core的CLI，请参考[Entity Framework Core tools reference - .NET CLI](https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet)
 
 需要运行以下命令
+
 ```Console
 dotnet tool install --global dotnet-ef
 ```
+
+请修改数据库连接字符串，可以将数据库连接字符串加入到用户机密中，数据库连接字符串的格式参考`appsettings.json`，然后在`Startup.cs`的`ConfigureServices`方法中配置`Dbcontext`。
+
 
 ## 前端库
 
@@ -23,6 +27,7 @@ dotnet tool install -g Microsoft.Web.LibraryManager.Cli
 
 
 编译前需要在项目文件夹`CampusResourceSharingPlatform.Web`内使用LibMan的CLI进行依赖包还原
+
 ```Console
 libman restore
 ```
@@ -35,7 +40,6 @@ libman restore
 |:-----:|:-----:|:-----:|
 |aaa290|aaa290|Administrator|
 
-角色分级功能暂未实现
 
 ### EmailSender
 
