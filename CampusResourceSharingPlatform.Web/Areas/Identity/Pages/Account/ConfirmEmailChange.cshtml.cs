@@ -39,12 +39,12 @@ namespace CampusResourceSharingPlatform.Web.Areas.Identity.Pages.Account
 			var result = await _userManager.ChangeEmailAsync(user, email, code);
 			if (!result.Succeeded)
 			{
-				StatusMessage = "Error changing email.";
+				StatusMessage = "验证邮箱地址时发生错误。";
 				return Page();
 			}
 
 			await _signInManager.RefreshSignInAsync(user);
-			StatusMessage = "Thank you for confirming your email change.";
+			StatusMessage = "你成功验证了你的邮箱。";
 			return Page();
 		}
 	}
