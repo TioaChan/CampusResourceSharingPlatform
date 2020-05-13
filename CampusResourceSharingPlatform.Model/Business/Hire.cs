@@ -9,12 +9,14 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// 物品照片url
 		/// </summary>
 		[Required]
+		[MaxLength(256)]
 		public string GoodsPhotoUrl { get; set; }
 
 		/// <summary>
 		/// 物品名称
 		/// </summary>
 		[Required]
+		[MaxLength(20)]
 		public string GoodsName { get; set; }
 
 		/// <summary>
@@ -27,11 +29,13 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// 物品描述
 		/// </summary>
 		[Required]
+		[MaxLength(256)]
 		public string GoodsDescription { get; set; }
 
 		/// <summary>
 		/// 分类
 		/// </summary>
+		[MaxLength(10)]
 		public string GoodsCategory { get; set; }
 
 		/// <summary>

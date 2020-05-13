@@ -12,7 +12,9 @@ namespace CampusResourceSharingPlatform.Model.Application
 		public string SchoolCardNo { get; set; }
 		public bool StudentIdentityConfirmed { get; set; }
 		public string ProfilePhotoUrl { get; set; }
+		[MaxLength(18)]
 		public string NickName { get; set; }
+		[MaxLength(5)]
 		public string RealName { get; set; }
 		public bool DeletedMark { get; set; }
 		public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }

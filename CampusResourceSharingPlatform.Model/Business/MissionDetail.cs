@@ -35,11 +35,13 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// <summary>
 		/// 备注信息
 		/// </summary>
+		[MaxLength(256)]
 		public string MissionNotes { get; set; }
 
 		/// <summary>
 		/// 任务奖励
 		/// </summary>
+		[MaxLength(32)]
 		public string MissionReward { get; set; }
 
 		/// <summary>
@@ -69,18 +71,21 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// 地址1
 		/// </summary>
 		[Required]
+		[MaxLength(32)]
 		public string PosterAddress1 { get; set; }
 
 		/// <summary>
 		/// 地址2
 		/// </summary>
 		[Required]
+		[MaxLength(32)]
 		public string PosterAddress2 { get; set; }
 
 		/// <summary>
 		/// 联系方式
 		/// </summary>
 		[Required]
+		[MaxLength(13)]
 		public string PosterPhoneNumber { get; set; }
 
 		#endregion
