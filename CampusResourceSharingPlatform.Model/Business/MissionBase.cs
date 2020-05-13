@@ -8,6 +8,7 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// Id
 		/// </summary>
 		[Required]
+		[MaxLength(64)]
 		public string Id { get; set; }
 
 		/// <summary>

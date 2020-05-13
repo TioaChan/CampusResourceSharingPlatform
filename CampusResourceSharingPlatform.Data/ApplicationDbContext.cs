@@ -73,8 +73,6 @@ namespace CampusResourceSharingPlatform.Data
 				b.Property(p => p.IsAccepted).HasDefaultValue(0);
 				b.Property(p => p.IsCompleted).HasDefaultValue(0);
 				b.Property(p => p.DeletedMark).HasDefaultValue(0);
-				b.Property(p => p.ExpressCompanyId)
-					.HasDefaultValue("00000000-0000-0000-0000-000000000001");
 			});
 
 			modelBuilder.Entity<Purchase>(b =>

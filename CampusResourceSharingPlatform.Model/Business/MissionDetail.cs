@@ -12,6 +12,7 @@ namespace CampusResourceSharingPlatform.Model.Business
 		/// 所属类目编号
 		/// </summary>
 		[Required]
+		[MaxLength(64)]
 		public string TypeId { get; set; }
 
 		/// <summary>

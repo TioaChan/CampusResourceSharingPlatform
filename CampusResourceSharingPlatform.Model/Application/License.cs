@@ -4,6 +4,7 @@ namespace CampusResourceSharingPlatform.Model.Application
 {
 	public class License
 	{
+		[MaxLength(64)]
 		public string Id { get; set; }
 
 		[MaxLength(64)]
