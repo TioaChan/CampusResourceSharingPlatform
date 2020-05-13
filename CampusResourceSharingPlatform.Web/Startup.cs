@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Pomelo.EntityFrameworkCore.MySql.Storage;
 using System;
 
 namespace CampusResourceSharingPlatform.Web
@@ -42,20 +44,14 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddScoped<IMissionService<Purchase>, PurchaseService>();
 			services.AddScoped<IMissionService<SecondHand>, FleaMarketService>();
 			services.AddScoped<IMissionService<Hire>, HireService>();
-			if(_env.IsDevelopment())
-			{
-				services.AddDbContext<ApplicationDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("RemoteSqlServer"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
-				);
-			}else if(_env.IsProduction()){
-				services.AddDbContext<ApplicationDbContext>(options =>
-					options.UseMySql(Configuration.GetConnectionString("MySQLConnection"),x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
-				);
-			}else{
-				services.AddDbContext<ApplicationDbContext>(options =>
-					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), x => x.MigrationsAssembly("CampusResourceSharingPlatform.Data"))
-				);
-			}
+
+			services.AddDbContext<ApplicationDbContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+			//services.AddDbContext<ApplicationDbContext>(options =>
+			//	options.UseMySql(Configuration.GetConnectionString("RemoteMySQL"),option=>
+			//	option.ServerVersion(new Version(8,0,20),ServerType.MySql)
+			//));
 
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 					options.SignIn.RequireConfirmedAccount = true)
