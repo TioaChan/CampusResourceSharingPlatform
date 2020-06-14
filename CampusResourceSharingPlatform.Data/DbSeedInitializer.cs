@@ -23,7 +23,7 @@ namespace CampusResourceSharingPlatform.Data
 					NormalizedUserName = "AAA290",
 					Email = null,
 					NormalizedEmail = null,
-					EmailConfirmed = false,
+					EmailConfirmed = true,
 					PasswordHash = "AQAAAAEAACcQAAAAEKBkSaQruCs2w4jzpnSr4GSjZmtaPnTNaRI+F0bqS7LXFCEtVsiKU7adEHFsOqnFSQ==",
 					SecurityStamp = "YMXWZD5SUJNY5JHUKA6JE4MIXTPXZP65",
 					ConcurrencyStamp = "62767c90-51f0-4b48-8aec-78331662f97d",
