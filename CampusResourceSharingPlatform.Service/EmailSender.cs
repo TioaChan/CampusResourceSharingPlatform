@@ -24,7 +24,7 @@ namespace CampusResourceSharingPlatform.Service
 
 				mimeMessage.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.Sender));
 
-				mimeMessage.To.Add(new MailboxAddress(email));
+				mimeMessage.To.Add(new MailboxAddress(email.Split("@")[0],email));
 
 				mimeMessage.Subject = subject;
 

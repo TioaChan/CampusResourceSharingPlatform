@@ -32,6 +32,8 @@ namespace CampusResourceSharingPlatform.Web
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddDatabaseDeveloperPageExceptionFilter();
+
 			services.Configure<CookiePolicyOptions>(options =>
 			{
 				// This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -46,12 +48,8 @@ namespace CampusResourceSharingPlatform.Web
 			services.AddScoped<IMissionService<Hire>, HireService>();
 
 			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-			//services.AddDbContext<ApplicationDbContext>(options =>
-			//	options.UseMySql(Configuration.GetConnectionString("RemoteMySQL"),option=>
-			//	option.ServerVersion(new Version(8,0,20),ServerType.MySql)
-			//));
+				options.UseMySql(Configuration.GetConnectionString("DefaultConnection"),new MySqlServerVersion(new Version(8, 4, 0)))
+			);
 
 			services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 					options.SignIn.RequireConfirmedAccount = true)
@@ -106,7 +104,7 @@ namespace CampusResourceSharingPlatform.Web
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseDatabaseErrorPage();
+				app.UseMigrationsEndPoint();	
 			}
 			else
 			{
